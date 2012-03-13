@@ -1,0 +1,12 @@
+#
+# ~/.bash_profile
+#
+#EMACS STUFF
+which emacs > /dev/null 2>&1
+if [ "0" -eq "$?" ]; then
+	emacs --daemon > /dev/null 2>&1
+	alias emacs="emacsclient -t"
+fi
+
+#OTHER STUFF
+[[ -f ~/.bashrc ]] && . ~/.bashrc

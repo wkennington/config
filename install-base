@@ -1,0 +1,8 @@
+#!/bin/bash
+FILE=`readlink -f $0`
+DIR=`dirname $FILE`
+CONF="emacs vimrc bash_profile bashrc bash_logout"
+for i in $CONF; do
+	rm -f ~/.$i
+	ln -sv ${DIR}/base/$i ~/.$i
+done

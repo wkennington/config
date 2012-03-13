@@ -1,0 +1,4 @@
+set background=light
+set number
+set gfn=Terminus\ 10
+highlight LineNr guibg=grey
