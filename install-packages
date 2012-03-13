@@ -1,0 +1,8 @@
+#!/bin/bash
+PACKGES="emacs-nox vim"
+if [ "$1" = "g" ]; then
+	PACKAGES="gvim emacs"
+fi
+pacman -S ${PACKAGES} \
+	tmux \
+	emacs-{lua,php,pkgbuild,python}-mode auctex ecb texmacs
