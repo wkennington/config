@@ -6,8 +6,8 @@
 [[ $- != *i* ]] && return
 
 #EMACS STUFF
-EMACS=`which emacs`
-RET=`${EMACS} --help | grep daemon`
+EMACS=`which emacs 2> /dev/null`
+RET=`${EMACS} --help 2> /dev/null | grep daemon`
 if [ "${RET}" != "" ]; then
 	alias emacs="emacsclient -t"
 fi
