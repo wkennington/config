@@ -1,6 +1,18 @@
 #
 # ~/.bash_profile
 #
+
+#GET NEW CONFIG STUFF
+DIR=`pwd`
+GOTO=`readlink ~/.bash_profile | sed -rn 's/(.*)\/base\/bash_profile/\1/p'`
+cd $GOTO
+RET=`git pull`
+if [ "$RET" != "Already up-to-date." ]; then
+	echo "Updated Config Files. You may want to reconnect"
+fi
+cd $DIR
+exit 1
+
 #EMACS STUFF
 WHO=`whoami`
 RET=`pgrep -flu ${WHO} "emacs --daemon"`
