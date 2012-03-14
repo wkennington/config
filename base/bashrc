@@ -38,4 +38,23 @@ RES='\[\e[0m\]'
 BAR='\[\e(0\]\161\[\e(B\]'
 START='\[\e(0\]\154\[\e(B\]'
 END='\[\e(0\]\155\161\[\e(B\]'
-PS1="${G}${START}${DY}[${Y}\u${DG}@\H${DY}]${G}${BAR}${B}[${W}\w${B}]${G}${BAR}${DR}[${R}\t${DR}]\n${G}${END}\$${RES} "
+#PS1="${G}${START}${DY}[${Y}\u${DG}@\H${DY}]${G}${BAR}${B}[${W}\w${B}]${G}${BAR}${DR}[${R}\t${DR}]\n${G}${END}\$${RES} "
+
+host=`hostname -s`
+user=`whoami`
+
+function prompt {
+	time=`date +%X`
+	ln="-[${user}@${host}]-[${PWD}][${time}]"
+	cols=`tput cols`
+	let FILLS=${cols}-${#ln}
+	if [[ "$PWD" =~ "/home/$usern" ]]; then
+		let FILLS=$FILLS+5+${#user}
+	fi
+	LINE="${G}${START}${DY}[${Y}\u${DG}@\H${DY}]${G}${BAR}${B}[${W}\w${B}]${G}"
+	for (( f=0; f<$FILLS; f++ )); do
+		LINE=${LINE}${BAR}
+	done
+	PS1="${LINE}${DR}[${R}\t${DR}]\n${G}${END}\$${RES} "
+}
+PROMPT_COMMAND=prompt
