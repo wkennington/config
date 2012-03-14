@@ -13,8 +13,14 @@ if [ "${RET}" != "" ]; then
 fi
 
 #SETUP LS COLORS
-eval `dircolors -b`
-alias ls='ls --color=auto'
+UNAME=`uname`
+if [ "$UNAME" = "Linux" ]; then
+	eval `dircolors -b`
+	alias ls='ls --color=auto'
+elif [ "$UNAME" = "FreeBSD" ]; then
+	CLICOLOR=1
+	export CLICOLOR;
+fi
 
 #SETUP PROMPT
 DR='\[\e[0;31m\]'
