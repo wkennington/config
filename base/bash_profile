@@ -6,7 +6,7 @@
 DIR=`pwd`
 GOTO=`readlink ~/.bash_profile | sed -rn 's/(.*)\/base\/bash_profile/\1/p'`
 cd $GOTO
-RET=`git pull`
+#RET=`git pull`
 if [ "$RET" != "Already up-to-date." ]; then
 	echo "Updated Config Files. You may want to reconnect"
 fi
