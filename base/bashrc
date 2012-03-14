@@ -45,11 +45,10 @@ if [ "${hostn}" = "localhost" ]; then
 	hostn=`hostname`
 fi
 usern=`whoami`
-time=`date +%R:%S`
-ln="-[${usern}@${hostn}]-[${PWD}][${time}]"
 
 function prompt {
 	time=`date +%R:%S`
+	ln="-[${usern}@${hostn}]-[${PWD}][${time}]"
 	cols=`tput cols`
 	let FILLS=${cols}-${#ln}
 	if [[ "$PWD" =~ "$HOME" ]]; then
