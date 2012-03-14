@@ -19,7 +19,9 @@ if [ "$UNAME" = "Linux" ]; then
 	alias ls='ls --color=auto'
 elif [ "$UNAME" = "FreeBSD" ]; then
 	CLICOLOR=1
-	export CLICOLOR;
+	export CLICOLOR
+	LSCOLORS="ExGxFxdxCxDxDxhbadExEx"
+	export LSCOLORS
 fi
 
 #SETUP PROMPT
