@@ -6,7 +6,11 @@
 [[ $- != *i* ]] && return
 
 #EMACS STUFF
-alias emacs="emacsclient -t"
+EMACS=`which emacs`
+RET=`${EMACS} --help | grep daemon`
+if [ "${RET}" != "" ]; then
+	alias emacs="emacsclient -t"
+fi
 
 #SETUP LS COLORS
 eval `dircolors -b`
