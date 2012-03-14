@@ -40,18 +40,21 @@ START='\[\e(0\]\154\[\e(B\]'
 END='\[\e(0\]\155\161\[\e(B\]'
 #PS1="${G}${START}${DY}[${Y}\u${DG}@\H${DY}]${G}${BAR}${B}[${W}\w${B}]${G}${BAR}${DR}[${R}\t${DR}]\n${G}${END}\$${RES} "
 
-host=`hostname -s`
-user=`whoami`
+hostn=`hostname -s`
+if [ "${hostn}" = "localhost" ]; then
+	hostn=`hostname`
+fi
+usern=`whoami`
 
 function prompt {
 	time=`date +%X`
-	ln="-[${user}@${host}]-[${PWD}][${time}]"
+	ln="-[${usern}@${hostn}]-[${PWD}][${time}]"
 	cols=`tput cols`
 	let FILLS=${cols}-${#ln}
-	if [[ "$PWD" =~ "/home/$usern" ]]; then
-		let FILLS=$FILLS+5+${#user}
+	if [[ "$PWD" =~ "$HOME" ]]; then
+		let FILLS=$FILLS+${#HOME}-1
 	fi
-	LINE="${G}${START}${DY}[${Y}\u${DG}@\H${DY}]${G}${BAR}${B}[${W}\w${B}]${G}"
+	LINE="${G}${START}${DY}[${Y}${usern}${DG}@${hostn}${DY}]${G}${BAR}${B}[${W}\w${B}]${G}"
 	for (( f=0; f<$FILLS; f++ )); do
 		LINE=${LINE}${BAR}
 	done
