@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 FILE=`readlink -f $0`
 DIR=`dirname $FILE`
 CONF="emacs vimrc bash_profile bashrc bash_logout"
