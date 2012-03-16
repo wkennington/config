@@ -16,7 +16,7 @@ if [ "$pass" = "" ]; then
 else
 	openssl genrsa -aes256 -passout "pass:${pass}" -out ${DIR}/id_rsa 4096
 fi
-chmod 0700 ${DIR}/id_rsa
+chmod 0600 ${DIR}/id_rsa
 if [ "$pass" = "" ]; then
 	echo `ssh-keygen -yf ${DIR}/id_rsa` `hostname` > ${DIR}/id_rsa.pub
 else
@@ -27,7 +27,7 @@ if [ "$pass" = "" ]; then
 else
 	openssl ecparam -genkey -name secp521r1 | openssl ec -aes256 -passout "pass:$pass" -out ${DIR}/id_ecdsa
 fi
-chmod 0700 ${DIR}/id_ecdsa
+chmod 0600 ${DIR}/id_ecdsa
 if [ "$pass" = "" ]; then
 	echo `ssh-keygen -yf ${DIR}/id_ecdsa` `hostname` > ${DIR}/id_ecdsa.pub
 else
