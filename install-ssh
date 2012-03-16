@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR="~/.ssh"
+DIR="${HOME}/.ssh"
 #DIR="."
 stty -echo
 read -p "Password: " pass
