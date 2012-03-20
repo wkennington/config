@@ -54,9 +54,9 @@ function prompt {
 	if [[ "$PWD" =~ "$HOME" ]]; then
 		let FILLS=$FILLS+${#HOME}-1
 	fi
-	LINE="${G}${START}${DY}[${Y}${usern}${DG}@${hostn}${DY}]${G}${BAR}${B}[${W}\w${B}]${G}"
+	LINE="${G}${START}${DY}[${Y}${usern}${DG}@${hostn}${DY}]${G} ${B}[${W}\w${B}]${G}"
 	for (( f=0; f<$FILLS; f++ )); do
-		LINE=${LINE}${BAR}
+		LINE="${LINE} "
 	done
 	PS1="${LINE}${DR}[${R}${time}${DR}]\n${G}${END}\$${RES} "
 }
