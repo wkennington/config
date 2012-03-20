@@ -1,6 +1,9 @@
 #!/bin/bash
 DIR="${HOME}/.ssh"
 #DIR="."
+if [ ! -d "${DIR}" ]; then
+	mkdir ${DIR}
+fi
 stty -echo
 read -p "Password: " pass
 echo ""
