@@ -13,8 +13,8 @@ if [ "${RET}" != "" ]; then
 fi
 
 #SETUP LS COLORS
-UNAME=`uname`
-if [ "$UNAME" = "Linux" ]; then
+UNAME=`uname -o`
+if [[ "$UNAME" = "Linux" || "$UNAME" = "Cygwin" ]]; then
 	eval `dircolors -b`
 	alias ls='ls --color=auto'
 elif [ "$UNAME" = "FreeBSD" ]; then
@@ -39,11 +39,7 @@ BAR='\[\e(0\]\161\[\e(B\]'
 START='\[\e(0\]\154\[\e(B\]'
 END='\[\e(0\]\155\161\[\e(B\]'
 #PS1="${G}${START}${DY}[${Y}\u${DG}@\H${DY}]${G}${BAR}${B}[${W}\w${B}]${G}${BAR}${DR}[${R}\t${DR}]\n${G}${END}\$${RES} "
-
-hostn=`hostname -s`
-if [ "${hostn}" = "localhost" ]; then
-	hostn=`hostname`
-fi
+hostn=`uname -n`
 usern=`whoami`
 
 function prompt {
