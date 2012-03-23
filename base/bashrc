@@ -13,8 +13,8 @@ if [ "${RET}" != "" ]; then
 fi
 
 #SETUP LS COLORS
-UNAME=`uname -o`
-if [[ "$UNAME" = "Linux" || "$UNAME" = "Cygwin" ]]; then
+UNAME=`uname`
+if [[ "$UNAME" = "Linux" || "`uname -o`" = "Cygwin" ]]; then
 	eval `dircolors -b`
 	alias ls='ls --color=auto'
 elif [ "$UNAME" = "FreeBSD" ]; then
