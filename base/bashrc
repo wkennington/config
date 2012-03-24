@@ -13,8 +13,8 @@ if [ "${RET}" != "" ]; then
 fi
 
 #SETUP LS COLORS
-UNAME=`uname -o`
-if [[ "$UNAME" = "Linux" || "$UNAME" = "Cygwin" ]]; then
+UNAME=`uname`
+if [[ "$UNAME" = "Linux" || "`uname -o`" = "Cygwin" ]]; then
 	eval `dircolors -b`
 	alias ls='ls --color=auto'
 elif [ "$UNAME" = "FreeBSD" ]; then
@@ -44,12 +44,9 @@ usern=`whoami`
 
 function prompt {
 	time=`date +%R:%S`
-	ln="-[${usern}@${hostn}]-[${PWD}][${time}]"
+	ln="-[${usern}@${hostn}]-[$(dirs)][${time}]"
 	cols=`tput cols`
 	let FILLS=${cols}-${#ln}
-	if [[ "$PWD" =~ "$HOME" ]]; then
-		let FILLS=$FILLS+${#HOME}-1
-	fi
 	LINE="${G}${START}${DY}[${Y}${usern}${DG}@${hostn}${DY}]${G} ${B}[${W}\w${B}]${G}"
 	for (( f=0; f<$FILLS; f++ )); do
 		LINE="${LINE} "
