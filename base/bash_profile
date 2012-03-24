@@ -6,8 +6,8 @@
 DIR=`pwd`
 GOTO=`readlink ~/.bash_profile | sed -rn 's/(.*)\/base\/bash_profile/\1/p'`
 cd $GOTO
-git reset --hard > /dev/null 2>&1
-RET=`git pull 2> /dev/null`
+#git reset --hard > /dev/null 2>&1
+#RET=`git pull 2> /dev/null`
 if [ "$RET" != "Already up-to-date." ]; then
 	echo "Updated Config Files. You may want to reconnect"
 fi
@@ -17,6 +17,22 @@ cd $DIR
 WHO=`whoami`
 RET=`pgrep -flu ${WHO} "emacs --daemon"`
 EMACS=`which emacs 2> /dev/null`
+
+if [ "${SSH_AGENT_PID}" = "" ]; then
+	PID=`cat ~/.ssh_agent_pid 2>/dev/null`
+	kill -0 ${PID} >/dev/null 2>&1
+	if [ "$?" = "0" ]; then
+		SSH_AGENT_PID=${PID}
+		export SSH_AGENT_PID
+		SSH_AUTH_SOCK=`cat ~/.ssh_auth_sock`
+		export SSH_AUTH_SOCK
+	else
+		eval `ssh-agent` >/dev/null
+		echo ${SSH_AGENT_PID} > ~/.ssh_agent_pid
+		echo ${SSH_AUTH_SOCK} > ~/.ssh_auth_sock
+	fi
+fi
+
 if [[ "0" -eq "$?" && "${RET}" = "" ]]; then
 	RET=`${EMACS} --help 2> /dev/null | grep daemon`
 	if [ "${RET}" != "" ]; then
