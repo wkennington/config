@@ -18,7 +18,7 @@ WHO=`whoami`
 RET=`pgrep -flu ${WHO} "emacs --daemon"`
 EMACS=`which emacs 2> /dev/null`
 
-if [ "${SSH_AGENT_PID}" = "" ]; then
+if [ "${SSH_AUTH_SOCK}" = "" ]; then
 	PID=`cat ~/.ssh_agent_pid 2>/dev/null`
 	kill -0 ${PID} >/dev/null 2>&1
 	if [ "$?" = "0" ]; then
