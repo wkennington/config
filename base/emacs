@@ -19,6 +19,11 @@
 (autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
 (setq auto-mode-alist (append '(("/PKGBUILD$" . pkgbuild-mode)) auto-mode-alist))
 
+;; Treat 'y' or <CR> as yes, 'n' as no.
+(fset 'yes-or-no-p 'y-or-n-p)
+(define-key query-replace-map [return] 'act)
+(define-key query-replace-map [?\C-m] 'act)
+
 ;;Disable Scrollbar
 (toggle-scroll-bar -1)
 
