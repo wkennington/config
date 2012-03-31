@@ -3,6 +3,24 @@
 (load "preview-latex.el" nil t t)
 (load-file "/usr/share/emacs/site-lisp/cedet/common/cedet.el")
 
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(setq TeX-PDF-mode t)
+
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'tex-mode-hook 'flyspell-mode)
+(add-hook 'bibtex-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTex t)
+
+;; easy spell check
+(add-hook 'flyspell-mode-hook 'flyspell-buffer)
+(global-set-key (kbd "<f8>") 'ispell-word)
+
 ;;PHP
 (autoload 'php-mode "php-mode.el" "Php mode." t)
 (setq auto-mode-alist (append '(("/*.\.php[345]?$" . php-mode)) auto-mode-alist))
@@ -35,6 +53,7 @@
 
 ;;ORG
 (require 'org-install)
+(add-hook 'org-mode-hook 'flyspell-mode)
 
 ;;(custom-set-variables
   ;; custom-set-variables was added by Custom.
