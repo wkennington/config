@@ -12,8 +12,8 @@
 (setq auto-mode-alist (append '(("/*.\.py$" . python-mode)) auto-mode-alist))
 
 ;;LUA
-(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
 
 ;;PKGBUILD
 (autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
