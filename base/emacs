@@ -54,6 +54,7 @@
 ;;ORG
 (require 'org-install)
 (add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'org-mode-hook 'visual-line-mode)
 
 ;;(custom-set-variables
   ;; custom-set-variables was added by Custom.
