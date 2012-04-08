@@ -1,0 +1,2 @@
+#!/bin/bash
+packer -S awesome ttf-{dejavu,liberation,{ms,vista}-font} rxvt-unicode hsetroot feh xcompmgr
