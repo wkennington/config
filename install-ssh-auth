@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p ~/.ssh
 rm -f ~/.ssh/authorized_keys
 if [ "$1" = "rsa" ]; then
 	cat ssh/*_rsa >> ~/.ssh/authorized_keys

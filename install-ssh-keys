@@ -2,7 +2,7 @@
 DIR="${HOME}/.ssh"
 #DIR="."
 if [ ! -d "${DIR}" ]; then
-	mkdir ${DIR}
+	mkdir -p ${DIR}
 fi
 stty -echo
 read -p "Password: " pass
