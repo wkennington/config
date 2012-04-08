@@ -10,8 +10,8 @@ URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
 URxvt.foreground: rgba:aaaa/aaaa/aaaa/ffff
 URxvt.scrollBar: off
-URxvt.font: xft:Liberation Mono:size=9:
-URxvt.boldFont: xft:Liberation Mono:size=9:
+URxvt.font: xft:Monospace:size=9:
+URxvt.boldFont: xft:Monospace:size=9:
 
 ! black
 URxvt*color0  : #000000
