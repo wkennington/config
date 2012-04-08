@@ -1,7 +1,6 @@
 ;;AUCTEX
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
-(load-file "/usr/share/emacs/site-lisp/cedet/common/cedet.el")
 
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
