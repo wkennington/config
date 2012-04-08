@@ -4,7 +4,7 @@ DIR=`dirname $FILE`/awesome
 rm -rf ~/.{xinitrc,Xdefaults,gtkrc-2.0,config/{awesome,sakura,gtk-3.0}}
 install -dv ~/.config
 #ln -sv $DIR/gtkrc-2.0 ~/.gtkrc-2.0
-#ln -sv $DIR/xinitrc ~/.xinitrc
+ln -sv $DIR/xinitrc ~/.xinitrc
 ln -sv $DIR/awesome ~/.config/awesome
 #ln -sv $DIR/sakura ~/.config/sakura
 #ln -sv $DIR/gtk-3.0 ~/.config/gtk-3.0
