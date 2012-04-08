@@ -1,0 +1,6 @@
+#!/bin/bash
+cp sshd_config /etc/ssh
+chown root.root /etc/ssh/sshd_config
+chmod 0644 /etc/ssh/sshd_config
+ssh-keygen -t rsa -b 4096 -o /etc/ssh/ssh_host_rsa_key -N ""
+ssh-keygen -t ecdsa -b 521 -o /etc/ssh/ssh_host_ecdsa_key -N ""
