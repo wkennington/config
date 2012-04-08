@@ -1,4 +1,4 @@
-set background=light
+set background=dark
 set number
-set gfn=Terminus\ 10
-highlight LineNr guibg=grey
+set gfn=Monospace\ 9
+highlight Normal guifg=#aaaaaa guibg=#111111
