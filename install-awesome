@@ -1,7 +1,7 @@
 #!/bin/bash
 FILE=`readlink -f $0`
 DIR=`dirname $FILE`/awesome
-rm -rf ~/.{xinitrc,gtkrc-2.0,config/{awesome,sakura,gtk-3.0}}
+rm -rf ~/.{xinitrc,.Xdefaults,gtkrc-2.0,config/{awesome,sakura,gtk-3.0}}
 install -dv ~/.config
 #ln -sv $DIR/gtkrc-2.0 ~/.gtkrc-2.0
 #ln -sv $DIR/xinitrc ~/.xinitrc
