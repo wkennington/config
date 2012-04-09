@@ -1,14 +1,12 @@
 autocutsel -fork &
-autocutsel -selection PRIMARY -fork &
 while true;
 do
 	awsetbg -r ~/.config/wallpaper
 	sleep 5m
 done &
-#wicd-gtk &
-#wuala &
 pulseaudio --start
 xscreensaver -no-splash &
+which VBoxClient-all >/dev/null 2>&1 && VBoxClient-all &
 ./.xinitrc.local
 exec ck-launch-session dbus-launch $1
 ./.xinitrc.local.end

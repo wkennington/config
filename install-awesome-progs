@@ -1,2 +1,15 @@
 #!/bin/bash
-packer -S awesome ttf-{dejavu,liberation,{ms,vista}-font} rxvt-unicode hsetroot feh xcompmgr luakit
+packer -S awesome ttf-{dejavu,liberation,{ms,vista}-font} rxvt-unicode hsetroot feh xcompmgr luakit xchat abiword mumble gimp vlc gvim
+
+#BROWSER			luakit
+#DOCUMENT EDITOR	abiword
+#DOCUMENT VIEWER	mupdf
+#EDITOR				emacs / vim
+#EMAIL 
+#IRC				xchat
+#IM					pidgin
+#IMAGE VIEWER		feh
+#IMAGE EDITOR		gimp
+#MEDIA				vlc
+#TERMINAL			urxvt
+#VOIP				mumble / skype
