@@ -1,4 +1,4 @@
-which autocutsel
+which autocutsel >/dev/null 2>&1
 if [ "$?" = "0" ]; then
 	autocutsel -fork &
 fi
@@ -12,7 +12,15 @@ fi
 which pulseaudio >/dev/null 2>&1 && pulseaudio --start
 which xscreensaver >/dev/null 2>&1 && xscreensaver -no-splash &
 which VBoxClient-all >/dev/null 2>&1 && VBoxClient-all &
-./.xinitrc.local
-exec ck-launch-session dbus-launch $1
-./.xinitrc.local.end
+if [ -f .xinitrc.start ]; then
+	bash .xinitrc.start
+fi
+if [ "" = "$1" ]; then
+	exec ck-launch-session dbus-launch awesome
+else
+	exec ck-launch-session dbus-launch $1
+fi
+if [ -f .xinitrc.end ]; then
+	bash .xinitrc.end
+fi
 which pulseaudio >/dev/null 2>&1 && pulseaudio --kill &
