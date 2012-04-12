@@ -5,6 +5,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+#XTERM
+if [ "${TERM}" = "xterm" ]; then
+   export TERM=xterm-256color
+fi
+
 #EMACS STUFF
 EMACS=`which emacs 2> /dev/null`
 RET=`${EMACS} --help 2> /dev/null | grep daemon`
