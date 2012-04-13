@@ -7,7 +7,10 @@
 
 #XTERM
 if [ "${TERM}" = "xterm" ]; then
-   export TERM=xterm-256color
+	export TERM=xterm-256color
+elif [ "${TERM}" = "rxvt-unicode-256color" ]; then
+	export TERM=xterm-256color
+	unset COLORTERM
 fi
 
 #EMACS STUFF

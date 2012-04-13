@@ -7,8 +7,8 @@ Xft.rgba: rgb
 Xft.autohint: 0
 
 URxvt.depth: 32
-URxvt.background: rgba:1111/1111/1111/dddd
-URxvt.foreground: rgba:aaaa/aaaa/aaaa/ffff
+URxvt.background: #111111
+URxvt.foreground: #BFBFBF
 URxvt.scrollBar: off
 URxvt.font: xft:Monospace:size=9:
 URxvt.boldFont: xft:Monospace:size=9:
