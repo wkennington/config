@@ -88,7 +88,7 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesome_icon },
-									{ "Browser", "luakit" },
+									{ "Browser", "luakit https://www.google.com" },
 									{ "Doc Edit", "abiword" },
 									{ "Editor", "emacsclient -c -n" },
 									{ "IRC", "xchat" },
