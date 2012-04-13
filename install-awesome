@@ -8,4 +8,4 @@ ln -sv $DIR/xinitrc ~/.xinitrc
 ln -sv $DIR/awesome ~/.config/awesome
 #ln -sv $DIR/sakura ~/.config/sakura
 #ln -sv $DIR/gtk-3.0 ~/.config/gtk-3.0
-ln -sv $DIR/Xdefaults ~/.Xdefaults
+#ln -sv $DIR/Xdefaults ~/.Xdefaults

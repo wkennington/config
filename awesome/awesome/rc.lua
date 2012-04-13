@@ -37,7 +37,7 @@ end
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "terminal"
 editor = "emacs"
 editor_cmd = "emacsclient -c -n"
 
