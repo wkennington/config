@@ -87,18 +87,21 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesome_icon },
-									{ "Browser", "luakit https://www.google.com" },
-									{ "Doc Edit", "abiword" },
-									{ "Editor", "emacsclient -c -n" },
-									{ "IRC", "xchat" },
-									{ "IM", "pidgin" },
-									{ "Image Editor", "gimp"},
-									{ "Media Player", "vlc" },
-									{ "Mumble", "mumble" },
-									{ "Skype", "skype" },
-									{ "Terminal", terminal }
-                                  }
+mymainmenu = awful.menu({ items = {
+	{ "Abiword", "abiword" },
+	{ "Awesome", myawesomemenu, beautiful.awesome_icon },
+	{ "Emacs", "emacsclient -c -n" },
+	{ "Gimp", "gimp"},
+	{ "Gvim", "gvim" },
+	{ "Luakit", "luakit https://www.google.com" },
+	{ "Mumble", "mumble" },
+	{ "Pidgin", "pidgin" },
+	{ "Pithos", "pithos" },
+	{ "Skype", "skype" },
+	{ "Terminal", terminal },
+	{ "VLC", "vlc" },
+	{ "Xchat", "xchat" }
+    }
                         })
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
