@@ -42,6 +42,7 @@
 (require 'org-install)
 (add-hook 'org-mode-hook 'flyspell-mode)
 (add-hook 'org-mode-hook 'visual-line-mode)
+(add-hook 'org-mode-hook 'org-indent-mode)
 
 ;;Disable symlink confirmation
 (setq vc-follow-symlinks nil)
