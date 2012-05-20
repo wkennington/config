@@ -14,7 +14,7 @@ elif [ "${TERM}" = "rxvt-unicode-256color" ]; then
 fi
 
 #ROOT
-alias root="sudo su -- -"
+alias root="sudo su -"
 
 #EMACS STUFF
 EMACS=`which emacs 2> /dev/null`
