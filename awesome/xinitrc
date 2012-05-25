@@ -18,6 +18,8 @@ if [ -f .xinitrc.start ]; then
 fi
 if [ "" = "$1" ]; then
 	exec ck-launch-session dbus-launch awesome
+elif [ "xfce4" = "$1" ]; then
+	exec startxfce4
 else
 	exec ck-launch-session dbus-launch $1
 fi
