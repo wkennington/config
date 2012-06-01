@@ -17,10 +17,10 @@ fi
 which packer >/dev/null 2>&1
 if [ "$?" == "0" ]; then
 	alias update="packer -Syu"
-	alias install="packer -S"
+	alias inst="packer -S"
 else
 	alias update="sudo pacman -Syu"
-	alias install="sudo pacman -S"
+	alias inst="sudo pacman -S"
 fi
 
 #ROOT
