@@ -10,6 +10,7 @@ git reset --hard > /dev/null 2>&1
 RET=`git pull 2> /dev/null`
 if [ "$RET" != "Already up-to-date." ]; then
 	echo "Updated Config Files. You may want to reconnect"
+	./install-base
 fi
 cd $DIR
 
