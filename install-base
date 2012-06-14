@@ -11,3 +11,9 @@ for i in $CONF; do
 	rm -f ~/.$i
 	ln -sv ${DIR}/base/$i ~/.$i
 done
+
+#SETUP ZSH IF POSSIBLE
+ZSH=`which zsh 2>/dev/null`
+if [ "$RET" = "0" ]; then
+	chsh $USER -s $ZSH >/dev/null 2>&1
+fi
