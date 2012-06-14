@@ -8,7 +8,7 @@ fi
 
 #UPDATE CMD
 which packer >/dev/null 2>&1
-if [ "$?" == "0" ]; then
+if [ "$?" = "0" ]; then
 	alias update="packer -Syu"
 	alias inst="packer -S"
 else
