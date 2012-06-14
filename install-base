@@ -16,4 +16,7 @@ done
 ZSH=`which zsh 2>/dev/null`
 if [ "$RET" = "0" ]; then
 	chsh $USER -s $ZSH >/dev/null 2>&1
+	rm -fv ~/.bash_profile
+	ln -sv ${DIR}/base/bash_profile_zsh ~/.bash_profile
+	echo "zsh -l; exit" >> ~/.profile
 fi
