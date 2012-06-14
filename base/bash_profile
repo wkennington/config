@@ -4,14 +4,15 @@
 
 #GET NEW CONFIG STUFF
 DIR=`pwd`
-GOTO=`readlink ~/.bash_profile | sed -rn 's/(.*)\/base\/bash_profile/\1/p'`
+GOTO="$(readlink -f $(dirname $(readlink -f ~/.bash_profile))/..)"
 cd $GOTO
 git reset --hard > /dev/null 2>&1
 RET=`git pull 2> /dev/null`
-if [ "$RET" != "Already up-to-date." ]; then
+if [[ "$RET" != "Already up-to-date." ]]; then
 	echo "Updated Config Files. You may want to reconnect"
 	./install-base
 fi
+`git submodule update --init --recursive >/dev/null 2>&1`
 cd $DIR
 
 #EMACS STUFF

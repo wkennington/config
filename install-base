@@ -1,7 +1,12 @@
 #!/bin/sh
 FILE=`readlink -f $0`
 DIR=`dirname $FILE`
-CONF="emacs gvimrc vimrc bash_profile bashrc bash_logout zshrc"
+
+#INSTALL ALL SUBMODULES
+git submodule update --init --recursive
+
+#INSTALL CONFIGS
+CONF="emacs gvimrc vimrc bash_profile bashrc bash_logout zshrc zprofile"
 for i in $CONF; do
 	rm -f ~/.$i
 	ln -sv ${DIR}/base/$i ~/.$i
