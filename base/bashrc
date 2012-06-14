@@ -5,33 +5,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-#XTERM
-if [ "${TERM}" = "xterm" ]; then
-	export TERM=xterm-256color
-elif [ "${TERM}" = "rxvt-unicode-256color" ]; then
-	export TERM=xterm-256color
-	unset COLORTERM
-fi
+#GET THE CONFIG DIR
+export CONF="$(readlink -f $(dirname $(readlink -f ~/.bashrc))/../)"
 
-#UPDATE CMD
-which packer >/dev/null 2>&1
-if [ "$?" == "0" ]; then
-	alias update="packer -Syu"
-	alias inst="packer -S"
-else
-	alias update="sudo pacman -Syu"
-	alias inst="sudo pacman -S"
-fi
-
-#ROOT
-alias root="sudo su -"
-
-#EMACS STUFF
-EMACS=`which emacs 2> /dev/null`
-RET=`${EMACS} --help 2> /dev/null | grep daemon`
-if [ "${RET}" != "" ]; then
-	alias emacs="emacsclient -t"
-fi
+#SOURCE USEFUL ALIAS OPTIONS
+source $CONF/base/useful
 
 #SETUP LS COLORS
 UNAME=`uname`
