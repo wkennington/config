@@ -1,6 +1,6 @@
 #GET NEW CONFIG STUFF
 DIR=`pwd`
-GOTO="$(readlink -f $(dirname $(readlink -f ~/.bash_profile))/..)"
+GOTO="$(readlink -f $(dirname $(readlink -f ~/.zprofile))/..)"
 cd $GOTO
 git reset --hard > /dev/null 2>&1
 RET=`git pull 2> /dev/null`
