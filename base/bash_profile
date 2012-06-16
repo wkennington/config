@@ -15,11 +15,7 @@ fi
 `git submodule update --init --recursive >/dev/null 2>&1`
 cd $DIR
 
-#EMACS STUFF
-WHO=`whoami`
-RET=`pgrep -flu ${WHO} "emacs --daemon"`
-EMACS=`which emacs 2> /dev/null`
-
+#SSH AUTH INIT
 if [ "${SSH_AUTH_SOCK}" = "" ]; then
 	PID=`cat ~/.ssh_agent_pid 2>/dev/null`
 	kill -0 ${PID} >/dev/null 2>&1
@@ -32,13 +28,6 @@ if [ "${SSH_AUTH_SOCK}" = "" ]; then
 		eval `ssh-agent` >/dev/null
 		echo ${SSH_AGENT_PID} > ~/.ssh_agent_pid
 		echo ${SSH_AUTH_SOCK} > ~/.ssh_auth_sock
-	fi
-fi
-
-if [[ "0" -eq "$?" && "${RET}" = "" ]]; then
-	RET=`${EMACS} --help 2> /dev/null | grep daemon`
-	if [ "${RET}" != "" ]; then
-		emacs --daemon > /dev/null 2>&1
 	fi
 fi
 
