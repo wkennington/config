@@ -20,7 +20,8 @@ if [ "$?" != "0" ]; then
 		chsh $USER -s $ZSH
 		rm -fv ~/.bash_profile
 		ln -sv ${DIR}/base/bash_profile_zsh ~/.bash_profile
-		echo "zsh -l; exit" >> ~/.profile	fi
+		echo "zsh -l; exit" >> ~/.profile
+	fi
 fi
 
 #SETUP SSH
