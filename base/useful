@@ -24,8 +24,7 @@ EMACS=`which emacs 2> /dev/null`
 RET=`${EMACS} --help 2> /dev/null | grep daemon`
 if [ "${RET}" != "" ]; then
 	alias emacs="$(which emacsclient) -t"
-	PID=`cat .emacs.pid`
-	kill -0 $(cat .emacs.pid 2>/dev/null) 2>/dev/null
+	kill -0 $(cat ~/.emacs.pid 2>/dev/null) 2>/dev/null
 	if [ "$?" != "0" ]; then
 		$EMACS --daemon
 	fi
