@@ -36,3 +36,4 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 source $CONF/base/useful
+alias sudo="nocorrect sudo"
