@@ -18,9 +18,10 @@ if [ "$?" != "0" ]; then
 	ZSH=`which zsh 2>/dev/null`
 	if [ "$?" = "0" ]; then
 		chsh $USER -s $ZSH
-		rm -fv ~/.bash_profile
-		ln -sv ${DIR}/base/bash_profile_zsh ~/.bash_profile
-		echo "zsh -l; exit" >> ~/.profile;
+		if [ "$?" != "0" ]; then
+			rm -fv ~/.bash_profile
+			ln -sv ${DIR}/base/bash_profile_zsh ~/.bash_profile
+		fi
 	fi
 fi
 
