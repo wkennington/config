@@ -1,14 +1,18 @@
 #!/bin/sh
-if [ -d "keys" ]; then
-	read -p "Key folder already exists, Delete and Continue? [y|N] " ret
+KEYDIR="keys"
+SER="$KEYDIR/serial.txt"
+source ./opts
+
+if [ -d "$KEYDIR" ]; then
+	read -p "Key folder \"${KEYDIR}\" already exists, Delete and Continue? [y|N] " ret
 	if [[ "$ret" = "y" || "$ret" = "Y" ]]; then
-		rm -rf keys
+		rm -rf "$KEYDIR"
 	else
 		echo "Will not continue generating ca"
 		exit 1
 	fi
 fi
-rm -rf serial.txt
+rm -f "$SER"
 stty -echo
 read -p "Password: " pass
 echo ""
@@ -23,13 +27,13 @@ if [ "$pass" = "" ]; then
 	echo "You must provide a password for a CA"
 	exit 1
 fi
-mkdir keys
-touch keys/ca.key
-chmod 0600 keys/ca.key
-openssl genrsa -aes256 -passout "pass:${pass}" -out "keys/ca.key" 4096
-openssl req -new -x509 -sha512 -passin "pass:${pass}" -config openssl.cnf -extensions v3_ca -key "keys/ca.key" -out "keys/ca.crt"
+mkdir "$KEYDIR"
+touch "${KEYDIR}/ca.key"
+chmod 0600 "${KEYDIR}/ca.key"
+openssl genrsa -aes256 -passout "pass:${pass}" -out "${KEYDIR}/ca.key" 4096
+openssl req -new -x509 -sha512 -passin "pass:${pass}" -config openssl.cnf -extensions v3_ca -key "${KEYDIR}/ca.key" -out "${KEYDIR}/ca.crt"
 if [ "$?" != "0" ]; then
 	echo "Failed to Create CA Certificate"
 	exit 1
 fi
-echo "1" > serial.txt
+echo "1" > "$SER"

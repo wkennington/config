@@ -1,7 +1,9 @@
 #!/bin/sh
-SER="serial.txt"
+KEYDIR="keys"
+SER="$KEYDIR/serial.txt"
+source ./opts
 
-if [[ ! -d "keys" ]]; then
+if [[ ! -d "$KEYDIR" ]]; then
 	echo "You must run ./build-ca first"
 	exit 1
 fi
@@ -14,7 +16,7 @@ if [[ "$#" != "2" || ("$1" != "gen" && "$1" != "csr")]]; then
 	exit 1
 fi
 
-PRE="keys/${2}"
+PRE="${KEYDIR}/${2}"
 CSR="${PRE}.csr"
 KEY="${PRE}.key"
 CRT="${PRE}.crt"
@@ -71,7 +73,7 @@ read -p "CA Password: " pass
 echo ""
 stty echo
 
-openssl x509 -req -passin "pass:${pass}" -sha512 -extfile openssl.cnf -extensions usr_cert -set_serial "$NUM" -CA "keys/ca.crt" -CAkey "keys/ca.key" -in "$CSR" -out "$CRT"
+openssl x509 -req -passin "pass:${pass}" -sha512 -extfile openssl.cnf -extensions usr_cert -set_serial "$NUM" -CA "${KEYDIR}/ca.crt" -CAkey "${KEYDIR}/ca.key" -in "$CSR" -out "$CRT"
 if [ "$?" != "0" ]; then
 	echo "Certificate Signing Failed"
 	exit 1

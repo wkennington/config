@@ -1,0 +1,3 @@
+#!/bin/sh
+KEYDIR="client"
+SER="${KEYDIR}/serial.txt"
