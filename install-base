@@ -12,6 +12,10 @@ for i in $CONF; do
 	ln -sv ${DIR}/base/$i ~/.$i
 done
 
+#LINK PRELUDE
+rm -f ~/.emacs.d
+ln -s ${DIR}/prelude ~/.emacs.d
+
 #SETUP ZSH IF POSSIBLE
 echo $SHELL | grep zsh >/dev/null 2>&1
 if [ "$?" != "0" ]; then
