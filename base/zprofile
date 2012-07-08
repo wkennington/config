@@ -9,4 +9,5 @@ if [[ "$RET" != "Already up-to-date." ]]; then
 	./install-base
 fi
 `git submodule update --init --recursive >/dev/null 2>&1`
+git submodule foreach --recursive git pull origin master
 cd $DIR
