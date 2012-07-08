@@ -2,9 +2,6 @@
 FILE=`readlink -f $0`
 DIR=`dirname $FILE`
 
-#INSTALL ALL SUBMODULES
-git submodule update --init --recursive
-
 #INSTALL CONFIGS
 CONF="gvimrc vimrc bash_profile bashrc bash_logout zshrc zprofile"
 for i in $CONF; do
