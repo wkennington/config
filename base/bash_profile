@@ -12,7 +12,7 @@ if [[ "$RET" != "Already up-to-date." ]]; then
 	echo "Updated Config Files. You may want to reconnect"
 	./install-base
 fi
-git submodule foreach --recursive base/update-git
+git submodule foreach --recursive "${GOTO}/base/update-git"
 cd $DIR
 
 #SSH AUTH INIT
