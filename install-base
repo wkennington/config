@@ -6,14 +6,15 @@ DIR=`dirname $FILE`
 git submodule update --init --recursive
 
 #INSTALL CONFIGS
-CONF="emacs gvimrc vimrc bash_profile bashrc bash_logout zshrc zprofile"
+CONF="gvimrc vimrc bash_profile bashrc bash_logout zshrc zprofile"
 for i in $CONF; do
 	rm -f ~/.$i
 	ln -sv ${DIR}/base/$i ~/.$i
 done
 
 #LINK PRELUDE
-rm -f ~/.emacs.d
+rm -f ~/.emacs
+rm -rf ~/.emacs.d
 ln -s ${DIR}/prelude ~/.emacs.d
 
 #SETUP ZSH IF POSSIBLE
