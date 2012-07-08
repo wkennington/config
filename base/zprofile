@@ -8,5 +8,5 @@ if [[ "$RET" != "Already up-to-date." ]]; then
 	echo "Updated Config Files. You may want to reconnect"
 	./install-base
 fi
-git submodule foreach --recursive git pull origin master
+git submodule foreach --recursive base/update-git
 cd $DIR
