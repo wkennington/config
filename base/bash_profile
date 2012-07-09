@@ -8,11 +8,11 @@ GOTO="$(readlink -f $(dirname $(readlink -f ~/.bash_profile))/..)"
 cd $GOTO
 git reset --hard > /dev/null 2>&1
 RET=`git pull 2> /dev/null`
+git submodule foreach --recursive "${GOTO}/base/update-git"
 if [[ "$RET" != "Already up-to-date." ]]; then
 	echo "Updated Config Files. You may want to reconnect"
-	./install-base
+	./install-base 1
 fi
-git submodule foreach --recursive "${GOTO}/base/update-git"
 cd $DIR
 
 #SSH AUTH INIT
