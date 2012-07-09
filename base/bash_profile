@@ -5,31 +5,7 @@
 #GET NEW CONFIG STUFF
 DIR=`pwd`
 GOTO="$(readlink -f $(dirname $(readlink -f ~/.bash_profile))/..)"
-cd $GOTO
-git reset --hard > /dev/null 2>&1
-RET=`git pull 2> /dev/null`
-git submodule foreach --recursive "${GOTO}/base/update-git"
-if [[ "$RET" != "Already up-to-date." ]]; then
-	echo "Updated Config Files. You may want to reconnect"
-	./install-base 1
-fi
-cd $DIR
-
-#SSH AUTH INIT
-if [ "${SSH_AUTH_SOCK}" = "" ]; then
-	PID=`cat ~/.ssh_agent_pid 2>/dev/null`
-	kill -0 ${PID} >/dev/null 2>&1
-	if [ "$?" = "0" ]; then
-		SSH_AGENT_PID=${PID}
-		export SSH_AGENT_PID
-		SSH_AUTH_SOCK=`cat ~/.ssh_auth_sock`
-		export SSH_AUTH_SOCK
-	else
-		eval `ssh-agent` >/dev/null
-		echo ${SSH_AGENT_PID} > ~/.ssh_agent_pid
-		echo ${SSH_AUTH_SOCK} > ~/.ssh_auth_sock
-	fi
-fi
+$(dirname $(readlink -f ~/.bash_profile))/update-git
 
 #OTHER STUFF
 [[ -f ~/.bashrc ]] && . ~/.bashrc

@@ -11,6 +11,22 @@ export CONF="$(readlink -f $(dirname $(readlink -f ~/.bashrc))/../)"
 #SOURCE USEFUL ALIAS OPTIONS
 source $CONF/base/useful
 
+#SSH AUTH INIT
+if [ "${SSH_AUTH_SOCK}" = "" ]; then
+	PID=`cat ~/.ssh_agent_pid 2>/dev/null`
+	kill -0 ${PID} >/dev/null 2>&1
+	if [ "$?" = "0" ]; then
+		SSH_AGENT_PID=${PID}
+		export SSH_AGENT_PID
+		SSH_AUTH_SOCK=`cat ~/.ssh_auth_sock`
+		export SSH_AUTH_SOCK
+	else
+		eval `ssh-agent` >/dev/null
+		echo ${SSH_AGENT_PID} > ~/.ssh_agent_pid
+		echo ${SSH_AUTH_SOCK} > ~/.ssh_auth_sock
+	fi
+fi
+
 #SETUP LS COLORS
 UNAME=`uname`
 if [[ "$UNAME" = "Linux" || "`uname -o`" = "Cygwin" ]]; then

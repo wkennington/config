@@ -1,2 +1,9 @@
 #!/bin/sh
-git pull origin master
+DIR="$(dirname $(readlink -f $0))/.."
+cd $DIR
+git reset --hard > /dev/null 2>&1
+RET=git pull -q origin master
+base/update-git2
+if [ "$RET" != "0" ]; then
+	base/updated-git
+fi

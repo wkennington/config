@@ -1,0 +1,8 @@
+#!/bin/sh
+DIR="$(dirname $(readlink -f $0))"
+cd $DIR/..
+INIT=$(git submodule status --recursive | grep -v "(heads/master)" | awk '{print $2}')
+for i in $INIT; do
+	git submodule update --init --recursive $i
+done
+git submodule foreach --recursive "${DIR}/update-sub"

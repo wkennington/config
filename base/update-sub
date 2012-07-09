@@ -1,0 +1,5 @@
+#!/bin/sh
+git pull -q origin master
+if [ "$?" != "0" ]; then
+	echo "Updated $(basename $(dirname $(readlink -f $0)))"
+fi
