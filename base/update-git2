@@ -4,5 +4,6 @@ cd $DIR/..
 INIT=$(git submodule status --recursive | grep -v "(heads/master)" | awk '{print $2}')
 for i in $INIT; do
 	git submodule update --init --recursive $i
+	echo "Initialized $i"
 done
-git submodule foreach --recursive "${DIR}/update-sub"
+git submodule -q foreach --recursive "${DIR}/update-sub"
