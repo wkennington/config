@@ -25,7 +25,7 @@ echo $SHELL | grep zsh >/dev/null 2>&1
 if [ "$?" != "0" ]; then
 	ZSH=`which zsh 2>/dev/null`
 	VER="$(${ZSH} --version | awk '{print $2}')"
-	VER=$(echo -ne "4.3.9\r\n$VER" | sort | awk 'NR==1')
+	VER=$(echo -ne "4.3.9\n$VER" | sort -bt. -k1,1 -k2,2n -k3,3n -k4,4n -k5,5n | awk 'NR==1')
 	if [ "$VER" = "4.3.9" ]; then
 		chsh $USER -s $ZSH
 		if [ "$?" != "0" ]; then
