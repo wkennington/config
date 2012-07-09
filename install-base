@@ -4,7 +4,7 @@ DIR=`dirname $FILE`
 
 #UPDATE SUBMODULES IF THEY HAVEN'T BEEN
 if [ "$1" != "1" ]; then
-	git submodule foreach --recursive "${GOTO}/base/update-git"
+	git submodule foreach --recursive "${DIR}/base/update-git"
 fi
 
 #INSTALL CONFIGS
