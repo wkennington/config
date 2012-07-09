@@ -2,8 +2,10 @@
 DIR="$(dirname $(readlink -f $0))/.."
 cd $DIR
 git reset --hard > /dev/null 2>&1
-git pull -q origin master
+base/gpom
 RET=$?
+echo $?
+echo $RET
 base/update-git2
 if [ "$RET" != "0" ]; then
 	base/updated-git

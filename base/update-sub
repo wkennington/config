@@ -1,5 +1,6 @@
 #!/bin/sh
-git pull -q origin master
+DIR="$(dirname $(readlink -f $0))"
+${DIR}/gpom
 if [ "$?" != "0" ]; then
-	echo "Updated $(basename $(dirname $(readlink -f $0)))"
+	echo "Updated $(basename ${DIR})"
 fi
