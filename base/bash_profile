@@ -3,8 +3,6 @@
 #
 
 #GET NEW CONFIG STUFF
-DIR=`pwd`
-GOTO="$(readlink -f $(dirname $(readlink -f ~/.bash_profile))/..)"
 $(dirname $(readlink -f ~/.bash_profile))/update-git
 
 #OTHER STUFF
