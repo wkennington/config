@@ -1,4 +1,7 @@
 #!/bin/bash
+FILE=`readlink -f $0`
+DIR=`dirname $FILE`
+cd "$DIR"
 cp sshd_config /etc/ssh
 chown root.root /etc/ssh/sshd_config
 chmod 0644 /etc/ssh/sshd_config
