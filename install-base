@@ -16,9 +16,10 @@ for i in $CONF; do
 done
 
 #LINK PRELUDE
-rm -f ~/.emacs
-rm -rf ~/.emacs.d
-ln -s ${DIR}/prelude ~/.emacs.d
+rm -f "${HOME}/.emacs" "${DIR}/prelude/personal/emacs.el"
+rm -rf "${HOME}/.emacs.d"
+ln -s "${DIR}/prelude" "${HOME}/.emacs.d"
+ln -s "${DIR}/base/emacs_prelude" "${DIR}/prelude/personal/emacs.el"
 
 #SETUP ZSH IF POSSIBLE
 echo $SHELL | grep zsh >/dev/null 2>&1
