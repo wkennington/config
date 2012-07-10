@@ -2,5 +2,5 @@
 DIR="$(dirname $(readlink -f $0))"
 ${DIR}/gpom
 if [ "$?" != "0" ]; then
-	echo "Updated $(basename ${DIR})"
+	echo "Updated $(basename $(pwd))"
 fi
