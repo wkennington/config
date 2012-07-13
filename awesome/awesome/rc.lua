@@ -101,8 +101,11 @@ mymainmenu = awful.menu({ items = {
 	{ "Pithos", "pithos" },
 	{ "Skype", "skype" },
 	{ "Terminal", terminal },
+	{ "Thunderbird", "thunderbird" },
+	{ "Virtualbox", "virtualbox" },
 	{ "VLC", "vlc" },
-	{ "Xchat", "xchat" }
+	{ "Xchat", "xchat" },
+	{ "Zathura", "zathura" }
     }
                         })
 
