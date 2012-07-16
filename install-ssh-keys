@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 DIR="${HOME}/.ssh"
 #DIR="."
 if [ ! -d "${DIR}" ]; then

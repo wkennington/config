@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 mkdir -p ~/.ssh
 rm -f ~/.ssh/authorized_keys
 if [ "$1" = "rsa" ]; then
