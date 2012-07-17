@@ -13,17 +13,16 @@ source $CONF/base/useful
 
 #SSH AUTH INIT
 if [ "${SSH_AUTH_SOCK}" = "" ]; then
-	PID=`cat ~/.ssh_agent_pid 2>/dev/null`
-	kill -0 ${PID} >/dev/null 2>&1
-	if [ "$?" = "0" ]; then
-		SSH_AGENT_PID=${PID}
-		export SSH_AGENT_PID
-		SSH_AUTH_SOCK=`cat ~/.ssh_auth_sock`
-		export SSH_AUTH_SOCK
-	else
-		eval `ssh-agent` >/dev/null
-		echo ${SSH_AGENT_PID} > ~/.ssh_agent_pid
-		echo ${SSH_AUTH_SOCK} > ~/.ssh_auth_sock
+	if [ -f $SOCKFILE ]; then
+		source "$SOCKFILE"
+		kill -0 ${SSH_AGENT_PID} >/dev/null 2>&1
+		if [ "$?" != "0" ]; then
+			rm "$SOCKFILE"
+		fi
+	fi
+	if [ ! -f $SOCKFILE ]; then
+		$(ssh-agent | grep -v "echo") > "$SOCKFILE"
+		source "$SOCKFILE"
 	fi
 fi
 
