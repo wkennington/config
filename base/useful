@@ -25,6 +25,22 @@ fi
 #ROOT
 alias root="sudo su -"
 
+#SSH AUTH INIT
+SOCKFILE=$HOME/.ssh/environment-$HOST
+if [ "${SSH_AUTH_SOCK}" = "" ]; then
+	if [ -f $SOCKFILE ]; then
+		source "$SOCKFILE"
+		kill -0 "$SSH_AGENT_PID" >/dev/null 2>&1
+		if [ "$?" != "0" ]; then
+			rm "$SOCKFILE"
+		fi
+	fi
+	if [ ! -f $SOCKFILE ]; then
+		echo "$(ssh-agent | grep -v "echo")" > "$SOCKFILE"
+		source "$SOCKFILE"
+	fi
+fi
+
 #EMACS STUFF
 EMACS=`which emacs 2> /dev/null`
 RET=`${EMACS} --help 2> /dev/null | grep daemon`
