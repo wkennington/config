@@ -1,3 +1,4 @@
+#!/bin/sh
 #XTERM
 if [ "${TERM}" = "xterm" ]; then
 	export TERM=xterm-256color
@@ -7,13 +8,18 @@ elif [ "${TERM}" = "rxvt-unicode-256color" ]; then
 fi
 
 #UPDATE CMD
-which packer >/dev/null 2>&1
-if [ "$?" = "0" ]; then
+PACCLEAN="TMP=\"\$(pacman -Qqdt)\"; if [ \"\${TMP}\" = \"\" ]; then; pacman -Rns \${TMP}; fi"
+if [ "$(which packer | grep \"not found\")" = "" ]; then
 	alias update="packer -Syu"
 	alias inst="packer -S"
-else
+	alias clean="$PACCLEAN"
+elif [ "$(which pacman | grep \"not found\")" = "" ]; then
 	alias update="sudo pacman -Syu"
 	alias inst="sudo pacman -S"
+	alias clean="$PACCLEAN"
+elif  [ "$(which portsnap | grep \"not found\")" = ""  ]; then
+	alias update="sudo portsnap fetch; sudo portsnap update; sudo portmaster -ay"
+	alias inst="sudo portmaster -y"
 fi
 
 #ROOT
