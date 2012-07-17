@@ -16,13 +16,13 @@ SOCKFILE=$HOME/.ssh/environment-$HOST
 if [ "${SSH_AUTH_SOCK}" = "" ]; then
 	if [ -f $SOCKFILE ]; then
 		source "$SOCKFILE"
-		kill -0 ${SSH_AGENT_PID} >/dev/null 2>&1
+		kill -0 "$SSH_AGENT_PID" >/dev/null 2>&1
 		if [ "$?" != "0" ]; then
 			rm "$SOCKFILE"
 		fi
 	fi
 	if [ ! -f $SOCKFILE ]; then
-		$(ssh-agent | grep -v "echo") > "$SOCKFILE"
+		echo "$(ssh-agent | grep -v "echo")" > "$SOCKFILE"
 		source "$SOCKFILE"
 	fi
 fi
