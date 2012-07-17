@@ -9,15 +9,15 @@ fi
 
 #UPDATE CMD
 PACCLEAN="if [ \"\$(pacman -Qqdt)\" != \"\" ]; then; sudo pacman -Rns \$(pacman -Qqdt); fi"
-if [ "$(which packer | grep "not found")" = "" ]; then
+if [ "$(which packer 2>/dev/null | grep "not found")" = "" ]; then
 	alias update="packer -Syu"
 	alias inst="packer -S"
 	alias clean="$PACCLEAN"
-elif [ "$(which pacman | grep "not found")" = "" ]; then
+elif [ "$(which pacman 2>/dev/null | grep "not found")" = "" ]; then
 	alias update="sudo pacman -Syu"
 	alias inst="sudo pacman -S"
 	alias clean="$PACCLEAN"
-elif  [ "$(which portsnap | grep "not found")" = ""  ]; then
+elif  [ "$(which portsnap 2>/dev/null | grep "not found")" = ""  ]; then
 	alias update="sudo portsnap fetch; sudo portsnap update; sudo portmaster -ay"
 	alias inst="sudo portmaster -y"
 fi
