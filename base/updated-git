@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "Updated Root Config Files."
-$(dirname $(readlink -f $0))/../install-base 1

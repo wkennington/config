@@ -3,8 +3,4 @@ DIR="$(dirname $(readlink -f $0))/.."
 cd $DIR
 git reset --hard > /dev/null 2>&1
 base/gpom
-RET=$?
-base/update-git2
-if [ "$RET" != "0" ]; then
-	base/updated-git
-fi
+base/update-git2 $?

@@ -1,9 +1,25 @@
 #!/bin/sh
+
+#Print Whether We Updated Root
+UP="$1"
+if [ "$UP" = "1" ]; then
+	echo "Updated Root Config Files."
+fi
+
+#Initialize Submodules
 DIR="$(dirname $(readlink -f $0))"
 cd $DIR/..
 INIT=$(git submodule status --recursive | grep -ve "([^)]*)" | awk '{print $2}')
 for i in $INIT; do
+	UP="1"
 	git submodule -q update --init --recursive $i
 	echo "Initialized $i"
 done
+
+#Update Submodules
 git submodule -q foreach --recursive "${DIR}/update-sub"
+
+#Install Base if Updated
+if [ "$UP" = "1" ]; then
+	./install-base 1
+fi
