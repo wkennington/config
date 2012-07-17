@@ -36,18 +36,20 @@ if [ "$?" != "0" ]; then
 	ZSH=`which zsh 2>/dev/null`
 	VER="$(${ZSH} --version | awk '{print $2}')"
 	VER=$(echo -ne "4.3.9\n$VER" | sort -bt. -k1,1 -k2,2n -k3,3n -k4,4n -k5,5n | awk 'NR==1')
-	cat /etc/issue | grep "Arch Linux" >/dev/null 2>&1
-	if [[ "$VER" = "4.3.9" && "$?" = "0" ]]; then
-		chsh $USER -s $ZSH
-		if [ "$?" != "0" ]; then
-			rm -fv ~/.bash_profile
-			ln -sv ${DIR}/base/bash_profile_zsh ~/.bash_profile
+	cat /etc/issue 2>/dev/null | grep "Arch Linux" >/dev/null 2>&1
+	if [ "$?" = "0" ]; then
+		if [ "$VER" = "4.3.9" ]; then
+			chsh $USER -s $ZSH
+			if [ "$?" != "0" ]; then
+				rm -fv ~/.bash_profile
+				ln -sv ${DIR}/base/bash_profile_zsh ~/.bash_profile
+			fi
 		fi
 	fi
 fi
 
 #SETUP SSH
-if [[ ! -d ~/.ssh || ! -f ~/.ssh/id_rsa ]]; then
+if [ ! -f ~/.ssh/id_rsa ]; then
 	echo "Creating SSH Keys"
 	${DIR}/install-ssh-keys
 fi
