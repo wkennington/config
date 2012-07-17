@@ -31,6 +31,11 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git archlinux battery svn screen nyan extract encode64 django)
+if [ "$SSH_AUTH_SOCK" = "" ]; then
+	plugins+=(ssh-agent)
+fi
+
+echo $plugins
 
 source $ZSH/oh-my-zsh.sh
 
