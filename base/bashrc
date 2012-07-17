@@ -12,6 +12,7 @@ export CONF="$(readlink -f $(dirname $(readlink -f ~/.bashrc))/../)"
 source $CONF/base/useful
 
 #SSH AUTH INIT
+SOCKFILE=$HOME/.ssh/environment-$HOST
 if [ "${SSH_AUTH_SOCK}" = "" ]; then
 	if [ -f $SOCKFILE ]; then
 		source "$SOCKFILE"
