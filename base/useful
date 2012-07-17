@@ -37,8 +37,8 @@ if [ "${SSH_AUTH_SOCK}" = "" ]; then
 	fi
 	if [ ! -f $SOCKFILE ]; then
 		echo "$(ssh-agent | grep -v "echo")" > "$SOCKFILE"
-		ssh-add
 		source "$SOCKFILE"
+		ssh-add
 	fi
 fi
 
