@@ -35,8 +35,6 @@ if [ "$SSH_AUTH_SOCK" = "" ]; then
 	plugins+=(ssh-agent)
 fi
 
-echo $plugins
-
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
