@@ -8,7 +8,7 @@ elif [ "${TERM}" = "rxvt-unicode-256color" ]; then
 fi
 
 #UPDATE CMD
-PACCLEAN="TMP=\$(pacman -Qqdt); if [ \"\${TMP}\" != \"\" ]; then; sudo pacman -Rns \${TMP}; fi"
+PACCLEAN="if [ \"\$(pacman -Qqdt)\" != \"\" ]; then; sudo pacman -Rns \$(pacman -Qqdt); fi"
 if [ "$(which packer | grep "not found")" = "" ]; then
 	alias update="packer -Syu"
 	alias inst="packer -S"
