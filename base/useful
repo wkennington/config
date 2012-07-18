@@ -8,6 +8,10 @@ elif [ "${TERM}" = "rxvt-unicode-256color" ]; then
 fi
 
 #UPDATE CMD
+SUDO=$(which sudo 2>/dev/null | grep -v "not found")
+if [ "$SUDO" != "" ]; then
+	SUDO="${SUDO} "
+fi
 UN="$(uname)"
 if [ "$UN" = "Linux" ]; then
 	ISSUE=$(cat /etc/issue)
@@ -16,30 +20,30 @@ if [ "$UN" = "Linux" ]; then
 			alias update='packer -Syu'
 			alias inst='packer -S'
 		else
-			alias update='sudo pacman -Syu'
-			alias inst='sudo pacman -S'
+			alias update="$SUDO"'pacman -Syu'
+			alias inst="$SUDO"'sudo pacman -S'
 		fi
 		alias clean='if [ "$(pacman -Qqdt)" != "" ]; then; sudo pacman -Rns $(pacman -Qqdt); fi'
 	elif [ "$(echo "$ISSUE" | grep "Debian")" = "" ]; then
-		alias update='apt-get update; apt-get upgrade-dist'
-		alias inst='apt-get install'
+		alias update="$SUDO"'apt-get update; '"$SUDO"'apt-get upgrade-dist'
+		alias inst="$SUDO"'apt-get install'
 	fi
 elif [ "$UN" = "FreeBSD" ]; then
 	if [ "$(which portmaster 2>/dev/null | grep "not found")" = ""]; then
-		alias inst='sudo portmaster -y'
-		alias update='sudo portsnap fetch; sudo portsnap update; sudo portmaster -ay'
+		alias inst="$SUDO"'portmaster -y'
+		alias update="$SUDO"'portsnap fetch; sudo portsnap update; sudo portmaster -ay'
 	else
-		alias update='sudo portsnap fetch; sudo portsnap update'
+		alias update="$SUDO"'portsnap fetch; sudo portsnap update'
 	fi
 fi
 
 #ROOT
-alias root="sudo su -"
+alias root="${SUDO}su -"
 
 #SSH AUTH INIT
-SOCKFILE=$HOME/.ssh/environment-$HOST
-if [ "${SSH_AUTH_SOCK}" = "" ]; then
-	if [ -f $SOCKFILE ]; then
+SOCKFILE="${HOME}/.ssh/environment-${HOST}"
+if [ "$SSH_AUTH_SOCK" = "" ]; then
+	if [ -f "$SOCKFILE" ]; then
 		source "$SOCKFILE"
 		kill -0 "$SSH_AGENT_PID" >/dev/null 2>&1
 		if [ "$?" != "0" ]; then
@@ -54,13 +58,15 @@ if [ "${SSH_AUTH_SOCK}" = "" ]; then
 fi
 
 #EMACS STUFF
-EMACS=`which emacs 2> /dev/null`
-RET=`${EMACS} --help 2> /dev/null | grep daemon`
-if [ "${RET}" != "" ]; then
-	alias emacs="$(which emacsclient) -t"
-	kill -0 $(cat ~/.emacs.pid 2>/dev/null) 2>/dev/null
-	if [ "$?" != "0" ]; then
-		echo "Starting the Emacs Daemon"
-		$EMACS --daemon >/dev/null 2>&1
+EMACS="$(which emacs 2>/dev/null | grep -v "not found")"
+if [ "$EMACS" != "" ]; then
+	RET=`${EMACS} --help 2> /dev/null | grep daemon`
+	if [ "${RET}" != "" ]; then
+		alias emacs="$(which emacsclient) -t"
+		kill -0 $(cat ~/.emacs.pid 2>/dev/null) 2>/dev/null
+		if [ "$?" != "0" ]; then
+			echo "Starting the Emacs Daemon"
+			$EMACS --daemon >/dev/null 2>&1
+		fi
 	fi
 fi
