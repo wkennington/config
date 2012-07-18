@@ -8,18 +8,29 @@ elif [ "${TERM}" = "rxvt-unicode-256color" ]; then
 fi
 
 #UPDATE CMD
-PACCLEAN="if [ \"\$(pacman -Qqdt)\" != \"\" ]; then; sudo pacman -Rns \$(pacman -Qqdt); fi"
-if [ "$(which packer 2>/dev/null | grep "not found")" = "" ]; then
-	alias update="packer -Syu"
-	alias inst="packer -S"
-	alias clean="$PACCLEAN"
-elif [ "$(which pacman 2>/dev/null | grep "not found")" = "" ]; then
-	alias update="sudo pacman -Syu"
-	alias inst="sudo pacman -S"
-	alias clean="$PACCLEAN"
-elif  [ "$(which portsnap 2>/dev/null | grep "not found")" = ""  ]; then
-	alias update="sudo portsnap fetch; sudo portsnap update; sudo portmaster -ay"
-	alias inst="sudo portmaster -y"
+UN="$(uname)"
+if [ "$UN" = "Linux" ]; then
+	ISSUE=$(cat /etc/issue)
+	if [ "$(echo "$ISSUE" | grep "Arch Linux")" != "" ]; then
+		if [ "$(which packer 2>/dev/null | grep "not found")" = "" ]; then
+			alias update='packer -Syu'
+			alias inst='packer -S'
+		else then
+			alias update='sudo pacman -Syu'
+			alias inst='sudo pacman -S'
+		fi
+		alias clean='if [ "$(pacman -Qqdt)" != "" ]; then; sudo pacman -Rns $(pacman -Qqdt); fi'
+	elif [ "$(echo "$ISSUE" | grep "Debian")" = "" ]; then
+		alias update='apt-get update; apt-get upgrade-dist'
+		alias inst='apt-get install'
+	fi
+elif [ "$UN" = "FreeBSD" ]; then
+	if [ "$(which portmaster 2>/dev/null | grep "not found")" = ""]; then
+		alias inst='sudo portmaster -y'
+		alias update='sudo portsnap fetch; sudo portsnap update; sudo portmaster -ay'
+	else
+		alias update='sudo portsnap fetch; sudo portsnap update'
+	fi
 fi
 
 #ROOT
