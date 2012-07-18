@@ -29,7 +29,7 @@ if [ "$UN" = "Linux" ]; then
 		alias inst="$SUDO"'apt-get install'
 	fi
 elif [ "$UN" = "FreeBSD" ]; then
-	if [ "$(which portmaster 2>/dev/null | grep -v "not found")" != ""]; then
+	if [ "$(which portmaster 2>/dev/null | grep -v "not found")" != "" ]; then
 		alias inst="$SUDO"'portmaster -y'
 		alias update="$SUDO"'portsnap fetch; '"$SUDO"'portsnap update; '"$SUDO"'portmaster -ay'
 	else
