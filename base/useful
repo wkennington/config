@@ -15,7 +15,7 @@ if [ "$UN" = "Linux" ]; then
 		if [ "$(which packer 2>/dev/null | grep "not found")" = "" ]; then
 			alias update='packer -Syu'
 			alias inst='packer -S'
-		else then
+		else
 			alias update='sudo pacman -Syu'
 			alias inst='sudo pacman -S'
 		fi
