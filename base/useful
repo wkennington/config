@@ -16,7 +16,7 @@ UN="$(uname)"
 if [ "$UN" = "Linux" ]; then
 	ISSUE=$(cat /etc/issue)
 	if [ "$(echo "$ISSUE" | grep "Arch Linux")" != "" ]; then
-		if [ "$(which packer 2>/dev/null | grep "not found")" = "" ]; then
+		if [ "$(which packer 2>/dev/null | grep -v "not found")" != "" ]; then
 			alias update='packer -Syu'
 			alias inst='packer -S'
 		else
@@ -29,11 +29,11 @@ if [ "$UN" = "Linux" ]; then
 		alias inst="$SUDO"'apt-get install'
 	fi
 elif [ "$UN" = "FreeBSD" ]; then
-	if [ "$(which portmaster 2>/dev/null | grep "not found")" = ""]; then
+	if [ "$(which portmaster 2>/dev/null | grep -v "not found")" != ""]; then
 		alias inst="$SUDO"'portmaster -y'
-		alias update="$SUDO"'portsnap fetch; sudo portsnap update; sudo portmaster -ay'
+		alias update="$SUDO"'portsnap fetch; '"$SUDO"'portsnap update; '"$SUDO"'portmaster -ay'
 	else
-		alias update="$SUDO"'portsnap fetch; sudo portsnap update'
+		alias update="$SUDO"'portsnap fetch; '"$SUDO"'portsnap update'
 	fi
 fi
 
