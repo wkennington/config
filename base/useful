@@ -46,7 +46,14 @@ if [ "$SSH_AUTH_SOCK" = "" ]; then
 	if [ -f "$SOCKFILE" ]; then
 		source "$SOCKFILE"
 		kill -0 "$SSH_AGENT_PID" >/dev/null 2>&1
-		if [ "$?" != "0" ]; then
+		PID2="$(ps -U william -u william | grep emacs | awk '{print $1}')"
+		OPEN=0
+		for i in $PID2; do
+			if [ "$i" = "$SSH_AGENT_PID" ]; then
+				OPEN=1
+			fi
+		done
+		if [ "$OPEN" = "0" ]; then
 			rm "$SOCKFILE"
 		fi
 	fi
@@ -63,8 +70,15 @@ if [ "$EMACS" != "" ]; then
 	RET=`${EMACS} --help 2> /dev/null | grep daemon`
 	if [ "${RET}" != "" ]; then
 		alias emacs="$(which emacsclient) -t"
-		kill -0 $(cat ~/.emacs.pid 2>/dev/null) 2>/dev/null
-		if [ "$?" != "0" ]; then
+		PID="$(cat ~/.emacs.pid 2>/dev/null)"
+		PID2="$(ps -U william -u william | grep emacs | awk '{print $1}')"
+		OPEN=0
+		for i in $PID2; do
+			if [ "$i" = "$PID" ]; then
+				OPEN=1
+			fi
+		done
+		if [ "$OPEN" = "0" ]; then
 			echo "Starting the Emacs Daemon"
 			$EMACS --daemon >/dev/null 2>&1
 		fi
