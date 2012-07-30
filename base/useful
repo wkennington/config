@@ -45,13 +45,13 @@ SOCKFILE="${HOME}/.ssh/environment-${HOST}"
 if [ "$SSH_AUTH_SOCK" = "" ]; then
 	if [ -f "$SOCKFILE" ]; then
 		. "$SOCKFILE"
-		echo "$SSH_AGENT_PID"
-		PID2="$(ps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
+		PID="$SSH_AGENT_PID"
+		PID2="$(zps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
+		eval "PID2=($PID2)"
 		OPEN=0
 		for i in $PID2; do
-			echo $i"."$SSH_AGENT_PID
-			if [ "$i" = "$SSH_AGENT_PID" ]; then
-				echo "Agent Already Running"
+			if [ "$i" == "$PID" ]; then
+				echo "SSH Agent Already Running"
 				OPEN=1
 			fi
 		done
@@ -74,9 +74,11 @@ if [ "$EMACS" != "" ]; then
 		alias emacs="$(which emacsclient) -t"
 		PID="$(cat ~/.emacs.pid 2>/dev/null)"
 		PID2="$(ps -U $USER | grep emacs | grep -v grep | awk '{print $1}')"
+		eval "PID2=($PID2)"
 		OPEN=0
 		for i in $PID2; do
 			if [ "$i" = "$PID" ]; then
+				echo "Emacs Already Running"
 				OPEN=1
 			fi
 		done
