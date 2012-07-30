@@ -46,7 +46,7 @@ if [ "$SSH_AUTH_SOCK" = "" ]; then
 	if [ -f "$SOCKFILE" ]; then
 		. "$SOCKFILE"
 		PID="$SSH_AGENT_PID"
-		PID2="$(zps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
+		PID2="$(ps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
 		eval "PID2=($PID2)"
 		OPEN=0
 		for i in $PID2; do
