@@ -46,7 +46,7 @@ if [ "$SSH_AUTH_SOCK" = "" ]; then
 	if [ -f "$SOCKFILE" ]; then
 		source "$SOCKFILE"
 		kill -0 "$SSH_AGENT_PID" >/dev/null 2>&1
-		PID2="$(ps -U william -u william | grep emacs | awk '{print $1}')"
+		PID2="$(ps -U $USER -u $USER | grep ssh-agent | awk '{print $1}')"
 		OPEN=0
 		for i in $PID2; do
 			if [ "$i" = "$SSH_AGENT_PID" ]; then
@@ -71,7 +71,7 @@ if [ "$EMACS" != "" ]; then
 	if [ "${RET}" != "" ]; then
 		alias emacs="$(which emacsclient) -t"
 		PID="$(cat ~/.emacs.pid 2>/dev/null)"
-		PID2="$(ps -U william -u william | grep emacs | awk '{print $1}')"
+		PID2="$(ps -U $USER -u $USER | grep emacs | awk '{print $1}')"
 		OPEN=0
 		for i in $PID2; do
 			if [ "$i" = "$PID" ]; then
