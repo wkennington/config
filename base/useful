@@ -44,7 +44,7 @@ alias root="${SUDO}su -"
 SOCKFILE="${HOME}/.ssh/environment-${HOST}"
 if [ "$SSH_AUTH_SOCK" = "" ]; then
 	if [ -f "$SOCKFILE" ]; then
-		. ./"$SOCKFILE"
+		. "$SOCKFILE"
 		echo "$SSH_AGENT_PID"
 		PID2="$(ps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
 		OPEN=0
@@ -60,7 +60,7 @@ if [ "$SSH_AUTH_SOCK" = "" ]; then
 	fi
 	if [ ! -f $SOCKFILE ]; then
 		echo "$(ssh-agent | grep -v "echo")" > "$SOCKFILE"
-		. ./"$SOCKFILE"
+		. "$SOCKFILE"
 		ssh-add
 	fi
 fi
