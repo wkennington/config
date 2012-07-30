@@ -49,6 +49,7 @@ if [ "$SSH_AUTH_SOCK" = "" ]; then
 		PID2="$(ps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
 		OPEN=0
 		for i in $PID2; do
+			echo $i
 			if [ "$i" = "$SSH_AGENT_PID" ]; then
 				echo "Agent Already Running"
 				OPEN=1
