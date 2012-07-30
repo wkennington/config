@@ -50,7 +50,7 @@ if [ "$SSH_AUTH_SOCK" = "" ]; then
 		eval "PID2=($PID2)"
 		OPEN=0
 		for i in $PID2; do
-			if [ "$i" == "$PID" ]; then
+			if [ "$i" = "$PID" ]; then
 				echo "SSH Agent Already Running"
 				OPEN=1
 			fi
