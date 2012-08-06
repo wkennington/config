@@ -15,7 +15,7 @@ for i in $CONF; do
 done
 
 #DETERMINE IF PRELUDE CAN BE USED
-EMACS="$(which --skip-alias emacs 2>/dev/null)"
+EMACS="$(which emacs 2>/dev/null | grep -v "not found")"
 if [ "$EMACS" != "" ]; then
 	VER="$(${EMACS} --version | awk 'NR==1 {print $3}')"
 	VER=$(echo -ne "24.0\n$VER" | sort -bt. -k1,1 -k2,2n -k3,3n -k4,4n -k5,5n | awk 'NR==1')
@@ -35,7 +35,7 @@ fi
 #SETUP ZSH IF POSSIBLE
 echo $SHELL | grep zsh >/dev/null 2>&1
 if [ "$?" != "0" ]; then
-	ZSH=`which zsh 2>/dev/null`
+	ZSH="$(which zsh 2>/dev/null | grep -v "not found")"
 	if [ "$ZSH" != "" ]; then
 		VER="$(${ZSH} --version | awk '{print $2}')"
 		VER=$(echo -ne "4.3.9\n$VER" | sort -bt. -k1,1 -k2,2n -k3,3n -k4,4n -k5,5n | awk 'NR==1')
