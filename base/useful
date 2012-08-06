@@ -30,8 +30,8 @@ if [ "$UN" = "Linux" ]; then
 	fi
 elif [ "$UN" = "FreeBSD" ]; then
 	if [ "$(which portmaster 2>/dev/null | grep -v "not found")" != "" ]; then
-		alias inst="$SUDO"'portmaster -y'
-		alias update="$SUDO"'portsnap fetch; '"$SUDO"'portsnap update; '"$SUDO"'portmaster -ay'
+		alias inst="$SUDO"'portmaster -yB'
+		alias update="$SUDO"'portsnap fetch; '"$SUDO"'portsnap update; '"$SUDO"'portmaster -aBy'
 	else
 		alias update="$SUDO"'portsnap fetch; '"$SUDO"'portsnap update'
 	fi
