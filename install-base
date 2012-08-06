@@ -40,7 +40,7 @@ if [ "$?" != "0" ]; then
 	if [ "$ZSH" != "" ]; then
 		VER="$(${ZSH} --version | awk '{print $2}')"
 		VER="$(printf "4.3.9\n%s" "$VER" | sort -bt. -k1,1n -k2,2n -k3,3n -k4,4n -k5,5n | awk 'NR==1')"
-		cat /etc/issue 2>/dev/null | grep "Arch Linux" >/dev/null 2>&1
+		cat /etc/issue 2>/dev/null | grep "Arch Linux" >/dev/null 2>&1 && $(uname) == "FreeBSD"
 		if [ "$?" = "0" ]; then
 			if [ "$VER" = "4.3.9" ]; then
 				chsh $USER -s $ZSH
