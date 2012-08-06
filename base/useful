@@ -25,7 +25,7 @@ if [ "$UN" = "Linux" ]; then
 		fi
 		alias clean='if [ "$(pacman -Qqdt)" != "" ]; then; sudo pacman -Rns $(pacman -Qqdt); fi'
 	elif [ "$(echo "$ISSUE" | grep "Debian")" = "" ]; then
-		alias update="$SUDO"'apt-get update; '"$SUDO"'apt-get upgrade-dist'
+		alias update="$SUDO"'apt-get update; '"$SUDO"'apt-get dist-upgrade'
 		alias inst="$SUDO"'apt-get install'
 	fi
 elif [ "$UN" = "FreeBSD" ]; then

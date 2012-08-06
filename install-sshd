@@ -3,7 +3,7 @@ FILE=`readlink -f $0`
 DIR=`dirname $FILE`
 cd "$DIR"
 cp sshd_config /etc/ssh
-chown root:root /etc/ssh/sshd_config
+chown "root:${GROUP}" /etc/ssh/sshd_config
 chmod 0644 /etc/ssh/sshd_config
 ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ""
 ssh-keygen -t ecdsa -b 521 -f /etc/ssh/ssh_host_ecdsa_key -N ""
