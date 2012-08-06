@@ -43,7 +43,7 @@ if [ "$?" != "0" ]; then
 		cat /etc/issue 2>/dev/null | grep "Arch Linux" >/dev/null 2>&1 || uname | grep "FreeBSD"
 		if [ "$?" = "0" ]; then
 			if [ "$VER" = "4.3.9" ]; then
-				chsh $USER -s $ZSH
+				chsh -s "$ZSH" "$USER"
 				if [ "$?" != "0" ]; then
 					rm -fv ~/.bash_profile
 					ln -sv ${DIR}/base/bash_profile_zsh ~/.bash_profile
