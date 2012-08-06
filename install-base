@@ -4,7 +4,7 @@ DIR=`dirname $FILE`
 
 #UPDATE SUBMODULES IF THEY HAVEN'T BEEN
 if [ "$1" != "1" ]; then
-	"${DIR}/base/update-git2"
+	"${DIR}/base/update-git2" 1
 	exit 0
 fi
 
