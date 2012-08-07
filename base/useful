@@ -38,7 +38,7 @@ elif [ "$UN" = "FreeBSD" ]; then
 fi
 
 #Sprunge
-alias sprung="curl -F 'sprunge=<-' http://sprunge.us"
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
 #ROOT
 alias root="${SUDO}su -"
