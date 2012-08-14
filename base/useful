@@ -91,3 +91,11 @@ if [ "$EMACS" != "" ]; then
 		fi
 	fi
 fi
+
+#FreeBSD Vars
+EDITOR="vim"
+export EDITOR
+PAGER="more"
+export PAGER
+BLOCKSIZE="K"
+export BLOCKSIZE
