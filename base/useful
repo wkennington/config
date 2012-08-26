@@ -49,7 +49,11 @@ if [ "$SSH_AUTH_SOCK" = "" ]; then
 	if [ -f "$SOCKFILE" ]; then
 		. "$SOCKFILE"
 		PID="$SSH_AGENT_PID"
-		PID2="$(ps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
+		if [ "$(uname | grep CYGWIN)" = "" ]; then
+			PID2="$(ps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
+		else
+			PID2="$(ps | grep ssh-agent | grep -v grep | awk '{print $1}')"
+		fi
 		eval "PID2=($PID2)"
 		OPEN=0
 		for i in $PID2; do
@@ -76,7 +80,11 @@ if [ "$EMACS" != "" ]; then
 	if [ "${RET}" != "" ]; then
 		alias emacs="$(which emacsclient) -t"
 		PID="$(cat ~/.emacs.pid 2>/dev/null)"
-		PID2="$(ps -U $USER | grep emacs | grep -v grep | awk '{print $1}')"
+		if [ "$(uname | grep CYGWIN)" = "" ]; then
+			PID2="$(ps -U $USER | grep emacs | grep -v grep | awk '{print $1}')"
+		else
+			PID2="$(ps | grep emacs | grep -v grep | awk '{print $1}')"
+		fi
 		eval "PID2=($PID2)"
 		OPEN=0
 		for i in $PID2; do
