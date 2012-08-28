@@ -29,6 +29,9 @@ set ai
 set si
 set ffs=unix,dos,mac
 set encoding=utf8
+set wildmenu=list:longest
+set title
+set scrolloff=3
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
