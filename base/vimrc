@@ -29,7 +29,8 @@ set ai
 set si
 set ffs=unix,dos,mac
 set encoding=utf8
-set wildmenu=list:longest
+set wildmenu
+set wildmode=list:longest
 set title
 set scrolloff=3
 
