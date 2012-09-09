@@ -1,0 +1,10 @@
+#!/bin/sh
+DIR="$(dirname $(readlink -f $0))/hybrid-graphics"
+FILES="ati intel off on status"
+for i in $FILES; do
+	rm -f "/usr/bin/hybrid-$i"
+	ln -sv "$DIR/$i" "/usr/bin/hybrid-$i"
+done
+rm -f "/usr/lib/systemd/system/hybrid-graphics.service"
+cp "$DIR/vga.service" "/usr/lib/systemd/system/hybrid-graphics.service"
+systemctl enable hybrid-graphics.service
