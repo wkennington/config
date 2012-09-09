@@ -3,8 +3,8 @@ Description=Enable Intel Graphics
 Before=display-manager.service
 
 [Service]
-ExecStart=/usr/sbin/hybrid-intel
-ExecReload=/usr/sbin/hybrid-power
+ExecStart=/usr/bin/hybrid-intel
+ExecReload=/usr/bin/hybrid-power
 
 [Install]
 WantedBy=graphical.target
