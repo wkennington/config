@@ -1,10 +1,13 @@
 [Unit]
 Description=Enable Intel Graphics
 Before=display-manager.service
+After=systemd-modules-load.service multi-user.target
 
 [Service]
-ExecStart=/usr/bin/hybrid-intel
-ExecReload=/usr/bin/hybrid-power
+Type=oneshot
+ExecStart=/bin/sh /usr/bin/hybrid-intel
+ExecStop=/bin/sh /usr/bin/hybrid-on
+RemainAfterExit=yes
 
 [Install]
 WantedBy=graphical.target
