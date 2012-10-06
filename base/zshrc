@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh configuration.
-export CONF="$(readlink -f $(dirname $(readlink -f ~/.bashrc))/../)"
+export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.zshrc))/../)"
 ZSH="$CONF/oh-my-zsh"
 
 # Set name of the theme to load.
