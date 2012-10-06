@@ -35,6 +35,9 @@ elif [ "$UN" = "FreeBSD" ]; then
 	else
 		alias update="$SUDO"'portsnap fetch; '"$SUDO"'portsnap update'
 	fi
+elif [ "$UN" = "SunOS" ]; then
+	alias update=""$SUDO'pkg update'
+	alias inst="$SUDO"'pkg install'
 fi
 
 #Sprunge
