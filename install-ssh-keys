@@ -5,9 +5,11 @@ if [ ! -d "${DIR}" ]; then
 	mkdir -p ${DIR}
 fi
 stty -echo
-read -p "Password: " pass
+echo -n "Password: "
+read pass
 echo ""
-read -p "Confirm: " pass2
+echo -n "Confirm: "
+read pass2
 echo ""
 stty echo
 if [ "$pass" != "$pass2" ]; then

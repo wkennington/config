@@ -12,7 +12,7 @@ fi
 CONF="gvimrc vimrc bash_profile bashrc bash_logout zshrc zprofile"
 for i in $CONF; do
 	rm -f ~/.$i
-	ln -sv ${DIR}/base/$i ~/.$i
+	ln -s ${DIR}/base/$i ~/.$i
 done
 
 #DETERMINE IF PRELUDE CAN BE USED
