@@ -17,11 +17,11 @@ if [ -f .xinitrc.start ]; then
 	bash .xinitrc.start
 fi
 if [ "" = "$1" ]; then
-	exec ck-launch-session dbus-launch awesome
+	exec awesome
 elif [ "xfce4" = "$1" ]; then
 	exec startxfce4
 else
-	exec ck-launch-session dbus-launch $1
+	exec $1
 fi
 if [ -f .xinitrc.end ]; then
 	bash .xinitrc.end
