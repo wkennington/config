@@ -24,14 +24,17 @@ if [ "$UN" = "Linux" ]; then
 			alias inst="$SUDO"'sudo pacman -S'
 		fi
 		alias clean='if [ "$(pacman -Qqdt)" != "" ]; then; sudo pacman -Rns $(pacman -Qqdt); fi'
+		alias del="$SUDO"'pacman -Rsdc'
 	elif [ "$(echo "$ISSUE" | grep "Debian")" != "" ]; then
 		alias update="$SUDO"'apt-get update; '"$SUDO"'apt-get dist-upgrade'
 		alias inst="$SUDO"'apt-get install'
+		alias del="$SUDO"'apt-get remove'
 	fi
 elif [ "$UN" = "FreeBSD" ]; then
 	if [ "$(which portmaster 2>/dev/null | grep -v "not found")" != "" ]; then
 		alias inst="$SUDO"'portmaster -yBd'
 		alias update="$SUDO"'portsnap fetch; '"$SUDO"'portsnap update; '"$SUDO"'portmaster -aByd'
+		alias del="$SUDO"'portmaster -e'
 	else
 		alias update="$SUDO"'portsnap fetch; '"$SUDO"'portsnap update'
 	fi
