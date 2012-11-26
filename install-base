@@ -24,12 +24,12 @@ if [ "$EMACS" != "" ]; then
 		#LINK PRELUDE
 		rm -f "${HOME}/.emacs" "${DIR}/prelude/personal/emacs.el"
 		rm -rf "${HOME}/.emacs.d"
-		ln -sv "${DIR}/prelude" "${HOME}/.emacs.d"
-		ln -sv "${DIR}/base/emacs_prelude" "${DIR}/prelude/personal/emacs.el"
+		ln -s "${DIR}/prelude" "${HOME}/.emacs.d"
+		ln -s "${DIR}/base/emacs_prelude" "${DIR}/prelude/personal/emacs.el"
 	else
 		rm -rf "${HOME}/.emacs.d"
 		rm -f "${HOME}/.emacs"
-		ln -sv "${DIR}/base/emacs" "${HOME}/.emacs"
+		ln -s "${DIR}/base/emacs" "${HOME}/.emacs"
 	fi
 fi
 
@@ -46,7 +46,7 @@ if [ "$?" != "0" ]; then
 				chsh -s "$ZSH" "$USER"
 				if [ "$?" != "0" ]; then
 					rm -fv ~/.bash_profile
-					ln -sv ${DIR}/base/bash_profile_zsh ~/.bash_profile
+					ln -s ${DIR}/base/bash_profile_zsh ~/.bash_profile
 				fi
 			fi
 		fi
