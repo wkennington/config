@@ -96,7 +96,7 @@ mymainmenu = awful.menu({ items = {
 	{ "Firefox", "firefox" },
 	{ "Gimp", "gimp"},
 	{ "Gvim", "gvim" },
-	{ "Luakit", "luakit https://www.google.com" },
+	{ "Libreoffice", "libreoffice" },
 	{ "Mumble", "mumble" },
 	{ "Pidgin", "pidgin" },
 	{ "Pithos", "pithos" },
@@ -104,7 +104,9 @@ mymainmenu = awful.menu({ items = {
 	{ "Terminal", terminal },
 	{ "Thunderbird", "thunderbird" },
 	{ "Virtualbox", "virtualbox" },
+	{ "Virt-Manager", "virt-manager" },
 	{ "VLC", "vlc" },
+	{ "Volume", "pavucontrol" },
 	{ "Xchat", "xchat" },
 	{ "Zathura", "zathura" }
     }
