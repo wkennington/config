@@ -49,33 +49,48 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 #ROOT
 alias root="${SUDO}su -"
 
-#SSH AUTH INIT
-SOCKFILE="${HOME}/.ssh/environment-${HOST}"
-if [ "$SSH_AUTH_SOCK" = "" ]; then
-	if [ -f "$SOCKFILE" ]; then
-		. "$SOCKFILE"
-		PID="$SSH_AGENT_PID"
-		if [ "$(uname | grep CYGWIN)" = "" ]; then
-			PID2="$(ps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
-		else
-			PID2="$(ps | grep ssh-agent | grep -v grep | awk '{print $1}')"
-		fi
-		eval "PID2=($PID2)"
-		OPEN=0
-		for i in $PID2; do
-			if [ "$i" = "$PID" ]; then
-				echo "SSH Agent Already Running"
-				OPEN=1
-			fi
-		done
-		if [ "$OPEN" = "0" ]; then
-			rm "$SOCKFILE"
-		fi
-	fi
-	if [ ! -f $SOCKFILE ]; then
-		echo "$(ssh-agent | grep -v "echo")" > "$SOCKFILE"
-		. "$SOCKFILE"
+#KEYRING AUTH INIT
+AGENT="$(which gnome-keyring-daemon 2>/dev/null | grep -v "not found")"
+if [ "$AGENT" != "" ]; then
+	TXT="$("$AGENT" -s 2>/dev/null)"
+	if [ "$?" -ne "0" ]; then
+		AGENT=""
+	else
+		export $TXT
 		ssh-add
+	fi
+fi
+if [ "$AGENT" = "" ]; then
+	AGENT="$(which ssh-agent 2>/dev/null | grep -v "not found")"
+	if [ "$AGENT" != "" ]; then
+		SOCKFILE="${HOME}/.ssh/environment-${HOST}"
+		if [ "$SSH_AUTH_SOCK" = "" ]; then
+			if [ -f "$SOCKFILE" ]; then
+				. "$SOCKFILE"
+				PID="$SSH_AGENT_PID"
+				if [ "$(uname | grep CYGWIN)" = "" ]; then
+					PID2="$(ps -U $USER | grep ssh-agent | grep -v grep | awk '{print $1}')"
+				else
+					PID2="$(ps | grep ssh-agent | grep -v grep | awk '{print $1}')"
+				fi
+				eval "PID2=($PID2)"
+				OPEN=0
+				for i in $PID2; do
+					if [ "$i" = "$PID" ]; then
+						echo "Keyring Agent Already Running"
+						OPEN=1
+					fi
+				done
+				if [ "$OPEN" = "0" ]; then
+					rm "$SOCKFILE"
+				fi
+			fi
+			if [ ! -f $SOCKFILE ]; then
+				echo "$($AGENT | grep -v "echo")" > "$SOCKFILE"
+				. "$SOCKFILE"
+				ssh-add
+			fi
+		fi
 	fi
 fi
 
