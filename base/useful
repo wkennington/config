@@ -51,6 +51,7 @@ alias root="${SUDO}su -"
 
 #KEYRING AUTH INIT
 #AGENT="$(which gnome-keyring-daemon 2>/dev/null | grep -v "not found")"
+AGENT=""
 if [ "$AGENT" != "" ]; then
 	TXT="$("$AGENT" -s 2>/dev/null)"
 	if [ "$?" -ne "0" ]; then
