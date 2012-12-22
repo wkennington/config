@@ -6,7 +6,7 @@ if [ -d ~/.config/wallpaper ]; then
 	if [ "`ls ~/.config/wallpaper | wc -l`" -gt "1" ]; then
 		while true; do
 			awsetbg -r ~/.config/wallpaper
-			sleep 5m
+			sleep 300
 		done &
 	fi
 fi
