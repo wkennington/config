@@ -6,6 +6,12 @@ install -dv ~/.config
 #ln -sv $DIR/gtkrc-2.0 ~/.gtkrc-2.0
 ln -s $DIR/xinitrc ~/.xinitrc
 ln -s $DIR/awesome ~/.config/awesome
+if [ -d "/usr/share/awesome" ]; then
+	TDIR="/usr/share/awesome"
+elif [ -d "/usr/local/share/awesome" ]; then
+	TDIR="/usr/local/share/awesome"
+fi
+ln -s $TDIR/themes/zenburn/theme.lua ~/.config/awesome/theme.lua
 ln -s $DIR/Terminal ~/.config/Terminal
 ln -s $DIR/wallpaper ~/.config/wallpaper
 #ln -sv $DIR/sakura ~/.config/sakura
