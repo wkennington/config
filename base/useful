@@ -125,7 +125,7 @@ fi
 #FreeBSD Vars
 EDITOR="vim"
 export EDITOR
-PAGER="more"
+PAGER="less"
 export PAGER
 BLOCKSIZE="K"
 export BLOCKSIZE
