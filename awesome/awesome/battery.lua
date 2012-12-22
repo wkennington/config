@@ -9,6 +9,7 @@ local pairs = pairs
 require("lfs")
 local lfs = lfs
 local string = string
+local pcall = pcall
 
 module("battery")
 function get_bat_state ()
@@ -54,8 +55,8 @@ end
 
 function batclosure (adapter)
     return function ()
-        local battery, dir = get_bat_state()
-	   if dir == -2 then
+        local status, battery, dir = pcall(get_bat_state)
+	   if dir == -2 or status == false then
 		  return ""
 	   elseif dir == -1 then
             dirsign = "↓"
