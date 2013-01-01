@@ -6,6 +6,11 @@ install -dv ~/.config
 #ln -sv $DIR/gtkrc-2.0 ~/.gtkrc-2.0
 ln -s $DIR/xinitrc ~/.xinitrc
 ln -s $DIR/awesome ~/.config/awesome
+if [ "awesome --version | grep v3.5" != "" ]; then
+	ln -s $DIR/awesome/rc.lua.35 $DIR/awesome/rc.lua
+else
+	ln -s $DIR/awesome/rc.lua.34 $DIR/awesome/rc.lua
+fi
 if [ -d "/usr/share/awesome" ]; then
 	TDIR="/usr/share/awesome"
 elif [ -d "/usr/local/share/awesome" ]; then
