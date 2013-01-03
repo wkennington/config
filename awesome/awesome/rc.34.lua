@@ -74,6 +74,8 @@ for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = awful.tag({ "Code", "Net", "Float", "Chat", "Mail", "Ext1", "Ext2"}, s, layouts[2])
 	awful.layout.set(layouts[1], tags[s][3])
+	awful.layout.set(layouts[7], tags[s][6])
+	awful.layout.set(layouts[7], tags[s][7])
 	tags[s][3].selected = true
 	tags[s][1].selected = false
 end

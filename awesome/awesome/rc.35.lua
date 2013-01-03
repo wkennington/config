@@ -42,9 +42,9 @@ end
 beautiful.init(".config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
-editor_cmd = terminal .. " -e " .. editor
+terminal = "terminal"
+editor = "emacs"
+editor_cmd = "emacsclient -c -n"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -84,7 +84,12 @@ end
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+	tags[s] = awful.tag({ "Code", "Net", "Float", "Chat", "Mail", "Ext1", "Ext2"}, s, layouts[2])
+	awful.layout.set(layouts[1], tags[s][3])
+	awful.layout.set(layouts[7], tags[s][6])
+	awful.layout.set(layouts[7], tags[s][7])
+	tags[s][3].selected = true
+	tags[s][1].selected = false
 end
 -- }}}
 
@@ -97,10 +102,28 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
+mymainmenu = awful.menu({ items = {
+	{ "Abiword", "abiword" },
+	{ "Awesome", myawesomemenu, beautiful.awesome_icon },
+	{ "Chromium", "chromium" },
+	{ "Emacs", "emacsclient -c -n" },
+	{ "Firefox", "firefox" },
+	{ "Gimp", "gimp"},
+	{ "Gvim", "gvim" },
+	{ "Libreoffice", "libreoffice" },
+	{ "Mumble", "mumble" },
+	{ "Pidgin", "pidgin" },
+	{ "Pithos", "pithos" },
+	{ "Skype", "skype" },
+	{ "Terminal", terminal },
+	{ "Thunderbird", "thunderbird" },
+	{ "Virtualbox", "virtualbox" },
+	{ "Virt-Manager", "virt-manager" },
+	{ "VLC", "vlc" },
+	{ "Volume", "pavucontrol" },
+	{ "Xchat", "xchat" },
+	{ "Zathura", "zathura" }
+}})
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
@@ -110,6 +133,16 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibox
+
+-- Battery
+require("battery")
+mybatterywidget = wibox.widget.textbox()
+bat_clo = battery.batclosure("BAT0")
+mybatterywidget.text = bat_clo()
+battimer = timer({ timeout = 30 })
+battimer:connect_signal("timeout", function() mybatterywidget.text = bat_clo() end)
+battimer:start()
+
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
@@ -190,6 +223,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+	right_layout:add(mybatterywidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
@@ -244,6 +278,7 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Standard program
+    awful.key({ modkey,           }, "a", function () awful.util.spawn("xscreensaver-command -lock") end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
