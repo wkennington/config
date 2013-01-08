@@ -21,12 +21,12 @@ CSR="${PRE}.csr"
 KEY="${PRE}.key"
 CRT="${PRE}.crt"
 
-if [[ "$1" == "csr" && ! -f "$CSR" ]]; then
+if [[ "$1" = "csr" && ! -f "$CSR" ]]; then
 	echo "The certificate request [${CSR}] does not exist!"
 	exit 1
 fi
 
-if [ "$1" == "gen" ]; then
+if [ "$1" = "gen" ]; then
 	if [[ -f "$KEY" || -f "$CSR" || -f "$CRT" ]]; then
 		echo -n "${PRE} already exists, do you want to overwrite? [y|N] "
 		read ret
