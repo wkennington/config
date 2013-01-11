@@ -129,4 +129,3 @@ PAGER="less"
 export PAGER
 BLOCKSIZE="K"
 export BLOCKSIZE
-alias conf="/usr/local/conf/get"
