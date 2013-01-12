@@ -11,12 +11,6 @@ if [ "awesome --version | grep v3.5" != "" ]; then
 else
 	ln -s $DIR/awesome/rc.lua.34 $DIR/awesome/rc.lua
 fi
-if [ -d "/usr/share/awesome" ]; then
-	TDIR="/usr/share/awesome"
-elif [ -d "/usr/local/share/awesome" ]; then
-	TDIR="/usr/local/share/awesome"
-fi
-ln -s $TDIR/themes/zenburn/theme.lua ~/.config/awesome/theme.lua
 ln -s $DIR/Terminal ~/.config/Terminal
 ln -s $DIR/wallpaper ~/.config/wallpaper
 #ln -sv $DIR/sakura ~/.config/sakura
