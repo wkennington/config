@@ -7,9 +7,9 @@ install -dv ~/.config
 ln -s $DIR/xinitrc ~/.xinitrc
 ln -s $DIR/awesome ~/.config/awesome
 if [ "awesome --version | grep v3.5" != "" ]; then
-	ln -s $DIR/awesome/rc.lua.35 $DIR/awesome/rc.lua
+	ln -s $DIR/awesome/rc.35.lua $DIR/awesome/rc.lua
 else
-	ln -s $DIR/awesome/rc.lua.34 $DIR/awesome/rc.lua
+	ln -s $DIR/awesome/rc.34.lua $DIR/awesome/rc.lua
 fi
 ln -s $DIR/Terminal ~/.config/Terminal
 ln -s $DIR/wallpaper ~/.config/wallpaper
