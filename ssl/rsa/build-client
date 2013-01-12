@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 KEYDIR="keys"
 SER="$KEYDIR/serial.txt"
 source ./opts
@@ -21,14 +21,15 @@ CSR="${PRE}.csr"
 KEY="${PRE}.key"
 CRT="${PRE}.crt"
 
-if [[ "$1" == "csr" && ! -f "$CSR" ]]; then
+if [[ "$1" = "csr" && ! -f "$CSR" ]]; then
 	echo "The certificate request [${CSR}] does not exist!"
 	exit 1
 fi
 
-if [ "$1" == "gen" ]; then
+if [ "$1" = "gen" ]; then
 	if [[ -f "$KEY" || -f "$CSR" || -f "$CRT" ]]; then
-		read -p "${PRE} already exists, do you want to overwrite? [y|N] " ret
+		echo -n "${PRE} already exists, do you want to overwrite? [y|N] "
+		read ret
 		if [[ "$ret" = "y" || "$ret" = "Y" ]]; then
 			rm -f "$KEY"
 			rm -f "$CSR"
@@ -39,9 +40,11 @@ if [ "$1" == "gen" ]; then
 		fi
 	fi
 	stty -echo
-	read -p "Password: " pass
+	echo -n "Password: "
+	read pass
 	echo ""
-	read -p "Confirm: " pass2
+	echo -n "Confirm: "
+	read pass2
 	echo ""
 	stty echo
 	if [ "$pass" != "$pass2" ]; then
@@ -69,7 +72,8 @@ fi
 NUM=$(cat "$SER")
 
 stty -echo
-read -p "CA Password: " pass
+echo -n "CA Password: "
+read pass
 echo ""
 stty echo
 
