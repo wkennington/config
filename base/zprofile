@@ -1,2 +1,6 @@
-#GET NEW CONFIG STUFF
-$(dirname $(readlink -f ~/.zprofile))/update-git
+#!/usr/bin/env zsh
+# Attempt to Update Configs
+if [ ! -f "$HOME/.zupdate" ]; then
+	"$(dirname "$(readlink -f "$HOME/.zprofile")")/update-git"
+	touch "$HOME/.zupdate"
+fi

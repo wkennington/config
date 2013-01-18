@@ -1,0 +1,2 @@
+# Allow Configs to Update
+rm -f "$HOME/.zupdate"
