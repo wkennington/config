@@ -4,8 +4,8 @@ ListenAddress ::
 
 Protocol 2
 Ciphers aes256-ctr
-MACs hmac-sha2-512
-KexAlgorithms ecdh-sha2-nistp521
+MACs hmac-sha1
+#KexAlgorithms ecdh-sha2-nistp521
 HostKey /etc/ssh/ssh_host_ecdsa_key
 
 SyslogFacility AUTH
@@ -27,11 +27,11 @@ IgnoreRhosts yes
 PasswordAuthentication no
 PermitEmptyPasswords no
 ChallengeResponseAuthentication no
-KerberosAuthentication no
+#KerberosAuthentication no
 #KerberosOrLocalPasswd yes
 #KerberosTicketCleanup yes
 #KerberosGetAFSToken no
-GSSAPIAuthentication no
+#GSSAPIAuthentication no
 #GSSAPICleanupCredentials yes
 
 UsePAM yes
@@ -51,7 +51,7 @@ PermitUserEnvironment no
 Compression delayed
 ClientAliveInterval 5
 ClientAliveCountMax 3
-UseDNS yes
+UseDNS no
 PidFile /var/run/sshd.pid
 MaxStartups 10
 PermitTunnel no
