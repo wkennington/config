@@ -1,6 +1,9 @@
 #!/usr/bin/env zsh
+
 # Attempt to Update Configs
 if [ ! -f "$HOME/.zupdate" ]; then
+	echo -n "Updating... "
 	"$(dirname "$(readlink -f "$HOME/.zprofile")")/update-git"
 	touch "$HOME/.zupdate"
+	echo "Done!"
 fi
