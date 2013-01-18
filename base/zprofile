@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Attempt to Update Configs
-if [ "$(ps ux | grep zsh | wc -l)" -le "2" ]; then
+if [ "$(ps ux | grep zsh | wc -l)" -le "3" ]; then
 	echo -n "Updating... "
 	"$(dirname "$(readlink -f "$HOME/.zprofile")")/update-git"
 	echo "Done!"
