@@ -3,7 +3,7 @@
 #Print Whether We Updated Root
 UP="$1"
 if [ "$UP" = "1" ]; then
-	echo "Updated Root Config Files."
+	#echo "Updated Root Config Files."
 fi
 
 #Initialize Submodules
