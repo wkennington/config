@@ -1,10 +1,10 @@
 #!/bin/sh
 
 #Print Whether We Updated Root
-UP="$1"
-if [ "$UP" = "1" ]; then
+#UP="$1"
+#if [ "$UP" = "1" ]; then
 	#echo "Updated Root Config Files."
-fi
+#fi
 
 #Initialize Submodules
 DIR="$(dirname $(readlink -f $0))"
