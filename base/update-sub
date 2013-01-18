@@ -1,6 +1,6 @@
 #!/bin/sh
 DIR="$(dirname $(readlink -f $0))"
 ${DIR}/gpom
-if [ "$?" != "0" ]; then
-	echo "Updated $(basename $(pwd))"
-fi
+#if [ "$?" != "0" ]; then
+	#echo "Updated $(basename $(pwd))"
+#fi
