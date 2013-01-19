@@ -86,7 +86,7 @@ if [ "$AGENT" != "" ]; then
 			fi
 		fi
 		if [ ! -f $SOCKFILE ]; then
-			echo "$($RUN | grep -v "echo")" > "$SOCKFILE"
+			echo "$(eval $RUN | grep -v "echo")" > "$SOCKFILE"
 			. "$SOCKFILE"
 			ssh-add
 		fi
