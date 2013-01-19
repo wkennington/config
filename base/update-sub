@@ -4,3 +4,4 @@ ${DIR}/gpom
 #if [ "$?" != "0" ]; then
 	#echo "Updated $(basename $(pwd))"
 #fi
+return 0
