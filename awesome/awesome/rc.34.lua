@@ -90,29 +90,29 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = {
-	{ "Abiword", "abiword" },
-	{ "Awesome", myawesomemenu, beautiful.awesome_icon },
-	{ "Chromium", "chromium" },
-	{ "Emacs", "emacsclient -c -n" },
-	{ "Firefox", "firefox" },
-	{ "Gimp", "gimp"},
-	{ "Gvim", "gvim" },
-	{ "Libreoffice", "libreoffice" },
-	{ "Mumble", "mumble" },
-	{ "Pidgin", "pidgin" },
-	{ "Pithos", "pithos" },
-	{ "Skype", "skype" },
-	{ "Terminal", terminal },
-	{ "Thunderbird", "thunderbird" },
-	{ "Virtualbox", "virtualbox" },
-	{ "Virt-Manager", "virt-manager" },
-	{ "VLC", "vlc" },
-	{ "Volume", "pavucontrol" },
-	{ "Xchat", "xchat" },
-	{ "Zathura", "zathura" }
-    }
-                        })
+mymainmenu = awful.menu(
+   {items = {
+       { "Abiword", "abiword" },
+       { "Awesome", myawesomemenu, beautiful.awesome_icon },
+       { "Chromium", "chromium" },
+       { "Emacs", "emacsclient -c -n" },
+       { "Firefox", "firefox" },
+       { "Gimp", "gimp"},
+       { "Gvim", "gvim" },
+       { "Libreoffice", "libreoffice" },
+       { "Mumble", "mumble" },
+       { "Pidgin", "pidgin" },
+       { "Pithos", "pithos" },
+       { "Skype", "skype" },
+       { "Terminal", terminal },
+       { "Thunderbird", "thunderbird" },
+       { "Virtualbox", "virtualbox" },
+       { "Virt-Manager", "virt-manager" },
+       { "VLC", "vlc" },
+       { "Volume", "pavucontrol" },
+       { "Xchat", "xchat" },
+       { "Zathura", "zathura" }
+   }})
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
@@ -122,11 +122,13 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 -- Battery
 require("battery")
-batterywidget = widget({ type = "textbox" })
-bat_clo = battery.batclosure("BAT0")
-batterywidget.text = bat_clo()
+mybatterywidget = widget({ type = "textbox" })
+function bat_set ()
+   mybatterywidget.text = battery.get_text()
+end
+bat_set()
 battimer = timer({ timeout = 30 })
-battimer:add_signal("timeout", function() batterywidget.text = bat_clo() end)
+battimer:add_signal("timeout", bat_set)
 battimer:start()
 
 -- Create a textclock widget
@@ -211,7 +213,7 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
-		batterywidget,
+        mybatterywidget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft

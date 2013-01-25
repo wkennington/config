@@ -83,13 +83,15 @@ end
 -- Define a tag table which hold all screen tags.
 tags = {}
 for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-	tags[s] = awful.tag({ "Code", "Net", "Float", "Chat", "Mail", "Ext1", "Ext2"}, s, layouts[2])
-	awful.layout.set(layouts[1], tags[s][3])
-	awful.layout.set(layouts[7], tags[s][6])
-	awful.layout.set(layouts[7], tags[s][7])
-	tags[s][3].selected = true
-	tags[s][1].selected = false
+   -- Each screen has its own tag table.
+   tags[s] = awful.tag(
+      { "Code", "Net", "Float", "Chat", "Mail", "Ext1", "Ext2"},
+      s, layouts[2])
+   awful.layout.set(layouts[1], tags[s][3])
+   awful.layout.set(layouts[7], tags[s][6])
+   awful.layout.set(layouts[7], tags[s][7])
+   tags[s][3].selected = true
+   tags[s][1].selected = false
 end
 -- }}}
 
@@ -103,27 +105,27 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = {
-	{ "Abiword", "abiword" },
-	{ "Awesome", myawesomemenu, beautiful.awesome_icon },
-	{ "Chromium", "chromium" },
-	{ "Emacs", "emacsclient -c -n" },
-	{ "Firefox", "firefox" },
-	{ "Gimp", "gimp"},
-	{ "Gvim", "gvim" },
-	{ "Libreoffice", "libreoffice" },
-	{ "Mumble", "mumble" },
-	{ "Pidgin", "pidgin" },
-	{ "Pithos", "pithos" },
-	{ "Skype", "skype" },
-	{ "Terminal", terminal },
-	{ "Thunderbird", "thunderbird" },
-	{ "Virtualbox", "virtualbox" },
-	{ "Virt-Manager", "virt-manager" },
-	{ "VLC", "vlc" },
-	{ "Volume", "pavucontrol" },
-	{ "Xchat", "xchat" },
-	{ "Zathura", "zathura" }
-}})
+                             { "Abiword", "abiword" },
+                             { "Awesome", myawesomemenu, beautiful.awesome_icon },
+                             { "Chromium", "chromium" },
+                             { "Emacs", "emacsclient -c -n" },
+                             { "Firefox", "firefox" },
+                             { "Gimp", "gimp"},
+                             { "Gvim", "gvim" },
+                             { "Libreoffice", "libreoffice" },
+                             { "Mumble", "mumble" },
+                             { "Pidgin", "pidgin" },
+                             { "Pithos", "pithos" },
+                             { "Skype", "skype" },
+                             { "Terminal", terminal },
+                             { "Thunderbird", "thunderbird" },
+                             { "Virtualbox", "virtualbox" },
+                             { "Virt-Manager", "virt-manager" },
+                             { "VLC", "vlc" },
+                             { "Volume", "pavucontrol" },
+                             { "Xchat", "xchat" },
+                             { "Zathura", "zathura" }
+                                  }})
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
@@ -137,10 +139,12 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Battery
 require("battery")
 mybatterywidget = wibox.widget.textbox()
-bat_clo = battery.batclosure("BAT0")
-mybatterywidget.text = bat_clo()
+function bat_set ()
+   mybatterywidget:set_text(battery.get_text())
+end
+bat_set()
 battimer = timer({ timeout = 30 })
-battimer:connect_signal("timeout", function() mybatterywidget.text = bat_clo() end)
+battimer:connect_signal("timeout", bat_set)
 battimer:start()
 
 -- Create a textclock widget
@@ -223,7 +227,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
-	right_layout:add(mybatterywidget)
+    right_layout:add(mybatterywidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
