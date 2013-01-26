@@ -1,0 +1,63 @@
+Port 22
+ListenAddress 0.0.0.0
+ListenAddress ::
+
+Protocol 2
+Ciphers aes256-ctr
+MACs hmac-sha1
+#KexAlgorithms ecdh-sha2-nistp521
+HostKey /etc/ssh/ssh_host_ecdsa_key
+
+SyslogFacility AUTH
+LogLevel INFO
+
+LoginGraceTime 2m
+PermitRootLogin no
+StrictModes yes
+MaxAuthTries 3
+MaxSessions 10
+
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile	.ssh/authorized_keys
+HostbasedAuthentication no
+IgnoreUserKnownHosts no
+IgnoreRhosts yes
+
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+
+UsePAM yes
+
+AllowAgentForwarding yes
+AllowTcpForwarding no
+GatewayPorts no
+X11Forwarding no
+#X11DisplayOffset 10
+#X11UseLocalhost yes
+PrintMotd no
+PrintLastLog yes
+TCPKeepAlive yes
+UseLogin no
+UsePrivilegeSeparation yes
+PermitUserEnvironment no
+Compression delayed
+ClientAliveInterval 5
+ClientAliveCountMax 3
+UseDNS no
+PidFile /var/run/sshd.pid
+MaxStartups 10
+PermitTunnel no
+ChrootDirectory none
+
+Banner none
+Subsystem	sftp	/usr/lib/ssh/sftp-server
+
+AllowGroups sshaccess
