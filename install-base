@@ -53,8 +53,12 @@ if [ "$?" != "0" ]; then
 	fi
 fi
 
-#SETUP SSH
+# SETUP SSH
 if [ ! -f ~/.ssh/id_rsa.pub ]; then
 	echo "Creating SSH Keys"
 	${DIR}/install-ssh-keys
 fi
+ssh-keygen -H >/dev/null 2>&1
+rm -f ~/.ssh/known_hosts.old
+rm -f ~/.ssh/config
+ln -s "${DIR}/base/ssh_config" ~/.ssh/config
