@@ -2,8 +2,23 @@
 FILE=`readlink -f $0`
 DIR=`dirname $FILE`
 cd "$DIR"
-cp sshd_config /etc/ssh
-chown "root:${GROUP}" /etc/ssh/sshd_config
-chmod 0644 /etc/ssh/sshd_config
+SSH="$(which ssh 2>/dev/null)"
+if [ "$?" -ne "0" ]; then
+	echo "Failed to Get SSH Version" >2
+	exit 1
+fi
+VER="$(ssh -V 2>&1 | sed -n 's/OpenSSH_\([0-9.]*\).*/\1/p' | sed 's/\.//g')"
+echo "Detected Version $VER" >2
+if [ "$VER" -lt "59" ]; then
+	FILE="sshd_config_58"
+else
+	FILE="sshd_config"
+fi
+cp "$FILE" /etc/ssh/sshd_config
+USR="root:$(id -gn root)"
+chown "$USR" /etc/ssh/sshd_config
+chmod 0600 /etc/ssh/sshd_config
 ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ""
+chown "$USR" /etc/ssh/ssh_host_rsa_key
 ssh-keygen -t ecdsa -b 521 -f /etc/ssh/ssh_host_ecdsa_key -N ""
+chown "$USR" /etc/ssh/ssh_host_rsa_key
