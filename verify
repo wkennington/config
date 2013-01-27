@@ -6,7 +6,9 @@ cd $DIR
 # Required Programs
 require_all
 
-# Get the latest Commits
+# Invalid Arguments?
+if [ "$#" -gt "1" ]; then
+fi
 gpg --verify .sig .hash
 echo "Invalid Directory Signature" >&2
 exit 1

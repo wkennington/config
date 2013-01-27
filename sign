@@ -7,22 +7,20 @@ cd $DIR
 require_all
 
 # Check for Valid Arguments
-if [ "$#" -gt "1" ]; then
-	echo "$0 [message]" >&2
+if [ "$#" -ne "1" ]; then
+	echo "$0 message" >&2
 	exit 1
 fi
 
-# Commit Current Changes?
-if [ "$#" -eq "1" ]; then
-	git commit -m "$1"
-else
-	echo "Signing Without Committing" >&2
-fi
+# Commit Current Changes
+date -u +%s > .date
+git add .date
+git commit -m "$1"
 
 # Sign and Commit Signature
-if [ "$?" -lt "" ]; then
-fi
-gpg --sign
+hash_commit "HEAD" > .hash
+rm -f .sig
+gpg -bo .sig .hash
 git add .hash .sig
 git commit -m "Signing Commit"
-git push
+git push origin master
