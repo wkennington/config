@@ -1,4 +1,28 @@
 #!/bin/sh
 DIR="$(dirname "$(readlink -f "$0")")"
 cd $DIR
-tar -cX .tarexclude . | openssl dgst -sha512 -binary -out .hash
+. ./integrity
+
+# Required Programs
+require_all
+
+# Check for Valid Arguments
+if [ "$#" -gt "1" ]; then
+	echo "$0 [message]" >&2
+	exit 1
+fi
+
+# Commit Current Changes?
+if [ "$#" -eq "1" ]; then
+	git commit -m "$1"
+else
+	echo "Signing Without Committing" >&2
+fi
+
+# Sign and Commit Signature
+if [ "$?" -lt "" ]; then
+fi
+gpg --sign
+git add .hash .sig
+git commit -m "Signing Commit"
+git push
