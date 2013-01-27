@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "Invalid Directory Signature"
+exit 1
