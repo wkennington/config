@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+KEYDIR="keys"
+SER="$KEYDIR/serial.txt"
+. ./include
+. ./opts
+
+if [[ ! -d "$KEYDIR" ]]; then
+	echo "You must run ./build-ca first"
+	exit 1
+fi
+if [[ ! -f "$SER" ]]; then
+	echo "Missing ${SER}, something might have gone wrong"
+	exit 1
+fi
+$OPENSSL ecparam -name secp521r1 -out "${KEYDIR}/dh.pem"
