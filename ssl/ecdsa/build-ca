@@ -1,11 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 KEYDIR="keys"
 SER="$KEYDIR/serial.txt"
-source ./opts
+. ./include
+. ./opts
 
 if [ -d "$KEYDIR" ]; then
 	read -p "Key folder \"${KEYDIR}\" already exists, Delete and Continue? [y|N] " ret
-	if [[ "$ret" = "y" || "$ret" = "Y" ]]; then
+	if [[ "$ret" = "y"  || "$ret" = "Y" ]]; then
 		rm -rf "$KEYDIR"
 	else
 		echo "Will not continue generating ca"
@@ -14,9 +15,11 @@ if [ -d "$KEYDIR" ]; then
 fi
 rm -f "$SER"
 stty -echo
-read -p "Password: " pass
+echo -n "Password: "
+read pass
 echo ""
-read -p "Confirm: " pass2
+echo -n "Confirm: "
+read pass2
 echo ""
 stty echo
 if [ "$pass" != "$pass2" ]; then
@@ -30,8 +33,8 @@ fi
 mkdir "$KEYDIR"
 touch "${KEYDIR}/ca.key"
 chmod 0600 "${KEYDIR}/ca.key"
-openssl ecparam -genkey -name secp521r1 | openssl ec -aes256 -passout "pass:${pass}" -out "${KEYDIR}/ca.key"
-openssl req -new -x509 -sha512 -passin "pass:${pass}" -config openssl.cnf -extensions v3_ca -key "${KEYDIR}/ca.key" -out "${KEYDIR}/ca.crt"
+$OPENSSL ecparam -genkey -name secp521r1 | openssl ec -aes256 -passout "pass:${pass}" -out "${KEYDIR}/ca.key"
+$OPENSSL req -new -x509 -sha512 -passin "pass:${pass}" -config openssl.cnf -extensions v3_ca -key "${KEYDIR}/ca.key" -out "${KEYDIR}/ca.crt"
 if [ "$?" != "0" ]; then
 	echo "Failed to Create CA Certificate"
 	exit 1
