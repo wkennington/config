@@ -13,6 +13,7 @@ else
 fi
 ln -s $DIR/Terminal ~/.config/Terminal
 ln -s $DIR/wallpaper ~/.config/wallpaper
+ln -s $DIR/uzbl ~/.config/uzbl
 #ln -sv $DIR/sakura ~/.config/sakura
 #ln -sv $DIR/gtk-3.0 ~/.config/gtk-3.0
 #ln -sv $DIR/Xdefaults ~/.Xdefaults
