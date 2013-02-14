@@ -119,6 +119,7 @@ mymainmenu = awful.menu({ items = {
                              { "Skype", "skype" },
                              { "Terminal", terminal },
                              { "Thunderbird", "thunderbird" },
+                             { "UZBL", "uzbl-tabbed" },
                              { "Virtualbox", "virtualbox" },
                              { "Virt-Manager", "virt-manager" },
                              { "VLC", "vlc" },
