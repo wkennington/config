@@ -15,6 +15,7 @@ which pulseaudio >/dev/null 2>&1 && pulseaudio --start
 which xscreensaver >/dev/null 2>&1 && xscreensaver -no-splash &
 which VBoxClient-all >/dev/null 2>&1 && VBoxClient-all &
 which xcompmgr >/dev/null 2>&1 && xcompmgr &
+which unclutter >/dev/null 2>&1 && unclutter &
 if [ -f .xinitrc.start ]; then
 	bash .xinitrc.start
 fi
