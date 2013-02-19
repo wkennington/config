@@ -10,12 +10,15 @@ which xcompmgr >/dev/null 2>&1 && xcompmgr &
 if [ -f .xinitrc.start ]; then
 	bash .xinitrc.start
 fi
-if [ "" = "$1" ]; then
-	1="xmonad"
-elif [ "Awesome" = "$1" ]; then
-	1="awesome"
+WM="$1"
+if [ "$WM" = "" ]; then
+	WM="xmonad"
+elif [ "$WM" = "Xmonad" ]; then
+	WM="xmonad"
+elif [ "$WM" = "Awesome" ]; then
+	WM="awesome"
 fi
-if [ "awesome" = "$1" ]; then
+if [ "$WM" = "awesome" ]; then
 	if [ -d ~/.config/wallpaper ]; then
 		if [ "`ls ~/.config/wallpaper | wc -l`" -gt "1" ]; then
 			sleep 2
@@ -26,9 +29,9 @@ if [ "awesome" = "$1" ]; then
 		fi
 	fi
 	exec awesome
-elif [ "xfce4" = "$1" ]; then
+elif [ "$WM" = "xfce4" ]; then
 	exec startxfce4
-elif [ "xmonad" = "$1" ]; then
+elif [ "$WM" = "xmonad" ]; then
 	which hhp >/dev/null 2>&1 && hhp &
 	exec xmonad
 else
