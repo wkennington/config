@@ -120,7 +120,10 @@ if [ "$EMACS" != "" ]; then
 	fi
 fi
 
-#FreeBSD Vars
+# Battery
+alias bat='echo "$(B="$(cat /sys/class/power_supply/BAT*/status)"; [[ "$B" = "Charging" ]] && echo "↑" || [[ "$B" = "Discharging" ]] && echo "↓" || echo "⚡")$(expr $(cat /sys/class/power_supply/BAT*/charge_now) \* 100 / $(cat /sys/class/power_supply/BAT*/charge_full))%"'
+
+# FreeBSD Vars
 EDITOR="vim"
 export EDITOR
 PAGER="less"
