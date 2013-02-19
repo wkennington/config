@@ -10,13 +10,12 @@ which xcompmgr >/dev/null 2>&1 && xcompmgr &
 if [ -f .xinitrc.start ]; then
 	bash .xinitrc.start
 fi
-if [ "Awesome" = "$1" ]; then
-	1=""
+if [ "" = "$1" ]; then
+	1="xmonad"
+elif [ "Awesome" = "$1" ]; then
+	1="awesome"
 fi
 if [ "awesome" = "$1" ]; then
-	1=""
-fi
-if [ "" = "$1" ]; then
 	if [ -d ~/.config/wallpaper ]; then
 		if [ "`ls ~/.config/wallpaper | wc -l`" -gt "1" ]; then
 			sleep 2
