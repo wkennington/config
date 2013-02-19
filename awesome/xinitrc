@@ -1,25 +1,31 @@
+#!/bin/sh
 which autocutsel >/dev/null 2>&1
 if [ "$?" = "0" ]; then
 	autocutsel -fork &
-fi
-if [ -d ~/.config/wallpaper ]; then
-	if [ "`ls ~/.config/wallpaper | wc -l`" -gt "1" ]; then
-		sleep 2
-		while true; do
-			awsetbg -r ~/.config/wallpaper
-			sleep 300
-		done &
-	fi
 fi
 which pulseaudio >/dev/null 2>&1 && pulseaudio --start
 which xscreensaver >/dev/null 2>&1 && xscreensaver -no-splash &
 which VBoxClient-all >/dev/null 2>&1 && VBoxClient-all &
 which xcompmgr >/dev/null 2>&1 && xcompmgr &
-which unclutter >/dev/null 2>&1 && unclutter -idle 1 &
 if [ -f .xinitrc.start ]; then
 	bash .xinitrc.start
 fi
+if [ "Awesome" = "$1" ]; then
+	1=""
+fi
+if [ "awesome" = "$1" ]; then
+	1=""
+fi
 if [ "" = "$1" ]; then
+	if [ -d ~/.config/wallpaper ]; then
+		if [ "`ls ~/.config/wallpaper | wc -l`" -gt "1" ]; then
+			sleep 2
+			while true; do
+				awsetbg -r ~/.config/wallpaper
+				sleep 300
+			done &
+		fi
+	fi
 	exec awesome
 elif [ "xfce4" = "$1" ]; then
 	exec startxfce4
