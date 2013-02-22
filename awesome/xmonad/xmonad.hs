@@ -58,9 +58,17 @@ myFocusedBorderColor = "#ff0000"
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+
+	-- launch uzbl
+	, ((modm .|. shiftMask,	xK_u	), spawn "uzbl-tabbed")
+
+	-- launch emacs
+	, ((modm .|. shiftMask,	xK_i	), spawn "emacsclient -c")
+
+	-- lock screen
+	, ((modm,				xK_a	), spawn "xscreensaver-command -lock")
 
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "dmenu_run")
