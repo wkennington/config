@@ -1,4 +1,9 @@
 #!/bin/sh
+
+# Determine if this is a workstation
+WS=0
+if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\)")" != "" ]; then WS=1; fi
+
 #XTERM
 if [ "${TERM}" = "xterm" ]; then
 	export TERM=xterm-256color
@@ -49,49 +54,51 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 #ROOT
 alias root="${SUDO}su -"
 
-#KEYRING AUTH INIT
-AGENT="$(which gpg-agent 2>/dev/null | grep -v "not found")"
-if [ "$AGENT" != "" ]; then
-	RUN="\"$AGENT\" --daemon --enable-ssh-support"
-	AGENT="gpg-agent"
-fi
-if [ "$AGENT" = "" ]; then
-	AGENT="$(which ssh-agent 2>/dev/null | grep -v "not found")"
+#KEYRING AUTH INIT on Desktop
+if [ "$WS" -eq "1" ]; then if [ "$(id -un)" = "william" ]; then
+	AGENT="$(which gpg-agent 2>/dev/null | grep -v "not found")"
 	if [ "$AGENT" != "" ]; then
-		RUN="\"$AGENT\""
-		AGENT="ssh-agent"
+		RUN="\"$AGENT\" --daemon --enable-ssh-support"
+		AGENT="gpg-agent"
 	fi
-fi
-if [ "$AGENT" != "" ]; then
-	SOCKFILE="${HOME}/.ssh/environment-${HOST}"
-	if [ "$SSH_AUTH_SOCK" = "" ]; then
-		if [ -f "$SOCKFILE" ]; then
-			. "$SOCKFILE"
-			PID="$SSH_AGENT_PID"
-			if [ "$(uname | grep CYGWIN)" = "" ]; then
-				PID2="$(ps -U $USER | grep "$AGENT" | grep -v grep | awk '{print $1}')"
-			else
-				PID2="$(ps | grep "$AGENT" | grep -v grep | awk '{print $1}')"
-			fi
-			eval "PID2=($PID2)"
-			OPEN=0
-			for i in $PID2; do
-				if [ "$i" = "$PID" ]; then
-					echo "Keyring Agent Already Running"
-					OPEN=1
+	if [ "$AGENT" = "" ]; then
+		AGENT="$(which ssh-agent 2>/dev/null | grep -v "not found")"
+		if [ "$AGENT" != "" ]; then
+			RUN="\"$AGENT\""
+			AGENT="ssh-agent"
+		fi
+	fi
+	if [ "$AGENT" != "" ]; then
+		SOCKFILE="${HOME}/.ssh/environment-${HOST}"
+		if [ "$SSH_AUTH_SOCK" = "" ]; then
+			if [ -f "$SOCKFILE" ]; then
+				. "$SOCKFILE"
+				PID="$SSH_AGENT_PID"
+				if [ "$(uname | grep CYGWIN)" = "" ]; then
+					PID2="$(ps -U $USER | grep "$AGENT" | grep -v grep | awk '{print $1}')"
+				else
+					PID2="$(ps | grep "$AGENT" | grep -v grep | awk '{print $1}')"
 				fi
-			done
-			if [ "$OPEN" = "0" ]; then
-				rm "$SOCKFILE"
+				eval "PID2=($PID2)"
+				OPEN=0
+				for i in $PID2; do
+					if [ "$i" = "$PID" ]; then
+						echo "Keyring Agent Already Running"
+						OPEN=1
+					fi
+				done
+				if [ "$OPEN" = "0" ]; then
+					rm "$SOCKFILE"
+				fi
+			fi
+			if [ ! -f $SOCKFILE ]; then
+				echo "$(eval $RUN | grep -v "echo")" > "$SOCKFILE"
+				. "$SOCKFILE"
+				ssh-add
 			fi
 		fi
-		if [ ! -f $SOCKFILE ]; then
-			echo "$(eval $RUN | grep -v "echo")" > "$SOCKFILE"
-			. "$SOCKFILE"
-			ssh-add
-		fi
 	fi
-fi
+fi fi
 
 #EMACS STUFF
 EMACS="$(which emacs 2>/dev/null | grep -v "not found")"
