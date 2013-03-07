@@ -4,7 +4,7 @@
 WS=0
 if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\)")" != "" ]; then WS=1; fi
 
-#XTERM
+# XTERM
 if [ "${TERM}" = "xterm" ]; then
 	export TERM=xterm-256color
 elif [ "${TERM}" = "rxvt-unicode-256color" ]; then
@@ -12,7 +12,7 @@ elif [ "${TERM}" = "rxvt-unicode-256color" ]; then
 	unset COLORTERM
 fi
 
-#UPDATE CMD
+# UPDATE CMD
 SUDO=$(which sudo 2>/dev/null | grep -v "not found")
 if [ "$SUDO" != "" ]; then
 	SUDO="${SUDO} "
@@ -48,14 +48,14 @@ elif [ "$UN" = "SunOS" ]; then
 	alias inst="$SUDO"'pkg install'
 fi
 
-#Sprunge
+# Sprunge
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
-#ROOT
+# ROOT
 alias root="${SUDO}su -"
 
-#KEYRING AUTH INIT on Desktop
 if [ "$WS" -eq "1" ]; then if [ "$(id -un)" = "william" ]; then
+	# KEYRING AUTH INIT on Desktop
 	AGENT="$(which gpg-agent 2>/dev/null | grep -v "not found")"
 	if [ "$AGENT" != "" ]; then
 		RUN="\"$AGENT\" --daemon --enable-ssh-support"
@@ -98,34 +98,34 @@ if [ "$WS" -eq "1" ]; then if [ "$(id -un)" = "william" ]; then
 			fi
 		fi
 	fi
-fi fi
 
-#EMACS STUFF
-EMACS="$(which emacs 2>/dev/null | grep -v "not found")"
-if [ "$EMACS" != "" ]; then
-	RET=`${EMACS} --help 2> /dev/null | grep daemon`
-	if [ "${RET}" != "" ]; then
-		alias emacs="$(which emacsclient) -t"
-		PID="$(cat ~/.emacs.pid 2>/dev/null)"
-		if [ "$(uname | grep CYGWIN)" = "" ]; then
-			PID2="$(ps -U $USER | grep emacs | grep -v grep | awk '{print $1}')"
-		else
-			PID2="$(ps | grep emacs | grep -v grep | awk '{print $1}')"
-		fi
-		eval "PID2=($PID2)"
-		OPEN=0
-		for i in $PID2; do
-			if [ "$i" = "$PID" ]; then
-				echo "Emacs Already Running"
-				OPEN=1
+	# EMACS STUFF
+	EMACS="$(which emacs 2>/dev/null | grep -v "not found")"
+	if [ "$EMACS" != "" ]; then
+		RET=`${EMACS} --help 2> /dev/null | grep daemon`
+		if [ "${RET}" != "" ]; then
+			alias emacs="$(which emacsclient) -t"
+			PID="$(cat ~/.emacs.pid 2>/dev/null)"
+			if [ "$(uname | grep CYGWIN)" = "" ]; then
+				PID2="$(ps -U $USER | grep emacs | grep -v grep | awk '{print $1}')"
+			else
+				PID2="$(ps | grep emacs | grep -v grep | awk '{print $1}')"
 			fi
-		done
-		if [ "$OPEN" = "0" ]; then
-			echo "Starting the Emacs Daemon"
-			$EMACS --daemon >/dev/null 2>&1
+			eval "PID2=($PID2)"
+			OPEN=0
+			for i in $PID2; do
+				if [ "$i" = "$PID" ]; then
+					echo "Emacs Already Running"
+					OPEN=1
+				fi
+			done
+			if [ "$OPEN" = "0" ]; then
+				echo "Starting the Emacs Daemon"
+				$EMACS --daemon >/dev/null 2>&1
+			fi
 		fi
 	fi
-fi
+fi fi
 
 # Battery
 alias bat='echo "$(B="$(cat /sys/class/power_supply/BAT*/status)"; [[ "$B" = "Charging" ]] && echo "↑" || [[ "$B" = "Discharging" ]] && echo "↓" || echo "⚡")$(expr $(cat /sys/class/power_supply/BAT*/charge_now) \* 100 / $(cat /sys/class/power_supply/BAT*/charge_full))%"'
