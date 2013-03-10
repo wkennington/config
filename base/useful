@@ -138,3 +138,6 @@ PAGER="less"
 export PAGER
 BLOCKSIZE="K"
 export BLOCKSIZE
+
+# Add Cabal to path
+PATH="$PATH:$HOME/.cabal/bin"
