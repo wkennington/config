@@ -2,7 +2,7 @@
 
 # Determine if this is a workstation
 WS=0
-if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\)")" != "" ]; then WS=1; fi
+if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\)")" != "" ]; then WS=1; fi
 
 # XTERM
 if [ "${TERM}" = "xterm" ]; then
