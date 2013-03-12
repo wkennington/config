@@ -15,22 +15,12 @@ for i in $CONF; do
 	ln -s ${DIR}/base/$i ~/.$i
 done
 
-#DETERMINE IF PRELUDE CAN BE USED
+# USE EMACS
 EMACS="$(which emacs 2>/dev/null | grep -v "not found")"
 if [ "$EMACS" != "" ]; then
-	VER="$(${EMACS} --version | awk 'NR==1 {print $3}')"
-	VER="$(printf "24.0\n%s" "$VER" | sort -bt. -k1,1n -k2,2n -k3,3n -k4,4n -k5,5n | awk 'NR==1')"
-	if [ "$VER" = "24.0" ]; then
-		#LINK PRELUDE
-		rm -f "${HOME}/.emacs" "${DIR}/prelude/personal/emacs.el"
-		rm -rf "${HOME}/.emacs.d"
-		ln -s "${DIR}/prelude" "${HOME}/.emacs.d"
-		ln -s "${DIR}/base/emacs_prelude" "${DIR}/prelude/personal/emacs.el"
-	else
-		rm -rf "${HOME}/.emacs.d"
-		rm -f "${HOME}/.emacs"
-		ln -s "${DIR}/base/emacs" "${HOME}/.emacs"
-	fi
+	rm -rf "${HOME}/.emacs.d"
+	rm -f "${HOME}/.emacs"
+	ln -s "${DIR}/base/emacs" "${HOME}/.emacs"
 fi
 
 #SETUP ZSH IF POSSIBLE
