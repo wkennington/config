@@ -24,6 +24,7 @@ set tabstop=4
 set nobackup
 set nowb
 set noswapfile
+set viminfo=""
 set smarttab
 set ai
 set si
