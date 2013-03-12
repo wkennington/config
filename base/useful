@@ -114,3 +114,6 @@ export BLOCKSIZE
 
 # Add Cabal to path
 PATH="$PATH:$HOME/.cabal/bin"
+
+# Git Pull All and Submodules
+alias gpa="git pull origin master; git submodule foreach --recursive \"(git checkout master; git pull origin master)&\""
