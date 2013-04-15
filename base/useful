@@ -18,6 +18,7 @@ if [ "$SUDO" != "" ]; then
 	SUDO="${SUDO} "
 fi
 UN="$(uname)"
+alias aura="$SUDO"'aura'
 if [ "$UN" = "Linux" ]; then
 	ISSUE=$(cat /etc/issue)
 	if [ "$(echo "$ISSUE" | grep "Arch Linux")" != "" ]; then
