@@ -22,9 +22,10 @@ alias aura="$SUDO"'aura'
 if [ "$UN" = "Linux" ]; then
 	ISSUE=$(cat /etc/issue)
 	if [ "$(echo "$ISSUE" | grep "Arch Linux")" != "" ]; then
-		if [ "$(which packer 2>/dev/null | grep -v "not found")" != "" ]; then
-			alias update='packer -Syu'
-			alias inst='packer -S'
+		if [ "$(which aura 2>/dev/null | grep -v "not found")" != "" ]; then
+			alias update='aura -Syu; aura -Akua'
+			alias inst='aura -S'
+			alias aur='aura -A'
 		else
 			alias update="$SUDO"'pacman -Syu'
 			alias inst="$SUDO"'sudo pacman -S'
