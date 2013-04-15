@@ -16,12 +16,9 @@ for i in $CONF; do
 done
 
 # USE EMACS
-EMACS="$(which emacs 2>/dev/null | grep -v "not found")"
-if [ "$EMACS" != "" ]; then
-	rm -rf "${HOME}/.emacs.d"
-	rm -f "${HOME}/.emacs"
-	ln -s "${DIR}/base/emacs.d" "${HOME}/.emacs.d"
-fi
+rm -rf "${HOME}/.emacs.d"
+rm -f "${HOME}/.emacs"
+ln -s "${DIR}/base/emacs.d" "${HOME}/.emacs.d"
 
 #SETUP ZSH IF POSSIBLE
 echo $SHELL | grep zsh >/dev/null 2>&1
