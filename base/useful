@@ -25,7 +25,7 @@ if [ "$UN" = "Linux" ]; then
 		if [ "$(which aura 2>/dev/null | grep -v "not found")" != "" ]; then
 			alias update='aura -Syu; aura -Akua'
 			alias inst='aura -S'
-			alias aur='aura -A'
+			alias aur='aura -Aa'
 		else
 			alias update="$SUDO"'pacman -Syu'
 			alias inst="$SUDO"'sudo pacman -S'
