@@ -20,7 +20,7 @@ EMACS="$(which emacs 2>/dev/null | grep -v "not found")"
 if [ "$EMACS" != "" ]; then
 	rm -rf "${HOME}/.emacs.d"
 	rm -f "${HOME}/.emacs"
-	ln -s "${DIR}/base/emacs" "${HOME}/.emacs"
+	ln -s "${DIR}/base/emacs.d" "${HOME}/.emacs.d"
 fi
 
 #SETUP ZSH IF POSSIBLE
