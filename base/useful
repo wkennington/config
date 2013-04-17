@@ -23,7 +23,7 @@ if [ "$UN" = "Linux" ]; then
 	if [ "$(echo "$ISSUE" | grep "Arch Linux")" != "" ]; then
 		if [ "$(which aura 2>/dev/null | grep -v "not found")" != "" ]; then
 			alias aura="$SUDO"'aura'
-			alias update='aura -Syu; aura -Akua'
+			alias update='aura -Syu; aura -Aku'
 			alias inst='aura -S'
 			alias aur='aura -Aa'
 		else
