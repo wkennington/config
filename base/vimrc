@@ -26,6 +26,7 @@ set nowb
 set noswapfile
 set viminfo=""
 set smarttab
+set expandtab
 set ai
 set si
 set ffs=unix,dos,mac
