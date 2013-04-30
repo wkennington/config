@@ -7,7 +7,7 @@ ZSH="$CONF/oh-my-zsh"
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="takashiyoshida"
-ZSH_THEME="mh"
+#ZSH_THEME="mh"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -31,10 +31,11 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git battery svn screen extract encode64 systemd task urltools pass)
+plugins=(battery svn screen extract encode64 systemd task urltools pass)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-alias sudo="nocorrect sudo"
 source $CONF/base/useful
+source $CONF/base/zsh-theme
+alias sudo="nocorrect sudo"
