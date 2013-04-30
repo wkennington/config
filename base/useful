@@ -4,7 +4,7 @@
 DIRS=("/dev/shm" "/tmp" "/var/tmp")
 TMP=""
 for I in $DIRS; do
-	mount | grep '\(tmpfs\|ramfs\)' | grep $I
+	mount | grep '\(tmpfs\|ramfs\)' | grep $I >/dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
         if [ -w "$I" ]; then
 		    TMP="$I"
