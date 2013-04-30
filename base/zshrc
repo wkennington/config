@@ -35,6 +35,7 @@ plugins=(git battery svn screen extract encode64 systemd task urltools pass)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-source $CONF/base/useful
 alias sudo="nocorrect sudo"
 export SAVEHIST=0
+
+source $CONF/base/useful

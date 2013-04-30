@@ -1,5 +1,26 @@
 #!/bin/sh
 
+# Setup Shared Memory Location
+DIRS="/dev/shm /tmp /var/tmp"
+TMP=""
+for I in $DIRS; do
+	mount | grep '\(tmpfs\|ramfs\)' | grep $I
+	if [ "$?" -eq "0" ]; then
+		TMP="$I"
+		break
+	fi
+done
+if [ "$TMP" != "" ]; then
+	TMP="$TMP/$USER"
+	mkdir "$TMP"
+	chmod 0700 "$TMP"
+	HISTFILE="$TMP/bash_history"
+	export HISTFILE
+	SAVEHIST="9999"
+	export SAVEHIST
+fi
+export TMP
+
 # Determine if this is a workstation
 WS=0
 if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\)")" != "" ]; then WS=1; fi
