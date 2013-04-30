@@ -6,15 +6,19 @@ TMP=""
 for I in $DIRS; do
 	mount | grep '\(tmpfs\|ramfs\)' | grep $I
 	if [ "$?" -eq "0" ]; then
-		TMP="$I"
-		break
+        if [ -w "$I" ]; then
+		    TMP="$I"
+		    break
+        fi
 	fi
 done
 if [ "$TMP" != "" ]; then
 	TMP="$TMP/$USER"
-	mkdir "$TMP"
+    if [ ! -d "$TMP" ]; then
+	    mkdir "$TMP"
+    fi
 	chmod 0700 "$TMP"
-	HISTFILE="$TMP/bash_history"
+    HISTFILE="$TMP/history_$(basename $SHELL)"
 	export HISTFILE
 	SAVEHIST="9999"
 	export SAVEHIST
