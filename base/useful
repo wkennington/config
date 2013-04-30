@@ -13,6 +13,7 @@ for I in $DIRS; do
 	fi
 done
 unset I
+unset DIRS
 if [ "$TMP" != "" ]; then
 	TMP="$TMP/$USER"
     if [ ! -d "$TMP" ]; then
