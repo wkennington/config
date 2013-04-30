@@ -22,6 +22,12 @@ if [ "$TMP" != "" ]; then
 	export HISTFILE
 	SAVEHIST="9999"
 	export SAVEHIST
+    echo "set viminfo=\"$TMP/viminfo\"" > $HOME/.vimrc.info
+else
+    unset HISTFILE
+    SAVEHIST="0"
+    export SAVEHIST
+    echo "set viminfo=\"\"" > $HOME/.vimrc.info
 fi
 export TMP
 

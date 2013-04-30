@@ -7,5 +7,3 @@ $(dirname $(readlink -f ~/.bash_profile))/update-git
 
 #OTHER STUFF
 [[ -f ~/.bashrc ]] && . ~/.bashrc
-
-unset HISTFILE

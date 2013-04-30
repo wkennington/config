@@ -24,7 +24,6 @@ set tabstop=4
 set nobackup
 set nowb
 set noswapfile
-set viminfo=""
 set smarttab
 set expandtab
 set ai
@@ -114,3 +113,5 @@ if !exists(":DiffOrig")
 endif
 
 set nomodeline
+
+source ~/.vimrc.info
