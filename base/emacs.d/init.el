@@ -1,3 +1,82 @@
+;; Determine the OS Environment
+(setq windows (or (eq system-type 'windows-nt)
+                  (eq system-type 'cygwin)
+                  (eq system-type 'ms-dos)))
+
+;; Set Default Encoding
+(set-language-environment "utf-8")
+
+;; Initialize Package Repositories
+(require 'package)
+(package-initialize)
+
+;; Setup List of Packages
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+;; Use Zenburn Theme
+(load-theme 'zenburn t)
+
+;; Customize Window Decorators
+(setq inhibit-startup-screen t)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(blink-cursor-mode -1)
+(line-number-mode t)
+(column-number-mode t)
+(size-indication-mode t)
+(if (not windows) (set-default-font "Monospace-10"))
+
+;; Workgroups
+(require 'workgroups)
+
+;; Tabs and Editing
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+;(global-whitespace-mode 1)
+
+;; Parens Highlighting
+(require 'paren)
+(setq show-paren-style 'parenthesis)
+(show-paren-mode +1)
+(electric-pair-mode +1)
+
+;; Prevent pause from breaking emacs
+(define-key global-map (kbd "<pause>") 1)
+
+;; Editing Configs
+(setq gac-automatically-push-p t)
+
+;; IDO
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+
+;; Yasnippet
+(yas-global-mode 1)
+
+;; Ace-Jump Mode
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+;; Setup Lisp and Slime
+(if windows
+    (setq inferior-lisp-program "wx86cl64")
+  (setq inferior-lisp-program "sbcl"))
+(load "~/quicklisp/slime-helper.el")
+
+;; SSH with Tramp
+(require 'tramp)
+(setq tramp-default-user "william")
+(if windows (setq tramp-default-method "plink"))
+
+;; IRC
+(defun freenode ()
+  "Connect to Freenode"
+  (interactive)
+  (erc-tls :server "irc.freenode.net" :port 7000 :nick "william"))
+
 ;;AUCTEX
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
@@ -13,7 +92,7 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTex t)
 
-;; easy spell check
+;; Easy spell check
 (add-hook 'flyspell-mode-hook 'flyspell-buffer)
 (global-set-key (kbd "<f8>") 'ispell-word)
 
