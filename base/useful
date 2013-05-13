@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Setup Shared Memory Location
-DIRS=("/dev/shm" "/tmp" "/var/tmp")
+DIRS=("/dev/shm" "/run/shm" "/tmp" "/var/tmp")
 TMP=""
 for I in $DIRS; do
 	mount | grep '\(tmpfs\|ramfs\)' | grep $I >/dev/null 2>&1
