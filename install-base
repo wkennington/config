@@ -30,8 +30,9 @@ if [ "$?" != "0" ]; then
 		if [ "$VER" = "4.3.9" ]; then
 			chsh -s "$ZSH" "$USER"
 			if [ "$?" != "0" ]; then
-				rm -fv ~/.bash_profile
+				rm -fv ~/.bash_profile ~/.bashrc
 				ln -s ${DIR}/base/bash_profile_zsh ~/.bash_profile
+                ln -s ${DIR}/base/bashrc_zsh ~/.bashrc
 			fi
 		fi
 	fi

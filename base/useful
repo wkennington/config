@@ -66,7 +66,7 @@ if [ "$UN" = "Linux" ]; then
 		fi
 		alias clean='if [ "$(pacman -Qqdt)" != "" ]; then; sudo pacman -Rns $(pacman -Qqdt); fi'
 		alias del="$SUDO"'pacman -Rsdc'
-	elif [ "$(echo "$ISSUE" | grep "Debian")" != "" ]; then
+    elif [ "$(echo "$ISSUE" | grep "\(Debian\|Ubuntu\)")" != "" ]; then
 		alias apt-get="$SUDO"'apt-get'
 		alias update='apt-get update; apt-get dist-upgrade'
 		alias inst='apt-get install'
