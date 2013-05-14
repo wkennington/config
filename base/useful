@@ -1,4 +1,5 @@
 #!/bin/sh
+source $CONF/base/header
 
 # Setup Shared Memory Location
 DIRS=("/dev/shm" "/run/shm" "/tmp" "/var/tmp")
@@ -32,10 +33,6 @@ else
     echo "set viminfo=\"\"" > $HOME/.vimrc.info
 fi
 export TMP
-
-# Determine if this is a workstation
-WS=0
-if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]; then WS=1; fi
 
 # XTERM
 if [ "${TERM}" = "xterm" ]; then
