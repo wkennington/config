@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 FILE="$(readlink -f "$0")"
 DIR="$(dirname "$FILE")/awesome"
-rm -rf "$HOME"/.{xinitrc,xmonad,Xdefaults,gtkrc-2.0,config/{awesome{/rc.lua,},sakura,gtk-3.0,Terminal,wallpaper,uzbl}}
+rm -rf "$HOME"/.{xinitrc,xsession,xmonad,Xdefaults,gtkrc-2.0,config/{awesome{/rc.lua,},sakura,gtk-3.0,Terminal,wallpaper,uzbl}}
 install -dv ~/.config
 #ln -sv $DIR/gtkrc-2.0 ~/.gtkrc-2.0
 ln -s $DIR/xinitrc ~/.xinitrc
@@ -20,3 +20,4 @@ ln -s $DIR/uzbl ~/.config/uzbl
 #ln -sv $DIR/gtk-3.0 ~/.config/gtk-3.0
 #ln -sv $DIR/Xdefaults ~/.Xdefaults
 ln -s $DIR/xmonad ~/.xmonad
+ln -s $HOME/.xinitrc $HOME/.xsession

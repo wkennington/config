@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 which autocutsel >/dev/null 2>&1
 if [ "$?" = "0" ]; then
 	autocutsel -fork &
