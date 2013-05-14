@@ -55,7 +55,8 @@
 (ido-mode 1)
 
 ;; Yasnippet
-(yas-global-mode 1)
+(require 'yasnippet-bundle)
+;;(yas-global-mode 1)
 
 ;; Ace-Jump Mode
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
@@ -64,7 +65,9 @@
 (if windows
     (setq inferior-lisp-program "wx86cl64")
   (setq inferior-lisp-program "sbcl"))
-(load "~/quicklisp/slime-helper.el")
+(if (file-exists-p "~/quicklisp/slime-helper.el")
+    (load "~/quicklisp/slime-helper.el")
+)
 
 ;; SSH with Tramp
 (require 'tramp)
