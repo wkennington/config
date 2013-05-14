@@ -6,10 +6,12 @@ install -dv ~/.config
 #ln -sv $DIR/gtkrc-2.0 ~/.gtkrc-2.0
 ln -s $DIR/xinitrc ~/.xinitrc
 ln -s $DIR/awesome ~/.config/awesome
-if [ "$(awesome --version | grep v3.5)" != "" ]; then
-	ln -s $DIR/awesome/rc.35.lua $DIR/awesome/rc.lua
-else
-	ln -s $DIR/awesome/rc.34.lua $DIR/awesome/rc.lua
+if [ "$(/usr/bin/env which sudo 2>/dev/null | grep -v "not found")" = "" ]; then
+    if [ "$(awesome --version | grep v3.5)" != "" ]; then
+        ln -s $DIR/awesome/rc.35.lua $DIR/awesome/rc.lua
+    else
+        ln -s $DIR/awesome/rc.34.lua $DIR/awesome/rc.lua
+    fi
 fi
 ln -s $DIR/Terminal ~/.config/Terminal
 ln -s $DIR/wallpaper ~/.config/wallpaper
