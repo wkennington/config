@@ -1,0 +1,6 @@
+#!/bin/sh
+function run_cmd() {
+    which $1 >/dev/null 2>&1 && $@
+}
+run_cmd gnome-screensaver-command -l
+run_cmd xscreensaver-command -lock
