@@ -27,7 +27,7 @@
 (line-number-mode t)
 (column-number-mode t)
 (size-indication-mode t)
-(if (not windows) (set-default-font "Monospace-10"))
+(if (not windows) (set-default-font "Monospace-9"))
 
 ;; Workgroups
 (require 'workgroups)
@@ -75,6 +75,7 @@
 (if windows (setq tramp-default-method "plink"))
 
 ;; IRC
+(require 'tls)
 (defun freenode ()
   "Connect to Freenode"
   (interactive)
@@ -104,11 +105,15 @@
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
 
-;;ORG
+;; ORG
 (require 'org-install)
 (add-hook 'org-mode-hook 'flyspell-mode)
 (add-hook 'org-mode-hook 'visual-line-mode)
 ;;(add-hook 'org-mode-hook 'org-indent-mode)
 
-;;Disable symlink confirmation
+;; Disable symlink confirmation
 (setq vc-follow-symlinks nil)
+
+;; Load the local el file
+(if (file-exists-p "~/.emacs.d/local.el")
+    (load "~/.emacs.d/local.el"))
