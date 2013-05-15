@@ -1,2 +1,2 @@
-zsh -l
+zsh -l $@
 exit
