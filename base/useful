@@ -1,6 +1,9 @@
 #!/bin/sh
 source $CONF/base/header
 
+# Add local path
+add_path "$HOME/.bin"
+
 # Setup Shared Memory Location
 DIRS=("/dev/shm" "/run/shm" "/tmp" "/var/tmp")
 TMP=""

@@ -3,3 +3,11 @@
 # Determine if this is a workstation
 WS=0
 if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]; then WS=1; fi
+
+# Add to the path if the DIR doesn't exist
+function add_path () {
+    if [ "$(echo "$PATH" | grep "$1" 2>/dev/null)" = "" ]; then
+        PATH="${PATH}:$1"
+        export PATH
+    fi
+}
