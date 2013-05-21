@@ -4,6 +4,9 @@ source $CONF/base/header
 # Add local path
 add_path "$HOME/.bin"
 
+# Initialize Key Agent
+start_agent
+
 # Setup Shared Memory Location
 DIRS=("/dev/shm" "/run/shm" "/tmp" "/var/tmp")
 TMP=""
@@ -93,8 +96,6 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
 # ROOT
 alias root="${SUDO}su -"
-
-start_agent
 
 # Battery
 alias bat='echo "$(B="$(cat /sys/class/power_supply/BAT*/status)"; ([[ "$B" == "Charging" ]] && echo "↑") || ([[ "$B" == "Discharging" ]] && echo "↓") || echo "⚡")$(expr $(cat /sys/class/power_supply/BAT*/charge_now) \* 100 / $(cat /sys/class/power_supply/BAT*/charge_full))%"'
