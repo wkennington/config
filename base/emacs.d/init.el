@@ -47,6 +47,7 @@
 (require 'workgroups)
 (workgroups-mode 1)
 (setq wg-morph-on 'nil)
+(setq wg-path "~/.emacs.d/workgroups")
 
 ;; Tabs and Editing
 (setq-default indent-tabs-mode nil)
@@ -131,3 +132,6 @@
 ;; Load the local el file
 (when (file-exists-p "~/.emacs.d/local.el")
   (load "~/.emacs.d/local.el"))
+
+;; Load the final workgroups
+(wg-load wg-path)
