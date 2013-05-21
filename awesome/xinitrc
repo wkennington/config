@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)"
+
+. $CONF/base/header
+start_agent
+
 which autocutsel >/dev/null 2>&1
 if [ "$?" = "0" ]; then
 	autocutsel -fork &
