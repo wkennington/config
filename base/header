@@ -17,7 +17,7 @@ function start_agent {
     # Determine which Agent to use
     local AGENT; local RUN
     AGENT="$(which gpg-agent 2>/dev/null | grep -v "not found")"
-    if [ "$AGENT" != "" ]; then; if [ "$SSH_TTY" == "" ]; then
+    if [ "$AGENT" != "" ]; then; if [ "$SSH_TTY" = "" ]; then
         RUN="\"$AGENT\" --daemon --enable-ssh-support"
         AGENT="gpg-agent"
     fi fi
@@ -28,7 +28,7 @@ function start_agent {
             AGENT="ssh-agent"
         fi
     fi
-    [ "$AGENT" == "" ] && return 1
+    [ "$AGENT" = "" ] && return 1
 
     # Initialize the Agent
     SOCKFILE="${HOME}/.ssh/environment-${HOST}"
