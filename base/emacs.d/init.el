@@ -46,6 +46,7 @@
 ;; Workgroups
 (require 'workgroups)
 (workgroups-mode 1)
+(setq wg-morph-on 'nil)
 
 ;; Tabs and Editing
 (setq-default indent-tabs-mode nil)
