@@ -109,6 +109,8 @@
 (require 'org-install)
 (add-hook 'org-mode-hook 'flyspell-mode)
 (add-hook 'org-mode-hook 'visual-line-mode)
+(add-to-list 'auto-mode-alist '("README$" . org-mode))
+(add-to-list 'auto-mode-alist '("TODO$" . org-mode))
 ;;(add-hook 'org-mode-hook 'org-indent-mode)
 
 ;; Disable symlink confirmation
