@@ -1,0 +1,13 @@
+####################################
+## William's Configuration TODO's ##
+####################################
+
+
+* Major Overhaul [0/2]
+  - [ ] Compartmentalize functions into better libraries
+  - [ ] Create modular startup routines [0/3]
+    - [ ] Xorg
+    - [ ] Console TTY
+    - [ ] SSH
+
+
