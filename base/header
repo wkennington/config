@@ -1,62 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-# Determine if this is a workstation
-WS=0
-if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]; then WS=1; fi
-
-# Add to the path if the DIR doesn't exist
-function add_path {
-    if [ "$(echo "$PATH" | grep "$1" 2>/dev/null)" = "" ]; then
-        PATH="${PATH}:$1"
-        export PATH
-    fi
-}
-
-# Start the ssh or gpg-agent
-function start_agent {
-    # Determine which Agent to use
-    local AGENT; local RUN
-    AGENT="$(which gpg-agent 2>/dev/null | grep -v "not found")"
-    if [ "$AGENT" != "" ]; then; if [ "$SSH_TTY" = "" ]; then
-        RUN="\"$AGENT\" --daemon --enable-ssh-support"
-        AGENT="gpg-agent"
-    fi fi
-    if [ "$AGENT" = "" ]; then
-        AGENT="$(which ssh-agent 2>/dev/null | grep -v "not found")"
-        if [ "$AGENT" != "" ]; then
-            RUN="\"$AGENT\""
-            AGENT="ssh-agent"
-        fi
-    fi
-    [ "$AGENT" = "" ] && return 1
-
-    # Initialize the Agent
-    SOCKFILE="${HOME}/.ssh/environment-${HOST}"
-    if [ "$SSH_AUTH_SOCK" = "" ]; then
-        if [ -f "$SOCKFILE" ]; then
-            . "$SOCKFILE"
-            PID="$SSH_AGENT_PID"
-            if [ "$(uname | grep CYGWIN)" = "" ]; then
-                PID2="$(ps -U $USER | grep "$AGENT" | grep -v grep | awk '{print $1}')"
-            else
-                PID2="$(ps | grep "$AGENT" | grep -v grep | awk '{print $1}')"
-            fi
-            eval "PID2=($PID2)"
-            OPEN=0
-            for i in $PID2; do
-                if [ "$i" = "$PID" ]; then
-                    echo "Keyring Agent Already Running"
-                    OPEN=1
-                fi
-            done
-            if [ "$OPEN" = "0" ]; then
-                rm "$SOCKFILE"
-            fi
-        fi
-        if [ ! -f $SOCKFILE ]; then
-            echo "$(eval $RUN | grep -v "echo")" > "$SOCKFILE"
-            . "$SOCKFILE"
-            ssh-add
-        fi
-    fi
-}
+# Source Modules
+MOD="$CONF/base/mod"
+eval "MODS=($(find $MOD -type f))"
+for M in $MODS; do
+  [ "$(echo "$M" | grep '\(~$\|^#\)')" != "" ] && continue
+  . "$M"
+done

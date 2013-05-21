@@ -1,8 +1,8 @@
 #!/bin/sh
 source $CONF/base/header
 
-# Add local path
-add_path "$HOME/.bin"
+# Add local binary folder path
+path_add "$HOME/.bin"
 
 # Initialize Key Agent
 start_agent

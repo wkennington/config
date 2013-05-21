@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# Tests to see if a binary exists in the path
+function path_hasbin {
+  [ "$#" -ne "1" ] && return 2
+  [ "$(which $1 2>/dev/null | grep -v "not found")" != "" ]
+}
+
+# Add to the path if the DIR doesn't exist
+function path_add {
+    if [ "$(echo "$PATH" | grep "$1" 2>/dev/null)" = "" ]; then
+        PATH="${PATH}:$1"
+        export PATH
+    fi
+}
+
+# Determine if this is a workstation
+WS=0
+if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]; then WS=1; fi
+
