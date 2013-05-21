@@ -6,14 +6,28 @@
 ;; Set Default Encoding
 (set-language-environment "utf-8")
 
-;; Initialize Package Repositories
+;; Setup List of Packages
 (require 'package)
 (package-initialize)
-
-;; Setup List of Packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+;; Download Required Packages
+(require 'cl)
+(defvar packages
+  '(ace-jump-mode yasnippet-bundle el-autoyas helm-c-yasnippet yas-jit workgroups zenburn-theme))
+
+(defun packages-installed-p ()
+  (loop for p in packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+(unless (packages-installed-p)
+  (package-refresh-contents)
+  (dolist (p packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
 
 ;; Use Zenburn Theme
 (load-theme 'zenburn t)
@@ -27,10 +41,11 @@
 (line-number-mode t)
 (column-number-mode t)
 (size-indication-mode t)
-(if (not windows) (set-default-font "Monospace-9"))
+(when (not windows) (set-default-font "Monospace-9"))
 
 ;; Workgroups
 (require 'workgroups)
+(workgroups-mode 1)
 
 ;; Tabs and Editing
 (setq-default indent-tabs-mode nil)
@@ -65,8 +80,8 @@
 (if windows
     (setq inferior-lisp-program "wx86cl64")
   (setq inferior-lisp-program "sbcl"))
-(if (file-exists-p "~/quicklisp/slime-helper.el")
-    (load "~/quicklisp/slime-helper.el")
+(when (file-exists-p "~/quicklisp/slime-helper.el")
+  (load "~/quicklisp/slime-helper.el")
 )
 
 ;; SSH with Tramp
@@ -76,10 +91,6 @@
 
 ;; IRC
 (require 'tls)
-(defun freenode ()
-  "Connect to Freenode"
-  (interactive)
-  (erc-tls :server "irc.freenode.net" :port 7000 :nick "william"))
 
 ;;AUCTEX
 (setq TeX-auto-save t)
@@ -117,5 +128,5 @@
 (setq vc-follow-symlinks nil)
 
 ;; Load the local el file
-(if (file-exists-p "~/.emacs.d/local.el")
-    (load "~/.emacs.d/local.el"))
+(when (file-exists-p "~/.emacs.d/local.el")
+  (load "~/.emacs.d/local.el"))
