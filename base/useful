@@ -1,11 +1,9 @@
 #!/bin/sh
 source $CONF/base/header
 
-# Add local binary folder path
+# Initialize States
 path_add "$HOME/.bin"
-
-# Initialize Key Agent
-start_agent
+agent_auto
 
 # Setup Shared Memory Location
 DIRS=("/dev/shm" "/run/shm" "/tmp" "/var/tmp")
