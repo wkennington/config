@@ -41,7 +41,7 @@ function shell_init {
   alias gpa="git pull origin master; git submodule foreach --recursive \"(git checkout master; git pull origin master)&\""
   alias root="sudo_wrap su -"
   alias sprunge="curl -F 'sprunge=<-' http://sprunge.us" 
-  alias t='echo $(laptop_bat) $(date)'
+  alias t='laptop_bat; date'
 
   export EDITOR="vim"
   export PAGER="less"
