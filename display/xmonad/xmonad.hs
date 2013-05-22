@@ -64,7 +64,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 	, ((modm .|. shiftMask,	xK_i	), spawn "emacsclient -c")
 
 	-- lock screen
-	, ((modm,				xK_a	), spawn "~/config/awesome/lock-screen")
+	, ((modm,				xK_a	), spawn "run comp_lock")
 
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "dmenu_run")
