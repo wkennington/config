@@ -46,7 +46,7 @@ if [ ! -f ~/.ssh/id_rsa.pub ]; then
         cp ${DIR}/ssh/smartcard_rsa ~/.ssh/id_rsa.pub
     else
         echo "Creating SSH Keys"
-        ${DIR}/install-ssh-keys
+        config_ssh_genkey ""
     fi
 fi
 ssh-keygen -H >/dev/null 2>&1
