@@ -2,7 +2,6 @@
 
 # Import the modules automatically
 export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)"
-echo $CONF
 . $CONF/base/loader
 
 # Initialize States
