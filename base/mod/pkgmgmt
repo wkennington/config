@@ -55,7 +55,7 @@ alias pkg_delete=pkg_remove
 # Cleans the package repository
 function pkg_clean {
   if os_matches 'Arch Linux' && path_hasbin pacman; then
-    [ "$(pacman -Qqdt)" != "" ] && sudo_wrap pacman -Rns $(pacman -Qqdt)
+    [ "$(pacman -Qqdt)" != "" ] && sudo_wrap pacman -Rns $(pacman -Qqdt) && return 0
   fi
   echo "Failed to find a cleanup procedure" >&2
   return 1
