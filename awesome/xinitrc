@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)"
 
+# Import the configuration headers
+export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)"
 . $CONF/base/header
-start_agent
+
+# Initialize States
+agent_auto
 
 which autocutsel >/dev/null 2>&1
 if [ "$?" = "0" ]; then

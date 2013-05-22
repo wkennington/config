@@ -22,7 +22,7 @@ function agent_which {
 # Import already running agent data
 function agent_tryenv {
   [ -S "$SSH_AUTH_SOCK" ] && return 0
-  [ -f "$AGENT_ENV" ] && . "$(agent_file)"
+  [ -f "$(agent_file)" ] && . "$(agent_file)"
   [ -S "$SSH_AUTH_SOCK" ] && return 0
   return 1
 }
@@ -31,7 +31,7 @@ function agent_tryenv {
 function agent_spawn {
   echo "Spawning $@"
   (eval "$@") | grep -v echo > "$(agent_file)"
-  . "$AGENT_ENV"
+  . "$(agent_file)"
   ssh-add
 }
 

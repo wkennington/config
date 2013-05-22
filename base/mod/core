@@ -34,6 +34,18 @@ function path_add {
     fi
 }
 
+# Wraps the command in sudo if sudo exists and runs it
+function sudo_wrap {
+  if path_hasbin sudo; then
+    sudo $@
+  else
+    $@
+  fi
+}
+
 # Determine if this is a workstation
+function is_workstation {
+  [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]
+}
 WS=0
-if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]; then WS=1; fi
+is_workstation && WS=1

@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+# Returns the issue of the operating system
+function os_issue {
+  if [ "$OS_ISSUE" = "" ]; then
+    OS_ISSUE="$(cat /etc/issue 2>/dev/null)"
+    [ "$OS_ISSUE" = "" ] && echo "Failed to get OS Issue" >&2 && return 1
+    export OS_ISSUE
+  fi
+  echo "$OS_ISSUE"
+}
+
+# Determines whether the os info matches the regex provided
+function os_matches {
+  os_issue | grep $1 >/dev/null 2>&1
+}
