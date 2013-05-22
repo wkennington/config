@@ -51,10 +51,3 @@ function sudo_wrap {
     $@
   fi
 }
-
-# Determine if this is a workstation
-function is_workstation {
-  [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]
-}
-WS=0
-is_workstation && WS=1

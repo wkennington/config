@@ -6,8 +6,8 @@
 # displays git status (if applicable in current folder)
 # turns username green if superuser, otherwise it is white
 
-if [ $UID -eq 0 ]; then NCOLOR="$fg[cyan]"; else NCOLOR="$fg_bold[white]"; fi
-if [ $WS -eq 1 ]; then HCOLOR="$fg[green]"; else HCOLOR="$fg[red]"; fi
+if info_root; then NCOLOR="$fg[cyan]"; else NCOLOR="$fg_bold[white]"; fi
+if info_ws; then HCOLOR="$fg[green]"; else HCOLOR="$fg[red]"; fi
 DCOLOR="$fg_bold[yellow]"
 
 # prompt

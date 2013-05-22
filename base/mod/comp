@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Sleeps the computer
+function comp_sleep {
+}
+
+# Powers down the computer
+function comp_off {
+}
+
+# Locks the screen
+function comp_lock {
+}

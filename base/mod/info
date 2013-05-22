@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+# Determine if this is a workstation
+function info_ws {
+  [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]
+}
+
+# Determine if the user is root
+function info_root {
+  [ "$UID" -eq 0 ]
+}

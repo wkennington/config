@@ -41,7 +41,7 @@ fi
 
 # SETUP SSH
 if [ ! -f ~/.ssh/id_rsa.pub ]; then
-    if [ "$WS" -eq "1" ]; then
+    if info_ws; then
         echo "Copying Smartcard Key"
         cp ${DIR}/ssh/smartcard_rsa ~/.ssh/id_rsa.pub
     else
