@@ -66,6 +66,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 	-- lock screen
 	, ((modm,				xK_a	), spawn "run comp_lock")
 
+	-- lock screen
+	, ((modm,				xK_s	), spawn "run comp_sleep")
+
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "dmenu_run")
 
