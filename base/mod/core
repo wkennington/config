@@ -9,7 +9,7 @@ function run_quiet {
 function dir_tmp {
   if [ "$DIR_TMP" = "" ] || [ ! -d "$DIR_TMP" ]; then
     local DIRS;
-    DIRS=("/dev/shm" "/run/shm" "/tmp" "/var/tmp")
+    to_array DIRS "/dev/shm /run/shm /tmp /var/tmp"
     for I in $DIRS; do
 	  [ -w "$I" ] && (mount | grep '\(tmpfs\|ramfs\)' | grep $I >/dev/null) && DIR_TMP="$I/$USER" && break
     done

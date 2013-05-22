@@ -8,7 +8,7 @@ function agent_file {
 # Print cmd if agent exists
 function agent_cmd {
   [ "$#" -lt "1" ] && return 1
-  (path_hasbin $1) && (echo $@)
+  path_hasbin $1 && echo $@
 }
 
 # Determine which agent to use
