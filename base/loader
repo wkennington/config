@@ -28,11 +28,16 @@ function to_array {
   fi
 
   # Convert the data into an array
-  if [ "$(ps hp $$ | awk '{print $5}')" = "zsh" ]; then
+  local SHELL
+  SHELL="$(basename $(ps hp $$ | awk '{print $5}'))"
+  if [ "$SHELL" = "zsh" ] || [ "$SHELL" = "bash" ]; then
     eval "$1=($DATA)"
-  else
+    return 0
+  elif [ "$SHELL" = "sh" ]; then
     eval "$1=\"$DATA\""
+    return 0
   fi
+  return 1
 }
 
 # Source Modules
