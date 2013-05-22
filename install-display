@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 FILE="$(readlink -f "$0")"
-DIR="$(dirname "$FILE")/awesome"
+DIR="$(dirname "$FILE")/display"
 rm -rf "$HOME"/.{xinitrc,xsession,xmonad,Xdefaults,gtkrc-2.0,config/{awesome{/rc.lua,},sakura,gtk-3.0,Terminal,wallpaper,uzbl}}
 install -dv ~/.config
 #ln -sv $DIR/gtkrc-2.0 ~/.gtkrc-2.0
