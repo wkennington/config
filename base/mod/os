@@ -10,7 +10,11 @@ function os_issue {
   echo "$OS_ISSUE"
 }
 
+function os_info {
+    uname -a
+}
+
 # Determines whether the os info matches the regex provided
 function os_matches {
-  os_issue | grep $1 >/dev/null 2>&1
+  echo $(os_issue) $(os_info) | grep $1 >/dev/null 2>&1
 }

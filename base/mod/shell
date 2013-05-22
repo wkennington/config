@@ -1,0 +1,53 @@
+#!/usr/bin/env sh
+
+# Setup the colors for the shell
+function shell_colors {
+  # Colors for LS
+  os_matches '\(Linux\|Cygwin\)' && eval "$(dircolors -b)" && alias ls='ls --color=auto'
+  os_matches '\(FreeBSD\)' && export CLICOLOR=1 && export LSCOLORS="ExGxFxdxCxDhDxaBadaCeC"
+
+  # 256 Colors in the Terminal
+  if [ "$TERM" = "xterm" ] || [ "$TERM" = "rxvt-unicode-256color" ]; then
+    export TERM="xterm-256color"
+    unset COLORTERM
+  fi
+}
+
+# Create the temporary directory for the shell
+function shell_tmp {
+  TMP="$(dir_tmp)"
+  if [ "$TMP" != "" ]; then
+    HISTFILE="$TMP/history_$(basename $SHELL)"
+    export HISTFILE
+    SAVEHIST="9999"
+    export SAVEHIST
+    echo "set viminfo+=n$TMP/viminfo" > $HOME/.vimrc.info
+  else
+    unset HISTFILE
+    SAVEHIST="0"
+    export SAVEHIST
+    echo "set viminfo=\"\"" > $HOME/.vimrc.info
+  fi
+}
+
+# Initializes useful functions if the caller is a shell
+function shell_init {
+  shell_tmp
+  shell_colors
+  path_add "$HOME/.bin"
+  path_add "$HOME/.cabal/bin"
+  agent_auto
+
+  alias gpa="git pull origin master; git submodule foreach --recursive \"(git checkout master; git pull origin master)&\""
+  alias root="sudo_wrap su -"
+  alias sprunge="curl -F 'sprunge=<-' http://sprunge.us" 
+  alias t='echo $(laptop_bat) $(date)'
+
+  # FreeBSD Vars
+  EDITOR="vim"
+  export EDITOR
+  PAGER="less"
+  export PAGER
+  BLOCKSIZE="K"
+  export BLOCKSIZE
+}

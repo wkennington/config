@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env sh
 FILE=`readlink -f $0`
 DIR=`dirname $FILE`
-source ${DIR}/base/header
+. ${DIR}/base/loader
 
 #UPDATE SUBMODULES IF THEY HAVEN'T BEEN
 if [ "$1" != "1" ]; then

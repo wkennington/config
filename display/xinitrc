@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# Import the configuration headers
+# Import the modules automatically
 export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)"
-. $CONF/base/header
+. $CONF/base/loader
 
 # Initialize States
 agent_auto

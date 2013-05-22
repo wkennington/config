@@ -5,25 +5,12 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-#GET THE CONFIG DIR
+# Load the configuration options
 export CONF="$(readlink -f $(dirname $(readlink -f ~/.bashrc))/../)"
+source $CONF/base/loader
+shell_init
 
-#SOURCE USEFUL ALIAS OPTIONS
-source $CONF/base/useful
-
-#SETUP LS COLORS
-UNAME=`uname`
-if [[ "$UNAME" = "Linux" || "`uname -o`" = "Cygwin" ]]; then
-	eval `dircolors -b`
-	alias ls='ls --color=auto'
-elif [ "$UNAME" = "FreeBSD" ]; then
-	CLICOLOR=1
-	export CLICOLOR
-	LSCOLORS="ExGxFxdxCxDxDxhbadExEx"
-	export LSCOLORS
-fi
-
-#SETUP PROMPT
+# Create Prompt Theme
 DR='\[\e[0;31m\]'
 R='\[\e[1;31m\]'
 DB='\[\e[0;34m\]'
