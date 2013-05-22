@@ -2,8 +2,4 @@
 # ~/.bash_profile
 #
 
-#GET NEW CONFIG STUFF
-$(dirname $(readlink -f ~/.bash_profile))/update-git
-
-#OTHER STUFF
 [[ -f ~/.bashrc ]] && . ~/.bashrc

@@ -3,10 +3,7 @@
 # Import the modules automatically
 export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)"
 . $CONF/base/loader
-
-# Initialize States
-path_add "$HOME/.bin"
-agent_auto
+shell_init
 
 # Run background applications
 run_quiet autocutsel -fork
