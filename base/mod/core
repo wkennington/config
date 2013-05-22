@@ -10,6 +10,10 @@ function dir_tmp {
     done
     [ "$DIR_TMP" = "" ] && (echo "Failed to find a temporary folder" >&2) && return 1
     [ ! -d "$DIR_TMP" ] && mkdir "$DIR_TMP" && chmod 0700 "$DIR_TMP"
+    if [ ! -h "$HOME/.tmp" ]; then
+        [ -e "$HOME/.tmp" ] && rm -rf "$HOME/.tmp"
+        ln -s "$DIR_TMP" "$HOME/.tmp"
+    fi
     export DIR_TMP
   fi
   echo "$DIR_TMP"

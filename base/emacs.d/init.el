@@ -3,6 +3,17 @@
                   (eq system-type 'cygwin)
                   (eq system-type 'ms-dos)))
 
+;; Create a pidfile for the running emacs process
+(setq pidfile "~/.tmp/emacs.pid")
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (with-temp-file pidfile
+              (insert (number-to-string (emacs-pid))))))
+(add-hook 'kill-emacs-hook
+          (lambda ()
+            (when (file-exists-p pidfile)
+              (delete-file pidfile))))
+
 ;; Set Default Encoding
 (set-language-environment "utf-8")
 
@@ -69,6 +80,7 @@
 ;; IDO
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
+(setq ido-save-directory-list-file "~/.tmp/ido.last")
 (ido-mode 1)
 
 ;; Yasnippet
@@ -79,6 +91,7 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 ;; Setup Lisp and Slime
+(setq slime-repl-history-file "~/.tmp/slime-history")
 (if windows
     (setq inferior-lisp-program "wx86cl64")
   (setq inferior-lisp-program "sbcl"))
@@ -94,7 +107,7 @@
 ;; IRC
 (require 'tls)
 
-;;AUCTEX
+;; Latex Stuff
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
