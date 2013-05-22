@@ -38,6 +38,7 @@ function agent_spawn {
 # Automatically determines which agent to use and starts it if necessary
 function agent_auto {
   local AGENT
-  (agent_tryenv || (AGENT=$(agent_which) && agent_spawn $AGENT)) && return 0
+  agent_tryenv && return 0
+  AGENT=$(agent_which) && agent_spawn $AGENT && return 0
   return 1
 }
