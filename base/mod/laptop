@@ -3,8 +3,8 @@
 # Gets the string representing the state of the battery
 function laptop_bat {
   local B; local BAT_DIR
-  BAT_DIR="/sys/class/power_supply/BAT*"
+  BAT_DIR="$(readlink -f /sys/class/power_supply/BAT*)"
   B="$(cat $BAT_DIR/status 2>/dev/null)" || return 1
-  ([[ "$B" == "Charging" ]] && echo "↑") || ([[ "$B" == "Discharging" ]] && echo "↓") || echo "⚡"
+  ([[ "$B" == "Charging" ]] && echo -n "↑") || ([[ "$B" == "Discharging" ]] && echo -n "↓") || echo -n "⚡"
   echo "$(expr $(cat $BAT_DIR/charge_now) \* 100 / $(cat $BAT_DIR/charge_full))%"
 }
