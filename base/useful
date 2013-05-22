@@ -6,25 +6,8 @@ path_add "$HOME/.bin"
 agent_auto
 
 # Setup Shared Memory Location
-DIRS=("/dev/shm" "/run/shm" "/tmp" "/var/tmp")
-TMP=""
-for I in $DIRS; do
-	mount | grep '\(tmpfs\|ramfs\)' | grep $I >/dev/null 2>&1
-	if [ "$?" -eq "0" ]; then
-        if [ -w "$I" ]; then
-		    TMP="$I"
-		    break
-        fi
-	fi
-done
-unset I
-unset DIRS
+TMP="$(dir_tmp)"
 if [ "$TMP" != "" ]; then
-	TMP="$TMP/$USER"
-    if [ ! -d "$TMP" ]; then
-	    mkdir "$TMP"
-    fi
-	chmod 0700 "$TMP"
     HISTFILE="$TMP/history_$(basename $SHELL)"
 	export HISTFILE
 	SAVEHIST="9999"
@@ -36,7 +19,6 @@ else
     export SAVEHIST
     echo "set viminfo=\"\"" > $HOME/.vimrc.info
 fi
-export TMP
 
 # XTERM
 if [ "${TERM}" = "xterm" ]; then

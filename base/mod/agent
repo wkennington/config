@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 
-AGENT_ENV="$HOME/.ssh/environment"
+# Retrieve the agent environment
+function agent_file {
+  echo "$(dir_tmp)/agent-environment"
+}
 
 # Print cmd if agent exists
 function agent_cmd {
@@ -19,7 +22,7 @@ function agent_which {
 # Import already running agent data
 function agent_tryenv {
   [ -S "$SSH_AUTH_SOCK" ] && return 0
-  [ -f "$AGENT_ENV" ] && . "$AGENT_ENV"
+  [ -f "$AGENT_ENV" ] && . "$(agent_file)"
   [ -S "$SSH_AUTH_SOCK" ] && return 0
   return 1
 }
@@ -27,7 +30,7 @@ function agent_tryenv {
 # Spawn agent if it doesn't exist
 function agent_spawn {
   echo "Spawning $@"
-  (eval "$@") | grep -v echo > "$AGENT_ENV"
+  (eval "$@") | grep -v echo > "$(agent_file)"
   . "$AGENT_ENV"
   ssh-add
 }

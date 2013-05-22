@@ -1,5 +1,25 @@
 #!/usr/bin/env sh
 
+# Get the path to the temporary directory
+function dir_tmp {
+  if [ "$DIR_TMP" = "" ] || [ ! -d "$DIR_TMP" ]; then
+    local DIRS;
+    DIRS=("/dev/shm" "/run/shm" "/tmp" "/var/tmp")
+    for I in $DIRS; do
+	  [ -w "$I" ] && (mount | grep '\(tmpfs\|ramfs\)' | grep $I >/dev/null) && DIR_TMP="$I/$USER" && break
+    done
+    [ "$DIR_TMP" = "" ] && (echo "Failed to find a temporary folder" >&2) && return 1
+    [ ! -d "$DIR_TMP" ] && mkdir "$DIR_TMP" && chmod 0700 "$DIR_TMP"
+    export DIR_TMP
+  fi
+  echo "$DIR_TMP"
+}
+
+# Get the path to the configuration directory
+function dir_conf {
+  echo "$CONF"
+}
+
 # Tests to see if a binary exists in the path
 function path_hasbin {
   [ "$#" -ne "1" ] && return 2
@@ -17,4 +37,3 @@ function path_add {
 # Determine if this is a workstation
 WS=0
 if [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]; then WS=1; fi
-
