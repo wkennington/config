@@ -1,1 +1,5 @@
 #!/usr/bin/env sh
+
+# Updates the configuration files and all of the submodules
+function config_update {
+}

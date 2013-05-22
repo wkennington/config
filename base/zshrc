@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Path to your oh-my-zsh configuration.
 export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.zshrc))/../)"
 ZSH="$CONF/oh-my-zsh"
