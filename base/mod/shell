@@ -43,11 +43,7 @@ function shell_init {
   alias sprunge="curl -F 'sprunge=<-' http://sprunge.us" 
   alias t='echo $(laptop_bat) $(date)'
 
-  # FreeBSD Vars
-  EDITOR="vim"
-  export EDITOR
-  PAGER="less"
-  export PAGER
-  BLOCKSIZE="K"
-  export BLOCKSIZE
+  export EDITOR="vim"
+  export PAGER="less"
+  export BLOCKSIZE="K"
 }
