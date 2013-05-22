@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-
+# Try to locate the base git directory for the given file
 function dir_conf_try {
   cd "$(dirname "$(readlink -f "$1")")" 2>/dev/null && git rev-parse --show-toplevel 2>/dev/null && return 0
   return 1
