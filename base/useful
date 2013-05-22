@@ -35,8 +35,7 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias root="${SUDO}su -"
 
 # Battery
-alias bat='echo "$(B="$(cat /sys/class/power_supply/BAT*/status)"; ([[ "$B" == "Charging" ]] && echo "↑") || ([[ "$B" == "Discharging" ]] && echo "↓") || echo "⚡")$(expr $(cat /sys/class/power_supply/BAT*/charge_now) \* 100 / $(cat /sys/class/power_supply/BAT*/charge_full))%"'
-alias t='ls /sys/class/power_supply 2>/dev/null | grep BAT >/dev/null 2>/dev/null; [[ "$?" = "0" ]] && echo "$(bat) $(date)" || echo "$(date)"'
+alias t='echo $(laptop_bat) $(date)'
 
 # FreeBSD Vars
 EDITOR="vim"
