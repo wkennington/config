@@ -5,6 +5,14 @@ function run_quiet {
   which $1 >/dev/null 2>&1 && $@ >/dev/null 2>&1
 }
 
+# Make sure the symbolic link points to the correct location $2 -> $1
+function symlink {
+  if [ "$(readlink -f "$2")" != "$1" ]; then
+    rm -rf "$2"
+    ln -s "$1" "$2" 2>/dev/null || return 1
+  fi
+}
+
 # Get the path to the temporary directory
 function dir_tmp {
   local DIRS;
@@ -14,10 +22,7 @@ function dir_tmp {
   done
   [ "$DIR_TMP" = "" ] && (echo "Failed to find a temporary folder" >&2) && return 1
   [ ! -d "$DIR_TMP" ] && mkdir "$DIR_TMP" && chmod 0700 "$DIR_TMP"
-  if [ ! -h "$HOME/.tmp" ]; then
-    [ -e "$HOME/.tmp" ] && rm -rf "$HOME/.tmp"
-    ln -s "$DIR_TMP" "$HOME/.tmp"
-  fi
+  symlink "$DIR_TMP" "$HOME/.tmp"
   echo "$DIR_TMP"
 }
 
