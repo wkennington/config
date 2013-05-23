@@ -3,11 +3,15 @@
 ####################################
 
 
-* Major Overhaul [0/2]
-  - [ ] Compartmentalize functions into better libraries
-  - [ ] Create modular startup routines [0/3]
-    - [ ] Xorg
-    - [ ] Console TTY
-    - [ ] SSH
-
-
+* Major Overhaul [2/8]
+  - [X] Compartmentalize functions into better libraries
+  - [X] Create modular startup routines [3/3]
+    - [X] Xorg
+    - [X] Console TTY
+    - [X] SSH
+  - [ ] Move the display installer into the main install routine
+  - [ ] Make Xinit handle dependencies at runtime instead of install time
+  - [ ] Make vim / emacs responsible for creating tempfiles and calling scripts
+  - [ ] Consider finishing the integrity controls
+  - [ ] Support for more shells like CSH / TCSH / ASH
+  - [ ] Common shell prompt
