@@ -1,5 +1,13 @@
 #!/usr/bin/env sh
 
+# Exports extra params
+function agent_export {
+  export SSH_AUTH_SOCK
+  export GPG_AGENT_INFO
+  export GNOME_KEYRING_CONTROL
+  export GNOME_KEYRING_PID
+}
+
 # Retrieve the agent environment
 function agent_file {
   echo "$(dir_tmp)/agent-environment"
@@ -14,7 +22,9 @@ function agent_cmd {
 # Determine which agent to use
 function agent_which {
   [ "$(hostname -s )" = "fantom" ] && agent_cmd ssh-agent && return 0
-  agent_cmd gnome-keyring-daemon -c pkcs11,secrets,ssh,gpg && return 0
+  agent_cmd gnome-keyring-daemon -c pkcs11,secrets,ssh,gpg && {
+    return 0
+  }
   [ "$SSH_TTY" = "" ] && agent_cmd gpg-agent --daemon --enable-ssh-support && return 0
   agent_cmd ssh-agent && return 0
   echo "Failed to find an agent" >&2
@@ -30,6 +40,7 @@ function agent_running {
 # Import already running agent data
 function agent_env {
   [ -f "$(agent_file)" ] && . "$(agent_file)"
+  agent_export
   agent_running
 }
 
@@ -37,7 +48,7 @@ function agent_env {
 function agent_spawn {
   echo "Spawning $@"
   (eval "$@") | grep -v echo > "$(agent_file)"
-  . "$(agent_file)"
+  agent_env
   ssh-add
 }
 
