@@ -99,6 +99,11 @@ function config_latest {
   return $ACUM
 }
 
+# Installs the configuration files
+function config_install {
+  ssh_auto
+}
+
 # Updates the configuration files and all of the submodules
 function config_update {
   config_latest
@@ -108,6 +113,6 @@ function config_update {
       ;;
     1)
       reload
-      ssh_auto
+      config_install
   esac
 }
