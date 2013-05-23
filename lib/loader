@@ -43,11 +43,11 @@ function dir_conf {
 
 # Allows the functions to be reloaded at any time
 function reload {
-  . "$(dir_conf)/base/loader"
+  . "$(dir_conf)/lib/loader"
 }
 
 # Source Modules
-to_array MODS "$(find "$(dir_conf "$0")/base/mod" -type f)"
+to_array MODS "$(find "$(dir_conf "$0")/lib/mod" -type f)"
 for M in $MODS; do
   [ "$(echo "$M" | grep '\(~$\|^#\)')" != "" ] && continue
   . "$M"
