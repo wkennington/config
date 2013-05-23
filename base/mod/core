@@ -21,11 +21,6 @@ function dir_tmp {
   echo "$DIR_TMP"
 }
 
-# Get the path to the configuration directory
-function dir_conf {
-  echo "$CONF"
-}
-
 # Tests to see if a binary exists in the path
 function path_hasbin {
   [ "$#" -ne "1" ] && return 2
