@@ -1,2 +1,3 @@
 #!/usr/bin/env sh
-$(dirname "$0")/bin/run config_update
+$(dirname "$0")/bin/run config_latest
+$(dirname "$0")/bin/run config_install
