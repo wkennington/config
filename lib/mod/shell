@@ -19,11 +19,9 @@ function shell_tmp {
   if TMP="$(dir_tmp)"; then
     export HISTFILE="$TMP/history_$(basename $SHELL)"
     export SAVEHIST="9999"
-    echo "set viminfo+=n$TMP/viminfo" > $HOME/.vimrc.info
   else
     unset HISTFILE
     export SAVEHIST="0"
-    echo "set viminfo=\"\"" > $HOME/.vimrc.info
   fi
 }
 

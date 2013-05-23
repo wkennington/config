@@ -9,7 +9,7 @@ function editor_run {
 # Load vim smartly
 function vim {
   local TMP
-  TMP="$(dir_tmp)" && echo "set viminfo+=n$TMP/viminfo" > "$HOME/.vimrc.info" || echo "set viminfo=" > "$HOME/.vimrc.info"
+  TMP="$(dir_tmp)" && echo "set viminfo+=n$TMP/viminfo" > "$HOME/.vimrc.info" || echo "set viminfo=\"\"" > "$HOME/.vimrc.info"
   if [ ! -z "$XAUTHORITY" ] && [ "$RUNNER" -eq "1" ] && path_hasbin "gvim"; then
     editor_run gvim $@
   elif path_hasbin "vim"; then
