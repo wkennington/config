@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+# Automatically Configures the graphical interface
+function graphic_auto {
+}

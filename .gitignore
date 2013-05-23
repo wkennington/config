@@ -1,5 +1,5 @@
-/base/emacs.d/*
-/display/xmonad/*
+/conf/emacs.d/*
+/conf/xmonad/*
 *~
 */#*#
 *.local
