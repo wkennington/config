@@ -1,19 +1,5 @@
 #!/usr/bin/env sh
 
-# Determines the top level configuration directory
-function dir_conf {
-  local FILES
-  to_array FILES "$1 $HOME/.zshrc $HOME/.bashrc $HOME/.xinitrc"
-  for FILE in $FILES; do
-    cd "$(dirname "$(readlink -f "$1")")" 2>/dev/null || continue
-    DIR_CONF="$(git rev-parse --show-toplevel 2>/dev/null)" || continue
-    echo "$DIR_CONF"
-    return 0
-  done
-  echo "Failed to find the configuration directory" >&2
-  return 1
-}
-
 # Returns the shell executing the current script
 function shell {
   basename $(ps hp $$ | awk '{print $5}')
@@ -39,6 +25,20 @@ function to_array {
     eval "$1=\"$DATA\""
     return 0
   fi
+  return 1
+}
+
+# Determines the top level configuration directory
+function dir_conf {
+  local FILES
+  to_array FILES "$1 $HOME/.zshrc $HOME/.bashrc $HOME/.xinitrc"
+  for FILE in $FILES; do
+    cd "$(dirname "$(readlink -f "$FILE")")" 2>/dev/null || continue
+    DIR_CONF="$(git rev-parse --show-toplevel 2>/dev/null)" || continue
+    echo "$DIR_CONF"
+    return 0
+  done
+  echo "Failed to find the configuration directory" >&2
   return 1
 }
 
