@@ -2,7 +2,7 @@
 ## William's Configuration TODO's ##
 ####################################
 
-* Major Overhaul [5/10]
+* Major Overhaul [6/10]
   - [X] Compartmentalize functions into better libraries
   - [X] Create modular startup routines [3/3]
     - [X] Xorg
@@ -10,7 +10,7 @@
     - [X] SSH
   - [X] Complete the file refactoring / overhaul
   - [X] Move the display installer into the main install routine
-  - [ ] Make Xinit handle dependencies at runtime instead of install time
+  - [X] Make Xinit handle dependencies at runtime instead of install time
   - [X] Make vim / emacs responsible for creating tempfiles and calling scripts
   - [ ] Consider finishing the integrity controls
   - [ ] Support for more shells like CSH / TCSH / ASH
