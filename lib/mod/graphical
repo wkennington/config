@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 
 # Automatically Configures the graphical interface
-function graphic_auto {
+function graphical_auto {
+  install -dv "$HOME/.config"
+  rm -f "$HOME/.Xdefaults" "$HOME/.config/gtk-3.0" "$HOME/.config/sakura"
+  config_ln xinitrc xsession xmonad gtkrc-2.0 config/{awesome,Terminal,wallpaper,uzbl}
   return 0
 }
