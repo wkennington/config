@@ -40,16 +40,4 @@ if [ "$?" != "0" ]; then
 fi
 
 # SETUP SSH
-if [ ! -f ~/.ssh/id_rsa.pub ]; then
-    if info_ws; then
-        echo "Copying Smartcard Key"
-        cp ${DIR}/ssh/smartcard_rsa ~/.ssh/id_rsa.pub
-    else
-        echo "Creating SSH Keys"
-        config_ssh_genkey ""
-    fi
-fi
-ssh-keygen -H >/dev/null 2>&1
-rm -f ~/.ssh/known_hosts.old
-rm -f ~/.ssh/config
-ln -s "${DIR}/base/ssh_config" ~/.ssh/config
+ssh_auto
