@@ -1,6 +1,0 @@
-#!/bin/sh
-RET="$(git pull origin master 2>&1 | grep 'Already up-to-date.')"
-if [ "$RET" = "" ]; then
-	exit 1
-fi
-exit 0

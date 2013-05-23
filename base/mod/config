@@ -99,9 +99,19 @@ function config_latest {
   return $ACUM
 }
 
+# Links the configuration file to its proper dotfile
+function config_ln {
+  [ "$#" -eq "0" ] && return 1
+  for LN in $@; do
+    symlink "$(dir_conf)/base/$LN" "$HOME/.$LN"
+  done
+}
+
 # Installs the configuration files
 function config_install {
+  shell_auto
   ssh_auto
+  editor_auto
 }
 
 # Updates the configuration files and all of the submodules

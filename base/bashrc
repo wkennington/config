@@ -8,6 +8,7 @@
 # Load the configuration options
 export CONF="$(readlink -f $(dirname $(readlink -f ~/.bashrc))/../)"
 source $CONF/base/loader
+shell_best $@
 shell_init
 
 # Create Prompt Theme

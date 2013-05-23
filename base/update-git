@@ -1,6 +1,0 @@
-#!/bin/sh
-DIR="$(dirname $(readlink -f $0))/.."
-cd $DIR
-git reset --hard > /dev/null 2>&1
-base/gpom
-base/update-git2 $?

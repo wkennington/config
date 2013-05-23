@@ -44,3 +44,45 @@ function shell_init {
   export PAGER="less"
   export BLOCKSIZE="K"
 }
+
+# Returns the name of the preferred shell
+function shell_get_best {
+  # ZSH preferred
+  if which zsh >/dev/null 2>&1; then
+    VER="$(zsh --version | awk '{print $2}')"
+	VER="$(printf "4.3.9\n%s" "$VER" | sort -bt. -k1,1n -k2,2n -k3,3n -k4,4n -k5,5n | awk 'NR==1')"
+	if [ "$VER" = "4.3.9" ]; then
+      echo "zsh"
+      return 0
+    fi
+  fi
+
+  # Bash next
+  if which bash >/dev/null 2>&1; then
+    echo "bash"
+    return 0
+  fi
+
+  # Fallback to SH
+  echo "sh"
+}
+
+# Automatically executes the preferred shell
+function shell_best {
+  if [ "$(shell)" != "$(shell_get_best)" ]; then
+    $(shell_get_best) $@
+    exit $?
+  fi
+}
+
+# Set the given shell as the default shell if not already set
+function shell_default {
+  [ "$#" -ne "1" ] && return 1
+  chsh -s "$1" "$USER"
+}
+
+# Automatically configures the shell configuration files
+function shell_auto {
+  config_ln "bin" "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout"
+  shell_default "$(shell_get_best)"
+}
