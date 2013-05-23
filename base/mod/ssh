@@ -73,6 +73,8 @@ function ssh_auth {
 function ssh_client {
   ssh_dir || return 1
   symlink "$(dir_conf)/base/ssh/config" "$HOME/.ssh/config"
+  ssh-keygen -H >/dev/null 2>&1
+  rm -f ~/.ssh/known_hosts.old
 }
 
 # Automatically determine how to configure ssh
