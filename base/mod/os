@@ -2,16 +2,14 @@
 
 # Returns the issue of the operating system
 function os_issue {
-  if [ "$OS_ISSUE" = "" ]; then
-    OS_ISSUE="$(cat /etc/issue 2>/dev/null)"
-    [ "$OS_ISSUE" = "" ] && echo "Failed to get OS Issue" >&2 && return 1
-    export OS_ISSUE
-  fi
-  echo "$OS_ISSUE"
+  local OS_ISSUE
+  OS_ISSUE="$(cat /etc/issue 2>/dev/null)" && { echo "$OS_ISSUE"; return 0; }
+  echo "Failed to get OS Issue" >&2
+  return 1
 }
 
 function os_info {
-    uname -a
+  uname -a
 }
 
 # Determines whether the os info matches the regex provided

@@ -1,20 +1,22 @@
 #!/usr/bin/env sh
 
-# Try to locate the base git directory for the given file
-function dir_conf_try {
-  cd "$(dirname "$(readlink -f "$1")")" 2>/dev/null || return 1
-  DIR_CONF="$(git rev-parse --show-toplevel 2>/dev/null)" || return 2
-  echo "$DIR_CONF"
-}
-
 # Determines the top level configuration directory
 function dir_conf {
-  [ "$DIR_CONF" != "" ] && echo "$DIR_CONF" && return 0
-  dir_conf_try "$1" && return 0
-  dir_conf_try "~/.zshrc" && return 0
-  dir_conf_try "~/.bashrc" && return 0
+  local FILES
+  to_array FILES "$1 $HOME/.zshrc $HOME/.bashrc $HOME/.xinitrc"
+  for FILE in $FILES; do
+    cd "$(dirname "$(readlink -f "$1")")" 2>/dev/null || continue
+    DIR_CONF="$(git rev-parse --show-toplevel 2>/dev/null)" || continue
+    echo "$DIR_CONF"
+    return 0
+  done
   echo "Failed to find the configuration directory" >&2
   return 1
+}
+
+# Returns the shell executing the current script
+function shell {
+  basename $(ps hp $$ | awk '{print $5}')
 }
 
 # Creates an array from the name of the variable and values
@@ -30,12 +32,10 @@ function to_array {
   fi
 
   # Convert the data into an array
-  local SHELL
-  SHELL="$(basename $(ps hp $$ | awk '{print $5}'))"
-  if [ "$SHELL" = "zsh" ] || [ "$SHELL" = "bash" ]; then
+  if [ "$(shell)" = "zsh" ] || [ "$(shell)" = "bash" ]; then
     eval "$1=($DATA)"
     return 0
-  elif [ "$SHELL" = "sh" ]; then
+  elif [ "$(shell)" = "sh" ]; then
     eval "$1=\"$DATA\""
     return 0
   fi

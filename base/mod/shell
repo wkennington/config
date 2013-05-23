@@ -15,17 +15,14 @@ function shell_colors {
 
 # Create the temporary directory for the shell
 function shell_tmp {
-  TMP="$(dir_tmp)"
-  if [ "$TMP" != "" ]; then
-    HISTFILE="$TMP/history_$(basename $SHELL)"
-    export HISTFILE
-    SAVEHIST="9999"
-    export SAVEHIST
+  local TMP
+  if TMP="$(dir_tmp)"; then
+    export HISTFILE="$TMP/history_$(basename $SHELL)"
+    export SAVEHIST="9999"
     echo "set viminfo+=n$TMP/viminfo" > $HOME/.vimrc.info
   else
     unset HISTFILE
-    SAVEHIST="0"
-    export SAVEHIST
+    export SAVEHIST="0"
     echo "set viminfo=\"\"" > $HOME/.vimrc.info
   fi
 }
