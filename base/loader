@@ -2,7 +2,7 @@
 
 # Returns the shell executing the current script
 function shell {
-  basename $(ps hp $$ | awk '{print $5}')
+  basename $(ps hp $$ | awk '{print $5}' | sed 's/-//')
 }
 
 # Creates an array from the name of the variable and values

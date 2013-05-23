@@ -2,6 +2,7 @@
 
 # Gets the latest version of the git config
 function config_latest {
+  echo ""
 }
 
 # Updates the configuration files and all of the submodules
