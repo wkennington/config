@@ -1,12 +1,113 @@
 #!/usr/bin/env sh
 
+function git_cd {
+  if [ "$#" -eq "0" ]; then
+    cd "$(dir_conf)"
+  else
+    cd "$1"
+  fi
+}
+
+# Gets the current git branch
+function git_cbr {(
+    git_cd $1
+    git rev-parse --abbrev-ref HEAD 2>/dev/null
+)}
+
+# Updates the root git tree
+# Returns 2 if failed, 1 if updated, 0 if up-to-date
+function git_pull {(
+    git_cd $1
+    git reset --hard >/dev/null 2>&1
+    STR="$(git pull origin "$(git_cbr $1)" 2>&1)" || return 2
+    [ "$(echo "$STR" | grep 'Already up-to-date.')" != "" ]
+)}
+
+# Updates the root git tree and only returns >0 on error
+# Echos updated if the tree was updated
+function git_pull_nostat {
+  git_pull $@
+  case "$?" in
+    2)
+      return 1
+      ;;
+    1)
+      echo "Updated"
+  esac
+}
+
+# Initialize git submodules
+# Returns 2 if failed, 1 if initialized, 0 if up-to-date
+function git_sub_init {(
+    local ACUM
+    ACUM=0
+
+    git_cd $1
+    to_array SUBS "$(git submodule status --recursive | grep -ve "([^)]*)" | awk '{print $2}')"
+    for SUB in $SUBS; do
+      git submodule -q update --init --recursive "$SUB" || return 2
+      ACUM=1
+    done
+
+    return $ACUM
+)}
+
+# Update the submodules
+# Returns 2 if failed, 1 if updated, 0 if up-to-date
+function git_sub_pull {(
+    git_cd $1
+    STR="$(git submodule -q foreach --recursive "run git_pull_nostat ." 2>/dev/null)" || return 2
+    [ "$(echo "$STR" | grep 'Updated')" = "" ]
+)}
+
 # Gets the latest version of the git config
+# Returns 2 if failed, 1 if updated, 0 if up-to-date
 function config_latest {
-  echo ""
+  local ACUM
+  ACUM=0
+
+  git_pull
+  case "$?" in
+    2)
+      echo "Failed to update the configuration directory" >&2
+      return 2
+      ;;
+    1)
+      ACUM=1
+  esac
+
+  git_sub_init
+  case "$?" in
+    2)
+      echo "Failed to initialize configuration submodules" >&2
+      return 2
+      ;;
+    1)
+      ACUM=1
+  esac
+
+  git_sub_pull
+  case "$?" in
+    2)
+      echo "Failed to update configuration submodules" >&2
+      return 2
+      ;;
+    1)
+      ACUM=1
+  esac
+
+  return $ACUM
 }
 
 # Updates the configuration files and all of the submodules
 function config_update {
   config_latest
-  ssh_auto
+  case "$?" in
+    2)
+      return 2
+      ;;
+    1)
+      reload
+      ssh_auto
+  esac
 }
