@@ -8,16 +8,16 @@ shell_init
 # Run background applications
 run_quiet autocutsel -fork
 run_quiet pulseaudio --start
-run_quiet xscreensaver -no-splash
+run_quiet xscreensaver -no-splash &
 run_quiet VBoxClient-all
 run_quiet xcompmgr
 run_quiet setxkbmap -option ctrl:nocaps
 [ -f "$HOME/.xinitrc.start" ] && . "$HOME/.xinitrc.start"
 
 # Set the default WM
+WM="$1"
 [ "$WM" = "" ] && WM="xmonad"
 
-WM="$1"
 if [ "$WM" = "awesome" ] || [ "$WM" = "Awesome" ]; then
   if [ -d ~/.config/wallpaper ]; then
 	if [ "`ls ~/.config/wallpaper | wc -l`" -gt "1" ]; then
@@ -31,8 +31,8 @@ if [ "$WM" = "awesome" ] || [ "$WM" = "Awesome" ]; then
   exec awesome
 elif [ "$WM" = "xfce4" ]; then
   exec startxfce4
-elif [ "$WM" = "xmonad" ] || [ "$WM" = "Xmonad" ] || [ "$WM" = "" ]; then
-  which hhp >/dev/null 2>&1 && hhp &
+elif [ "$WM" = "xmonad" ] || [ "$WM" = "Xmonad" ]; then
+  run_quiet hhp &
   exec xmonad
 else
   exec $1
