@@ -2,7 +2,6 @@
 ## William's Configuration TODO's ##
 ####################################
 
-
 * Major Overhaul [5/10]
   - [X] Compartmentalize functions into better libraries
   - [X] Create modular startup routines [3/3]

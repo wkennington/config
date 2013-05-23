@@ -3,38 +3,4 @@
 # Import the modules automatically
 . "$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)/lib/loader"
 shell_init
-
-# Run background applications
-run_quiet autocutsel -fork
-run_quiet pulseaudio --start
-run_quiet xscreensaver -no-splash &
-run_quiet VBoxClient-all
-run_quiet xcompmgr
-run_quiet setxkbmap -option ctrl:nocaps
-[ -f "$HOME/.xinitrc.start" ] && . "$HOME/.xinitrc.start"
-
-# Set the default WM
-WM="$1"
-[ "$WM" = "" ] && WM="xmonad"
-
-if [ "$WM" = "awesome" ] || [ "$WM" = "Awesome" ]; then
-  if [ -d ~/.config/wallpaper ]; then
-	if [ "`ls ~/.config/wallpaper | wc -l`" -gt "1" ]; then
-	  sleep 2
-	  while true; do
-		awsetbg -r ~/.config/wallpaper
-		sleep 300
-	  done &
-	fi
-  fi
-  exec awesome
-elif [ "$WM" = "xfce4" ]; then
-  exec startxfce4
-elif [ "$WM" = "xmonad" ] || [ "$WM" = "Xmonad" ]; then
-  run_quiet hhp &
-  exec xmonad
-else
-  exec $1
-fi
-[ -f "$HOME/.xinitrc.end" ] && . "$HOME/.xinitrc.end"
-run_quiet pulseaudio --kill
+graphical_autorun $@
