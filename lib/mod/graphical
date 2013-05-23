@@ -1,26 +1,4 @@
 #!/usr/bin/env sh
-WM="$1"
-[ "$WM" = "" ] || path_hasbin $WM && WM="xmonad"
-
-if [ "$WM" = "awesome" ] || [ "$WM" = "Awesome" ]; then
-  if [ -d ~/.config/wallpaper ]; then
-	if [ "`ls ~/.config/wallpaper | wc -l`" -gt "1" ]; then
-	  sleep 2
-	  while true; do
-		awsetbg -r ~/.config/wallpaper
-		sleep 300
-	  done &
-	fi
-  fi
-  exec awesome
-elif [ "$WM" = "xfce4" ]; then
-  exec startxfce4
-elif [ "$WM" = "xmonad" ] || [ "$WM" = "Xmonad" ]; then
-  run_quiet hhp &
-  exec xmonad
-else
-  exec $1
-fi
 
 # Determine which window manager is best suited
 function graphical_bestwm {
@@ -42,7 +20,23 @@ function graphical_runwm {
   [ -f "$HOME/.xinitrc.start" ] && . "$HOME/.xinitrc.start"
 
   # Start the window manager
-  exec $@
+  if [ "$WM" = "awesome" ]; then
+    if [ -d ~/.config/wallpaper ]; then
+	  if [ "`ls ~/.config/wallpaper | wc -l`" -gt "1" ]; then
+	    sleep 2
+	    while true; do
+		  awsetbg -r ~/.config/wallpaper
+		  sleep 300
+	    done &
+	  fi
+    fi
+    exec awesome
+  elif [ "$WM" = "xmonad" ]; then
+    run_quiet hhp &
+    exec xmonad
+  else
+    exec $@
+  fi
 
   # Kill the rest of the processes
   [ -f "$HOME/.xinitrc.end" ] && . "$HOME/.xinitrc.end"
