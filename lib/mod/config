@@ -103,7 +103,7 @@ function config_latest {
 function config_ln {
   [ "$#" -eq "0" ] && return 1
   for LN in $@; do
-    symlink "$(dir_conf)/base/$LN" "$HOME/.$LN"
+    symlink "$(dir_conf)/conf/$LN" "$HOME/.$LN"
   done
 }
 

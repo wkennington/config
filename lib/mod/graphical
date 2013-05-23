@@ -2,4 +2,5 @@
 
 # Automatically Configures the graphical interface
 function graphic_auto {
+  return 0
 }

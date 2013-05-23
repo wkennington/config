@@ -48,7 +48,7 @@ function ssh_genkey {
 function ssh_defkey {
   ssh_dir || return 1
   local CPFX; local LPFX; local KEYS
-  CPFX="$(dir_conf)/base/ssh/default_"
+  CPFX="$(dir_conf)/conf/ssh/default_"
   LPFX="$HOME/.ssh/id_"
   to_array KEYS "rsa rsa.pub ecdsa ecdsa.pub"
   for KEY in $KEYS; do
@@ -63,7 +63,7 @@ function ssh_auth {
   ssh_dir || return 1
   rm -f ~/.ssh/authorized_keys
   local KEYS
-  to_array KEYS "$(find $(dir_conf)/base/ssh -type f | grep -v 'config$' | grep '.pub$')"
+  to_array KEYS "$(find $(dir_conf)/conf/ssh -type f | grep -v 'config$' | grep '.pub$')"
   for KEY in $KEYS; do
     cat "$KEY" >> ~/.ssh/authorized_keys
   done
@@ -72,7 +72,7 @@ function ssh_auth {
 # Makes sure the client configuration is installed
 function ssh_client {
   ssh_dir || return 1
-  symlink "$(dir_conf)/base/ssh/config" "$HOME/.ssh/config"
+  symlink "$(dir_conf)/conf/ssh/config" "$HOME/.ssh/config"
   ssh-keygen -H >/dev/null 2>&1
   rm -f ~/.ssh/known_hosts.old
 }
