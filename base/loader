@@ -18,14 +18,13 @@ function to_array {
   fi
 
   # Convert the data into an array
-  if [ "$(shell)" = "zsh" ] || [ "$(shell)" = "bash" ]; then
+  if [ "$(shell)" = "zsh" ]; then
     eval "$1=($DATA)"
-    return 0
-  elif [ "$(shell)" = "sh" ]; then
+  elif [ "$(shell)" = "sh" ] || [ "$(shell)" = "bash" ]; then
     eval "$1=\"$DATA\""
-    return 0
+  else
+    return 1
   fi
-  return 1
 }
 
 # Determines the top level configuration directory
@@ -43,7 +42,7 @@ function dir_conf {
 }
 
 # Source Modules
-to_array MODS "$(find $(dir_conf $0)/base/mod -type f)"
+to_array MODS "$(find "$(dir_conf "$0")/base/mod" -type f)"
 for M in $MODS; do
   [ "$(echo "$M" | grep '\(~$\|^#\)')" != "" ] && continue
   . "$M"
