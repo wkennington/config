@@ -78,7 +78,8 @@ function shell_best {
 # Set the given shell as the default shell if not already set
 function shell_default {
   [ "$#" -ne "1" ] && return 1
-  chsh -s "$1" "$USER"
+  [ "$(basename $(getent passwd $LOGNAME | cut -d: -f7))" = "$1" ] && return 0
+  chsh -s "$(which "$1")" "$USER"
 }
 
 # Automatically configures the shell configuration files

@@ -1,5 +1,21 @@
 #!/usr/bin/env sh
 
+# Loads the editor bypassing similarly named functions / aliases
+function editor_run {
+  BN="$(/usr/bin/which "$1" 2>&1)" || return 127
+  $(dirname "$BN")/$@
+}
+
+# Load vim smartly
+function vim {
+  editor_run vim $@
+}
+
+# Load emacs smartly
+function emacs {
+  editor_run emacs $@
+}
+
 # Automatically configure editors
 function editor_auto {
   rm -rf "$HOME/.emacs" "$HOME/.viminfo"
