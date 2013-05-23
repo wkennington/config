@@ -29,7 +29,18 @@ function dir_tmp {
 # Tests to see if a binary exists in the path
 function path_hasbin {
   [ "$#" -ne "1" ] && return 2
-  [ "$(which $1 2>/dev/null | grep -v "not found")" != "" ]
+  [ "$(/usr/bin/which $1 2>/dev/null | grep -v "not found")" != "" ]
+}
+
+# Checks to see if the process is running
+function proc_exists {
+  [ "$#" -ne "1" ] && return 1
+  kill -0 $1 >/dev/null 2>&1
+}
+
+# Checks the pidfile to see if the process is running
+function check_pidfile {
+  [ -f "$1" ] && proc_exists "$(cat $1 2>/dev/null)"
 }
 
 # Add to the path if the DIR doesn't exist

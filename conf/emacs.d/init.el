@@ -52,6 +52,7 @@
 (line-number-mode t)
 (column-number-mode t)
 (size-indication-mode t)
+(setq default-frame-alist '((font . "Monospace-9")))
 (when (not windows) (set-default-font "Monospace-9"))
 
 ;; Workgroups

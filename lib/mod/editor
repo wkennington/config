@@ -8,13 +8,26 @@ function editor_run {
 
 # Load vim smartly
 function vim {
-  editor_run vim $@
+  if [ ! -z "$XAUTHORITY" ] && [ "$RUNNER" -eq "1" ] && path_hasbin "gvim"; then
+    editor_run gvim $@
+  elif path_hasbin "vim"; then
+    editor_run vim $@
+  else
+    return 127
+  fi
 }
 
 # Load emacs smartly
 function emacs {
-  editor_run emacs $@
+  path_hasbin "emacs" || return 127
+  check_pidfile "$(dir_tmp)/emacs.pid" || editor_run emacs --daemon || return 1
+  if [ ! -z "$XAUTHORITY" ] && [ "$RUNNER" -eq "1" ]; then
+    editor_run emacsclient -c $@
+  else
+    editor_run emacsclient -t $@
+  fi
 }
+alias emacsclient=emacs
 
 # Automatically configure editors
 function editor_auto {
