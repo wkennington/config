@@ -1,11 +1,10 @@
 #!/usr/bin/env zsh
 # Path to your oh-my-zsh configuration.
-export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.zshrc))/../)"
-source $CONF/base/loader
+. "$(readlink -f $(dirname $(readlink -f $HOME/.zshrc))/../)/lib/loader"
 shell_best $@
 shell_init
 
-ZSH="$CONF/oh-my-zsh"
+ZSH="$(dir_conf)/lib/oh-my-zsh"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -41,6 +40,6 @@ plugins=(battery svn git screen extract encode64 task urltools pass)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-source $CONF/base/zsh-theme
+source "$(dir_conf)/conf/zsh-theme"
 alias sudo="nocorrect sudo"
 [ -f "$HOME/.zshrc.local" ] && source $HOME/.zshrc.local

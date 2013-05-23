@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 # Import the modules automatically
-export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)"
-. $CONF/base/loader
+. "$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)/lib/loader"
 shell_init
 
 # Run background applications
