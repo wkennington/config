@@ -2,6 +2,7 @@
 
 # Sleeps the computer
 function comp_sleep {
+  comp_lock || return 1
   sudo_wrap pm-suspend
 }
 
