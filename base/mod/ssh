@@ -1,0 +1,89 @@
+#!/usr/bin/env sh
+
+# Makes sure the ssh directory exists
+function ssh_dir {
+  if [ ! -d "$HOME/.ssh" ]; then
+    mkdir "$HOME/.ssh" || return 1
+  fi
+}
+
+# Creates new ssh keys with the provided password
+# Passing no parameter prompts the user for a password
+function ssh_genkey {
+  local PASS; local PASS2
+  if [ "$#" -eq "0" ]; then
+    stty -echo
+    echo -n "Password: "
+    read PASS
+    echo ""
+    echo -n "Confirm: "
+    read PASS2
+    echo ""
+    stty echo
+    [ "$PASS" != "$PASS2" ] && { echo "Passwords do not match" >&2; return 1; }
+  elif [ "$#" -eq "1" ]; then
+    PASS="$1"
+  else
+    return 1
+  fi
+
+  ssh_dir || return 1
+  touch $HOME/.ssh/id_{rsa,ecdsa}
+  chmod 0600 $HOME/.ssh/id_{rsa,ecdsa}
+
+  if [ "$PASS" = "" ]; then
+    openssl genrsa -out "$HOME/.ssh/id_rsa" 4096
+	echo $(ssh-keygen -yf "$HOME/.ssh/id_rsa") $(hostname) > "$HOME/.ssh/id_rsa.pub"
+	openssl ecparam -genkey -name secp521r1 -out "$HOME/.ssh/id_ecdsa"
+	echo $(ssh-keygen -yf "$HOME/.ssh/id_ecdsa") $(hostname) > "$HOME/.ssh/id_ecdsa.pub"
+  else
+	openssl genrsa -aes256 -passout "pass:$PASS" -out "$HOME/.ssh/id_rsa" 4096
+	echo $(ssh-keygen -P "$PASS" -yf "$HOME/.ssh/id_rsa") $(hostname) > "$HOME/.ssh/id_rsa.pub"
+	openssl ecparam -genkey -name secp521r1 | openssl ec -aes256 -passout "pass:$PASS" -out "$HOME/.ssh/id_ecdsa"
+	echo $(ssh-keygen -P "$PASS" -yf "$HOME/.ssh/id_ecdsa") $(hostname) > "$HOME/.ssh/id_ecdsa.pub"
+  fi
+}
+
+# Create the keys from the git repo
+function ssh_defkey {
+  ssh_dir || return 1
+  local CPFX; local LPFX; local KEYS
+  CPFX="$(dir_conf)/base/ssh/default_"
+  LPFX="$HOME/.ssh/id_"
+  to_array KEYS "rsa rsa.pub ecdsa ecdsa.pub"
+  for KEY in $KEYS; do
+    if [ -f "$CPFX$KEY" ]; then
+      symlink "$CPFX$KEY" "$LPFX$KEY" || return 1
+    fi
+  done
+}
+
+# Populates the authorized_keys file
+function ssh_auth {
+  ssh_dir || return 1
+  rm -f ~/.ssh/authorized_keys
+  local KEYS
+  to_array KEYS "$(find $(dir_conf)/base/ssh -type f | grep -v 'config$' | grep '.pub$')"
+  for KEY in $KEYS; do
+    cat "$KEY" >> ~/.ssh/authorized_keys
+  done
+}
+
+# Makes sure the client configuration is installed
+function ssh_client {
+  ssh_dir || return 1
+  symlink "$(dir_conf)/base/ssh/config" "$HOME/.ssh/config"
+}
+
+# Automatically determine how to configure ssh
+function ssh_auto {
+  ssh_client || { echo "Failed to create client configuration" >&2; return 1; }
+  ssh_auth || { echo "Failed to update authorized_keys" >&2; return 1; }
+  if [ ! -f "$HOME/.ssh/id_rsa.pub" ] && [ ! -f "$HOME/.ssh/id_ecdsa.pub" ]; then
+    if info_ws; then
+      ssh_defkey || { echo "Failed to populate client keys" >&2; return 1; }
+    else
+      ssh_genkey "" || { echo "Failed to generate client keys" >&2; return 1; }
+    fi
+  fi
+}
