@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
-export CONF="$(readlink -f $(dirname $(readlink -f $HOME/.zshrc))/../)"
-. $CONF/base/loader
+export CONF="$(readlink -f $(dirname $(readlink -f $0))/../)"
+. $CONF/lib/loader
 eval "$@"

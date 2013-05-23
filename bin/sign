@@ -1,15 +1,14 @@
 #!/bin/sh
-DIR="$(dirname "$(readlink -f "$0")")"
-cd $DIR
-. ./integrity
+cd "$(readlink -f $(dirname $(readlink -f $0))/../)"
+. lib/integrity
 
 # Required Programs
 require_all
 
 # Check for Valid Arguments
 if [ "$#" -ne "1" ]; then
-	echo "$0 message" >&2
-	exit 1
+  echo "$0 message" >&2
+  exit 1
 fi
 
 # Pull the Latest Changes
@@ -27,7 +26,7 @@ git add .hash .sig
 git commit -m "Signing Commit" >/dev/null 2>&1
 git push origin master >/dev/null 2>&1
 if [ "$?" -ne "0" ]; then
-	echo "Failed To Push Commit!" >&2
-	exit 1
+  echo "Failed To Push Commit!" >&2
+  exit 1
 fi
 exit 0
