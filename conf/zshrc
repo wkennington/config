@@ -40,6 +40,6 @@ plugins=(battery svn git screen extract encode64 task urltools pass)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-source "$(dir_conf)/conf/zsh-theme"
+shell_theme
 alias sudo="nocorrect sudo"
 [ -f "$HOME/.zshrc.local" ] && source $HOME/.zshrc.local

@@ -9,6 +9,7 @@
 . "$(readlink -f $(dirname $(readlink -f ~/.bashrc))/../)/lib/loader"
 shell_best $@
 shell_init
+shell_theme
 
 # Create Prompt Theme
 DR='\[\e[0;31m\]'

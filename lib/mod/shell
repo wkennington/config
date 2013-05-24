@@ -13,6 +13,27 @@ function shell_colors {
   fi
 }
 
+# Setup the theme for the shell
+function shell_theme {
+  declare -A fg
+  declare -A fg_bold
+
+  # Setup Colors
+  
+
+  # Setup Coloring
+  if info_root; then NCOLOR="$fg[cyan]"; else NCOLOR="$fg_bold[white]"; fi
+  if info_ws; then HCOLOR="$fg[green]"; else HCOLOR="$fg[red]"; fi
+  DCOLOR="$fg_bold[yellow]"
+
+  # ZSH Prompt
+  PROMPT='[%{$NCOLOR%}%n%{$reset_color%}@'
+  PROMPT="$PROMPT"'%{$HCOLOR%}%m%{$reset_color%}:'
+  PROMPT="$PROMPT"'%{$DCOLOR%}%30<...<%~%<<%{$reset_color%}]%(!.#.$) '
+
+  # Bash Prompt
+}
+
 # Create the temporary directory for the shell
 function shell_tmp {
   local TMP
