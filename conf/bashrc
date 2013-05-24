@@ -1,4 +1,4 @@
-#
+#!/usr/bin/env bash
 # ~/.bashrc
 #
 
@@ -10,34 +10,3 @@
 shell_best $@
 shell_init
 shell_theme
-
-# Create Prompt Theme
-DR='\[\e[0;31m\]'
-R='\[\e[1;31m\]'
-DB='\[\e[0;34m\]'
-B='\[\e[1;34m\]'
-W='\[\e[1;37m\]'
-DG='\[\e[0;32m\]'
-G='\[\e[1;32m\]'
-DY='\[\e[0;33m\]'
-Y='\[\e[1;33m\]'
-RES='\[\e[0m\]'
-BAR='\[\e(0\]\161\[\e(B\]'
-START='\[\e(0\]\154\[\e(B\]'
-END='\[\e(0\]\155\161\[\e(B\]'
-#PS1="${G}${START}${DY}[${Y}\u${DG}@\H${DY}]${G}${BAR}${B}[${W}\w${B}]${G}${BAR}${DR}[${R}\t${DR}]\n${G}${END}\$${RES} "
-hostn=`uname -n`
-usern=`whoami`
-
-function prompt {
-	time=`date +%R:%S`
-	ln="-[${usern}@${hostn}]-[$(dirs)][${time}]"
-	cols=`tput cols`
-	let FILLS=${cols}-${#ln}
-	LINE="${G}${START}${DY}[${Y}${usern}${DG}@${hostn}${DY}]${G} ${B}[${W}\w${B}]${G}"
-	for (( f=0; f<$FILLS; f++ )); do
-		LINE="${LINE} "
-	done
-	PS1="${LINE}${DR}[${R}${time}${DR}]\n${G}${END}\$${RES} "
-}
-PROMPT_COMMAND=prompt

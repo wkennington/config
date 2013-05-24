@@ -15,30 +15,48 @@ function shell_colors {
 
 # Setup the theme for the shell
 function shell_theme {
-  declare -A fg
-  declare -A fg_bold
-
   # Setup Colors
-  
+  if [ "$(shell)" != "zsh" ]; then
+    declare -A fg
+    declare -A fg_bold
 
-  # Setup Coloring
-  if info_root; then NCOLOR="$fg[cyan]"; else NCOLOR="$fg_bold[white]"; fi
-  if info_ws; then HCOLOR="$fg[green]"; else HCOLOR="$fg[red]"; fi
-  DCOLOR="$fg_bold[yellow]"
+    fg[red]='\[\e[0;31m\]'
+    fg_bold[red]='\[\e[1;31m\]'
+    fg[green]='\[\e[0;32m\]'
+    fg_bold[green]='\[\e[1;32m\]'
+    fg[yellow]='\[\e[0;33m\]'
+    fg_bold[yellow]='\[\e[1;33m\]'
+    fg[blue]='\[\e[0;34m\]'
+    fg_bold[blue]='\[\e[1;34m\]'
+    fg[pink]='\[\e[0;35m\]'
+    fg_bold[pink]='\[\e[1;35m\]'
+    fg[cyan]='\[\e[0;36m\]'
+    fg_bold[cyan]='\[\e[1;36m\]'
+    fg[white]='\[\e[0;37m\]'
+    fg_bold[white]='\[\e[1;37m\]'
+    reset_color='\[\e[0m\]'
+  fi
 
-  # ZSH Prompt
-  PROMPT='[%{$NCOLOR%}%n%{$reset_color%}@'
-  PROMPT="$PROMPT"'%{$HCOLOR%}%m%{$reset_color%}:'
-  PROMPT="$PROMPT"'%{$DCOLOR%}%30<...<%~%<<%{$reset_color%}]%(!.#.$) '
+  # Setup Special Colors
+  if info_root; then NCOLOR="${fg[cyan]}"; else NCOLOR="${fg_bold[white]}"; fi
+  if info_ws; then HCOLOR="${fg[green]}"; else HCOLOR="${fg[red]}"; fi
+  DCOLOR="${fg_bold[yellow]}"
 
-  # Bash Prompt
+  # Create Prompt
+  if [ "$(shell)" = "zsh" ]; then
+    PROMPT='[%{$NCOLOR%}%n%{$reset_color%}@'
+    PROMPT="$PROMPT"'%{$HCOLOR%}%m%{$reset_color%}:'
+    PROMPT="$PROMPT"'%{$DCOLOR%}%30<...<%~%<<%{$reset_color%}]%(!.#.$) '
+  else
+    PS1="[${NCOLOR}\u${reset_color}@${HCOLOR}\h${reset_color}:${DCOLOR}\w${reset_color}]\$ "
+  fi
 }
 
 # Create the temporary directory for the shell
 function shell_tmp {
   local TMP
   if TMP="$(dir_tmp)"; then
-    export HISTFILE="$TMP/history_$(basename $SHELL)"
+    export HISTFILE="$TMP/history_$(shell)"
     export SAVEHIST="9999"
   else
     unset HISTFILE
@@ -88,6 +106,7 @@ function shell_get_best {
 
 # Automatically executes the preferred shell
 function shell_best {
+  return 0
   if [ "$(shell)" != "$(shell_get_best)" ]; then
     $(shell_get_best) $@
     exit $?
