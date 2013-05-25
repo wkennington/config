@@ -27,7 +27,7 @@
 ;; Download Required Packages
 (require 'cl)
 (defvar packages
-  '(ace-jump-mode yasnippet-bundle el-autoyas helm-c-yasnippet yas-jit workgroups zenburn-theme))
+  '(ace-jump-mode doctags yasnippet-bundle el-autoyas helm-c-yasnippet yas-jit workgroups zenburn-theme))
 
 (defun packages-installed-p ()
   (loop for p in packages
@@ -55,11 +55,10 @@
 (add-to-list 'default-frame-alist '(font . "Monospace-9"))
 (when (not windows) (set-default-font "Monospace-9"))
 
-;; Workgroups
-(require 'workgroups)
-(workgroups-mode 1)
-(setq wg-morph-on 'nil)
-(setq wg-path "~/.emacs.d/workgroups")
+;; Doctags
+(require 'semantic)
+(require 'doctags)
+(define-key global-map (kbd "C-S-j") 'doctags-document-current-tag)
 
 ;; Tabs and Editing
 (setq-default indent-tabs-mode nil)
@@ -147,5 +146,9 @@
 (when (file-exists-p "~/.emacs.d/local.el")
   (load "~/.emacs.d/local.el"))
 
-;; Load the final workgroups
+;; Workgroups
+(require 'workgroups)
+(workgroups-mode 1)
+(setq wg-morph-on 'nil)
+(setq wg-path "~/.emacs.d/workgroups")
 (wg-load wg-path)
