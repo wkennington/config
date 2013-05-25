@@ -59,7 +59,7 @@ graphical_autorun () {
 
 # Automatically Configures the graphical interface
 graphical_auto () {
-  install -dv $HOME/.config
+  install -d $HOME/.config
   rm -f $HOME/.{Xdefaults,gtkrc-2.0,config/{gtk-3.0,sakura}}
   config_ln xinitrc xsession xmonad config/{awesome,Terminal,wallpaper,uzbl}
   return 0
