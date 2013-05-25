@@ -2,7 +2,7 @@
 ## William's Configuration TODO's ##
 ####################################
 
-* Major Overhaul [6/10]
+* Major Overhaul [6/11]
   - [X] Compartmentalize functions into better libraries
   - [X] Create modular startup routines [3/3]
     - [X] Xorg
@@ -19,3 +19,4 @@
     - [ ] Short cwd for bash like
     - [ ] Default FreeBSD shell support
   - [ ] Implement testing for all of the library functions
+  - [ ] Add autocomplete functionality for cmdline functions
