@@ -1,18 +1,18 @@
 #!/usr/bin/env sh
 
 # Returns the issue of the operating system
-function os_issue {
+os_issue () {
   local OS_ISSUE
   OS_ISSUE="$(cat /etc/issue 2>/dev/null)" && { echo "$OS_ISSUE"; return 0; }
   echo "Failed to get OS Issue" >&2
   return 1
 }
 
-function os_info {
+os_info () {
   uname -a
 }
 
 # Determines whether the os info matches the regex provided
-function os_matches {
+os_matches () {
   echo $(os_issue) $(os_info) | grep $1 >/dev/null 2>&1
 }

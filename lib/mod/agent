@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Exports extra params
-function agent_export {
+agent_export () {
   export SSH_AUTH_SOCK
   export GPG_AGENT_INFO
   export GNOME_KEYRING_CONTROL
@@ -9,18 +9,18 @@ function agent_export {
 }
 
 # Retrieve the agent environment
-function agent_file {
+agent_file () {
   echo "$(dir_tmp)/agent-environment"
 }
 
 # Print cmd if agent exists
-function agent_cmd {
+agent_cmd () {
   [ "$#" -lt "1" ] && return 1
   path_hasbin $1 && echo $@
 }
 
 # Determine which agent to use
-function agent_which {
+agent_which () {
   [ "$(hostname -s )" = "fantom" ] && agent_cmd ssh-agent && return 0
   agent_cmd gnome-keyring-daemon -c pkcs11,secrets,ssh,gpg && {
     return 0
@@ -32,20 +32,20 @@ function agent_which {
 }
 
 # Tests to see if the agent is already running
-function agent_running {
+agent_running () {
   run_quiet ssh-add -L
   [ "$?" -ne "2" ]
 }
 
 # Import already running agent data
-function agent_env {
+agent_env () {
   [ -f "$(agent_file)" ] && . "$(agent_file)"
   agent_export
   agent_running
 }
 
 # Spawn agent if it doesn't exist
-function agent_spawn {
+agent_spawn () {
   echo "Spawning $@"
   (eval "$@") | grep -v echo > "$(agent_file)"
   agent_env
@@ -53,7 +53,7 @@ function agent_spawn {
 }
 
 # Automatically determines which agent to use and starts it if necessary
-function agent_auto {
+agent_auto () {
   local AGENT
   agent_running && return 0
   agent_env && return 0

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Setup the colors for the shell
-function shell_colors {
+shell_colors () {
   # Colors for LS
   os_matches '\(Linux\|Cygwin\)' && eval "$(dircolors -b)" && alias ls='ls --color=auto'
   os_matches '\(FreeBSD\)' && export CLICOLOR=1 && export LSCOLORS="ExGxFxdxCxDhDxaBadaCeC"
@@ -14,7 +14,7 @@ function shell_colors {
 }
 
 # Setup the theme for the shell
-function shell_theme {
+shell_theme () {
   # Setup Colors
   if [ "$(shell)" != "zsh" ]; then
     declare -A fg
@@ -53,7 +53,7 @@ function shell_theme {
 }
 
 # Create the temporary directory for the shell
-function shell_tmp {
+shell_tmp () {
   local TMP
   if TMP="$(dir_tmp)"; then
     export HISTFILE="$TMP/history_$(shell)"
@@ -65,7 +65,7 @@ function shell_tmp {
 }
 
 # Initializes useful functions if the caller is a shell
-function shell_init {
+shell_init () {
   shell_tmp
   shell_colors
   path_add "$HOME/.bin"
@@ -83,7 +83,7 @@ function shell_init {
 }
 
 # Returns the name of the preferred shell
-function shell_get_best {
+shell_get_best () {
   # ZSH preferred
   if which zsh >/dev/null 2>&1; then
     VER="$(zsh --version | awk '{print $2}')"
@@ -105,7 +105,7 @@ function shell_get_best {
 }
 
 # Automatically executes the preferred shell
-function shell_best {
+shell_best () {
   if [ "$(shell)" != "$(shell_get_best)" ]; then
     $(shell_get_best) $@
     exit $?
@@ -113,14 +113,14 @@ function shell_best {
 }
 
 # Set the given shell as the default shell if not already set
-function shell_default {
+shell_default () {
   [ "$#" -ne "1" ] && return 1
   [ "$(basename $(getent passwd $LOGNAME | cut -d: -f7))" = "$1" ] && return 0
   chsh -s "$(which "$1")" "$USER"
 }
 
 # Automatically configures the shell configuration files
-function shell_auto {
+shell_auto () {
   config_ln "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout"
   shell_default "$(shell_get_best)"
 }

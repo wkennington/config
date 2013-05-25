@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Gets the string representing the state of the batteries
-function laptop_bat {
+laptop_bat () {
   local BATS; local BAT_DIR
   to_array BATS "$(ls /sys/class/power_supply | grep "^BAT")"
   for BAT in $BATS; do

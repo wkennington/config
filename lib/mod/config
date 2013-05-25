@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-function git_cd {
+git_cd () {
   if [ "$#" -eq "0" ]; then
     cd "$(dir_conf)"
   else
@@ -9,14 +9,14 @@ function git_cd {
 }
 
 # Gets the current git branch
-function git_cbr {(
+git_cbr () {(
     git_cd $1
     git rev-parse --abbrev-ref HEAD 2>/dev/null
 )}
 
 # Updates the root git tree
 # Returns 2 if failed, 1 if updated, 0 if up-to-date
-function git_pull {(
+git_pull () {(
     git_cd $1
     git reset --hard >/dev/null 2>&1
     STR="$(git pull origin "$(git_cbr $1)" 2>&1)" || return 2
@@ -25,7 +25,7 @@ function git_pull {(
 
 # Updates the root git tree and only returns >0 on error
 # Echos updated if the tree was updated
-function git_pull_nostat {
+git_pull_nostat () {
   git_pull $@
   case "$?" in
     2)
@@ -38,7 +38,7 @@ function git_pull_nostat {
 
 # Initialize git submodules
 # Returns 2 if failed, 1 if initialized, 0 if up-to-date
-function git_sub_init {(
+git_sub_init () {(
     local ACUM
     ACUM=0
 
@@ -54,7 +54,7 @@ function git_sub_init {(
 
 # Update the submodules
 # Returns 2 if failed, 1 if updated, 0 if up-to-date
-function git_sub_pull {(
+git_sub_pull () {(
     git_cd $1
     STR="$(git submodule -q foreach --recursive "run git_pull_nostat ." 2>/dev/null)" || return 2
     [ "$(echo "$STR" | grep 'Updated')" = "" ]
@@ -62,7 +62,7 @@ function git_sub_pull {(
 
 # Gets the latest version of the git config
 # Returns 2 if failed, 1 if updated, 0 if up-to-date
-function config_latest {
+config_latest () {
   local ACUM
   ACUM=0
 
@@ -100,7 +100,7 @@ function config_latest {
 }
 
 # Links the configuration file to its proper dotfile
-function config_ln {
+config_ln () {
   [ "$#" -eq "0" ] && return 1
   for LN in $@; do
     symlink "$(dir_conf)/conf/$LN" "$HOME/.$LN"
@@ -108,7 +108,7 @@ function config_ln {
 }
 
 # Installs the configuration files
-function config_install {
+config_install () {
   symlink "$(dir_conf)/bin" "$HOME/.bin"
   shell_auto
   ssh_auto
@@ -117,7 +117,7 @@ function config_install {
 }
 
 # Updates the configuration files and all of the submodules
-function config_update {
+config_update () {
   config_latest
   case "$?" in
     2)

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Makes sure the ssh directory exists
-function ssh_dir {
+ssh_dir () {
   if [ ! -d "$HOME/.ssh" ]; then
     mkdir "$HOME/.ssh" || return 1
   fi
@@ -9,7 +9,7 @@ function ssh_dir {
 
 # Creates new ssh keys with the provided password
 # Passing no parameter prompts the user for a password
-function ssh_genkey {
+ssh_genkey () {
   local PASS; local PASS2
   if [ "$#" -eq "0" ]; then
     stty -echo
@@ -45,7 +45,7 @@ function ssh_genkey {
 }
 
 # Create the keys from the git repo
-function ssh_defkey {
+ssh_defkey () {
   ssh_dir || return 1
   local CPFX; local LPFX; local KEYS
   CPFX="$(dir_conf)/conf/ssh/default_"
@@ -59,7 +59,7 @@ function ssh_defkey {
 }
 
 # Populates the authorized_keys file
-function ssh_auth {
+ssh_auth () {
   ssh_dir || return 1
   rm -f ~/.ssh/authorized_keys
   local KEYS
@@ -70,7 +70,7 @@ function ssh_auth {
 }
 
 # Makes sure the client configuration is installed
-function ssh_client {
+ssh_client () {
   ssh_dir || return 1
   symlink "$(dir_conf)/conf/ssh/config" "$HOME/.ssh/config"
   ssh-keygen -H >/dev/null 2>&1
@@ -78,7 +78,7 @@ function ssh_client {
 }
 
 # Automatically determine how to configure ssh
-function ssh_auto {
+ssh_auto () {
   ssh_client || { echo "Failed to create client configuration" >&2; return 1; }
   ssh_auth || { echo "Failed to update authorized_keys" >&2; return 1; }
   if [ ! -f "$HOME/.ssh/id_rsa.pub" ] && [ ! -f "$HOME/.ssh/id_ecdsa.pub" ]; then

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Updates the packages in the package manager
-function pkg_update {
+pkg_update () {
   if os_matches 'Arch Linux'; then
     path_hasbin aura && (sudo_wrap aura -Syu; sudo_wrap aura -Aku) && return 0
     path_hasbin packer && (sudo_wrap packer -Syu) && return 0
@@ -16,7 +16,7 @@ function pkg_update {
 }
 
 # Installs the package through the package manager
-function pkg_install {
+pkg_install () {
   if os_matches 'Arch Linux'; then
     if path_hasbin aura; then
       if sudo_wrap aura -Si $@ >/dev/null 2>&1; then
@@ -38,7 +38,7 @@ function pkg_install {
 }
 
 # Removes and purges the package in the package manager
-function pkg_remove {
+pkg_remove () {
   if os_matches 'Arch Linux'; then
     path_hasbin aura && (sudo_wrap aura -Rsdc $@) && return 0
     path_hasbin pacman && (sudo_wrap pacman -Rsdc) && return 0
@@ -53,7 +53,7 @@ function pkg_remove {
 alias pkg_delete=pkg_remove
 
 # Cleans the package repository
-function pkg_clean {
+pkg_clean () {
   if os_matches 'Arch Linux' && path_hasbin pacman; then
     [ "$(pacman -Qqdt)" != "" ] && sudo_wrap pacman -Rns $(pacman -Qqdt) && return 0
   fi

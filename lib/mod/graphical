@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Determine which window manager is best suited
-function graphical_bestwm {
+graphical_bestwm () {
   path_hasbin "xmonad" && { echo "xmonad"; return 0; }
   path_hasbin "awesome" && { echo "awesome"; return 0; }
   path_hasbin "startxfce4" && { echo "startxfce4"; return 0; }
@@ -9,7 +9,7 @@ function graphical_bestwm {
 }
 
 # Run the window manager with the best side apps
-function graphical_runwm {
+graphical_runwm () {
   # Run background applications
   run_quiet autocutsel -fork
   run_quiet pulseaudio --start
@@ -44,7 +44,7 @@ function graphical_runwm {
 }
 
 # Automatically pick a window manager to run
-function graphical_autorun {
+graphical_autorun () {
   local WM
   if [ "$#" -ge "1" ]; then
     WM="$(echo "$1" | tr '[A-Z]' '[a-z]')"
@@ -58,7 +58,7 @@ function graphical_autorun {
 }
 
 # Automatically Configures the graphical interface
-function graphical_auto {
+graphical_auto () {
   install -dv $HOME/.config
   rm -f $HOME/.{Xdefaults,gtkrc-2.0,config/{gtk-3.0,sakura}}
   config_ln xinitrc xsession xmonad config/{awesome,Terminal,wallpaper,uzbl}
