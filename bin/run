@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 export CONF="$(readlink -f $(dirname $(readlink -f $0))/../)"
-. $CONF/lib/loader
+. $CONF/lib/loader || return 128
 RUNNER=1
 eval "$@"

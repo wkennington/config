@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Returns the shell executing the current script
-function shell {
-  basename $(ps hp $$ | awk '{print $5}' | sed 's/-//')
+shell () {
+  basename "$(ps hp $$ | awk '{print $5}' | sed 's/-//')"
 }
 
 # Creates an array from the name of the variable and values
-function to_array {
+to_array () {
   ([ "$#" -lt "1" ] || [ "$#" -gt "2" ]) && return 1
 
   # Read in the array data
@@ -28,7 +28,7 @@ function to_array {
 }
 
 # Determines the top level configuration directory
-function dir_conf {
+dir_conf () {
   local FILES
   to_array FILES "$1 $HOME/.zshrc $HOME/.bashrc $HOME/.xinitrc"
   for FILE in $FILES; do
@@ -42,13 +42,18 @@ function dir_conf {
 }
 
 # Allows the functions to be reloaded at any time
-function reload {
+reload_all () {
   . "$(dir_conf)/lib/loader"
 }
 
 # Source Modules
-to_array MODS "$(find "$(dir_conf "$0")/lib/mod" -type f)"
-for M in $MODS; do
-  [ "$(echo "$M" | grep '\(~$\|^#\)')" != "" ] && continue
-  . "$M"
-done
+load_all () {
+  local DIRCONF; local MODS;
+  DIRCONF="$(dir_conf "$0")" || return 1
+  to_array MODS "$(find "$DIRCONF/lib/mod" -type f)"
+  for M in $MODS; do
+    [ "$(echo "$M" | grep '\(~$\|^#\)')" != "" ] && continue
+    . "$M" || { echo "Failed to load module $M"; return 1; }
+  done
+}
+load_all

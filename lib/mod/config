@@ -124,7 +124,7 @@ function config_update {
       return 2
       ;;
     1)
-      reload
+      reload_all
       config_install
   esac
 }
