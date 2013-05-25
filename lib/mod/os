@@ -3,6 +3,7 @@
 # Returns the issue of the operating system
 os_issue () {
   local OS_ISSUE
+  [ -f "/etc/issue" ] || return 0
   OS_ISSUE="$(cat /etc/issue 2>/dev/null)" && { echo "$OS_ISSUE"; return 0; }
   echo "Failed to get OS Issue" >&2
   return 1
