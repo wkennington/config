@@ -3,8 +3,8 @@
 # Setup the colors for the shell
 shell_colors () {
   # Colors for LS
-  os_matches '\(Linux\|Cygwin\)' && eval "$(dircolors -b)" && alias ls='ls --color=auto'
-  os_matches '\(FreeBSD\)' && export CLICOLOR=1 && export LSCOLORS="ExGxFxdxCxDhDxaBadaCeC"
+  os_matches '\(Linux\|Cygwin\)' && { eval "$(dircolors -b)"; alias ls='ls --color=auto'; }
+  os_matches '\(FreeBSD\)' && { export CLICOLOR=1; export LSCOLORS="ExGxFxdxCxDhDxaBadaCeC"; }
 
   # 256 Colors in the Terminal
   if [ "$TERM" = "xterm" ] || [ "$TERM" = "rxvt-unicode-256color" ]; then
