@@ -3,6 +3,7 @@
 # Gets the string representing the state of the batteries
 laptop_bat () {
   local BATS; local BAT_DIR
+  [ -d "/sys/class/power_supply" ] || return 1
   to_array BATS "$(ls /sys/class/power_supply | grep "^BAT")"
   for BAT in $BATS; do
     echo -n "$BAT: "
