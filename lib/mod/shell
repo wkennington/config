@@ -106,7 +106,6 @@ function shell_get_best {
 
 # Automatically executes the preferred shell
 function shell_best {
-  return 0
   if [ "$(shell)" != "$(shell_get_best)" ]; then
     $(shell_get_best) $@
     exit $?
