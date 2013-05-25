@@ -1,18 +1,5 @@
 #!/usr/bin/env sh
 
-# Setup the colors for the shell
-shell_colors () {
-  # Colors for LS
-  os_matches '\(Linux\|Cygwin\)' && { eval "$(dircolors -b)"; alias ls='ls --color=auto'; }
-  os_matches '\(FreeBSD\)' && { export CLICOLOR=1; export LSCOLORS="ExGxFxdxCxDhDxaBadaCeC"; }
-
-  # 256 Colors in the Terminal
-  if [ "$TERM" = "xterm" ] || [ "$TERM" = "rxvt-unicode-256color" ]; then
-    export TERM="xterm-256color"
-    unset COLORTERM
-  fi
-}
-
 # Setup the theme for the shell
 shell_theme () {
   # Setup Colors
@@ -35,6 +22,16 @@ shell_theme () {
     fg[white]='\[\e[0;37m\]'
     fg_bold[white]='\[\e[1;37m\]'
     reset_color='\[\e[0m\]'
+  fi
+
+  # Colors for LS
+  os_matches '\(Linux\|Cygwin\)' && { eval "$(dircolors -b)"; alias ls='ls --color=auto'; }
+  os_matches '\(FreeBSD\)' && { export CLICOLOR=1; export LSCOLORS="ExGxFxdxCxDhDxaBadaCeC"; }
+
+  # 256 Colors in the Terminal
+  if [ "$TERM" = "xterm" ] || [ "$TERM" = "rxvt-unicode-256color" ]; then
+    export TERM="xterm-256color"
+    unset COLORTERM
   fi
 
   # Setup Special Colors
@@ -67,7 +64,6 @@ shell_tmp () {
 # Initializes useful functions if the caller is a shell
 shell_init () {
   shell_tmp
-  shell_colors
   path_add "$HOME/.bin"
   path_add "$HOME/.cabal/bin"
   agent_auto
