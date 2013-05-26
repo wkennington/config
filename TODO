@@ -21,8 +21,9 @@
     - [X] Coloring and prompt looks similar
     - [ ] Short cwd for bash like
     - [ ] Default FreeBSD shell support
-  - [-] Implement testing for all of the library functions [1/3]
+  - [-] Implement testing for all of the library functions [1/4]
     - [X] Create a testing framework
     - [ ] Test the loader and fix code
     - [ ] Test the module code
+    - [ ] Figure out a way to run tests against all shells
   - [ ] Add autocomplete functionality for cmdline functions
