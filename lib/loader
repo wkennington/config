@@ -30,7 +30,7 @@ dir_conf () {(
 
 # Extra array functions for accessor simplicity
 array_empty () {
-  [ "$(array_size)" -eq "0" ]
+  [ "$(array_size $1)" -eq "0" ]
 }
 array_forall () {
   for I in $(seq 0 $(expr $(array_size $1) - 1)); do
