@@ -13,13 +13,16 @@
   - [X] Make Xinit handle dependencies at runtime instead of install time
   - [X] Make vim / emacs responsible for creating tempfiles and calling scripts
   - [ ] Consider finishing the integrity controls
-  - [-] Support for more shells like CSH / TCSH / ASH [1/3]
+  - [-] Support for more shells like CSH / TCSH / ASH [2/3]
     - [X] Working Loader
-    - [ ] Functional correctness
+    - [X] Functional correctness
     - [ ] Working Shell prompt
   - [-] Common shell prompt [1/3]
     - [X] Coloring and prompt looks similar
     - [ ] Short cwd for bash like
     - [ ] Default FreeBSD shell support
-  - [ ] Implement testing for all of the library functions
+  - [-] Implement testing for all of the library functions [1/3]
+    - [X] Create a testing framework
+    - [ ] Test the loader and fix code
+    - [ ] Test the module code
   - [ ] Add autocomplete functionality for cmdline functions
