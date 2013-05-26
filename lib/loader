@@ -9,7 +9,8 @@ shell () {
 
 # Determines the top level configuration directory
 dir_try () {
-  cd "$(dirname "$(readlink -f "$1")")" 2>/dev/null || return 1
+  DIR_BIN="$(readlink -f "$1" 2>/dev/null)" || return 1
+  cd "$(dirname "$DIR_BIN")" 2>/dev/null || return 1
   DIR_CONF="$(git rev-parse --show-toplevel 2>/dev/null)" || return 1
   echo "$DIR_CONF"
 }
