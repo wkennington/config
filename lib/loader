@@ -28,20 +28,31 @@ dir_conf () {(
   exit 1
 }
 
+# Extra array functions for accessor simplicity
+array_empty () {
+  [ "$(array_size)" -eq "0" ]
+}
+array_forall () {
+  for I in $(seq 0 $(expr $(array_size $1) - 1)); do
+    eval "$2 \"$(array_at $1 $I)\"" || return 1
+  done
+}
+
 # Allows the functions to be reloaded at any time
 reload_all () {
   . "$(dir_conf)/lib/loader"
 }
 
 # Source Modules
+load_one () {
+  [ "$(echo "$1" | grep '\(~$\|^#\)')" != "" ] && return 0
+  . "$1" || { echo "Failed to load module $1"; return 1; }
+}
 load_all () {
   [ "$#" -ge "1" ] || return 1
   local DIRCONF; local MODS;
   DIRCONF="$(dir_conf "$0")" || return 1
-  to_array MODS "$(find "$DIRCONF/$1" -type f)"
-  for M in $MODS; do
-    [ "$(echo "$M" | grep '\(~$\|^#\)')" != "" ] && continue
-    . "$M" || { echo "Failed to load module $M"; return 1; }
-  done
+  array_from_str MODS "$(find "$DIRCONF/$1" -type f)"
+  array_forall MODS load_one
 }
 load_all lib/mod

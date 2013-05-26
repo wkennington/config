@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 # Creates an array from the name of the variable and values
-to_array () {
-  ([ "$#" -lt "1" ] || [ "$#" -gt "2" ]) && return 1
+array_from_str () {
+  {[ "$#" -lt "1" ] || [ "$#" -gt "2" ]} && return 1
 
   # Read in the array data
   local DATA
@@ -14,4 +14,19 @@ to_array () {
 
   # Convert the data into an array
   eval "$1=($DATA)"
+}
+
+# Unique Array Functions with indicies starting at 0
+array_new () {
+  unset "$1"
+  declare -a "$1"
+}
+array_at () {
+  eval "echo \${$1[$(expr $2 + 1)]}"
+}
+array_append () {
+  eval "$1+=(\"$2\")"
+}
+array_size () {
+  eval "echo \${#$1}"
 }

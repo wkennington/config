@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Creates an array from the name of the variable and values
-to_array () {
+array_from_str () {
   ([ "$#" -lt "1" ] || [ "$#" -gt "2" ]) && return 1
 
   # Read in the array data
@@ -13,11 +13,20 @@ to_array () {
   fi
 
   # Convert the data into an array
-  if [ "$(shell)" = "zsh" ]; then
-    eval "$1=($DATA)"
-  elif [ "$(shell)" = "sh" ] || [ "$(shell)" = "bash" ]; then
-    eval "$1=\"$DATA\""
-  else
-    return 1
-  fi
+  eval "$1=($DATA)"
+}
+
+# Unique Array Functions with indicies starting at 0
+array_append () {
+  eval "$1=(\"\${$1[@]}\" \"$2\")"
+}
+array_new () {
+  unset "$1"
+  declare -a "$1"
+}
+array_at () {
+  eval "echo \${$1[$2]}"
+}
+array_size () {
+  eval "echo \${#$1[@]}"
 }
