@@ -4,12 +4,22 @@
 laptop_bat () {
   local BATS; local BAT_DIR
   [ -d "/sys/class/power_supply" ] || return 1
-  to_array BATS "$(ls /sys/class/power_supply | grep "^BAT")"
-  for BAT in $BATS; do
-    echo -n "$BAT: "
-    BAT_DIR="/sys/class/power_supply/$BAT"
-    B="$(cat $BAT_DIR/status 2>/dev/null)" || return 1
-    ([[ "$B" == "Charging" ]] && echo -n "↑") || ([[ "$B" == "Discharging" ]] && echo -n "↓") || echo -n "⚡"
-    echo "$(expr $(cat $BAT_DIR/charge_now) \* 100 / $(cat $BAT_DIR/charge_full))%"
-  done
+  array_from_str BATS "$(ls /sys/class/power_supply | grep "^BAT")"
+  array_forall BATS laptop_bat_one
+}
+laptop_bat_one () {
+  echo -n "$1: "
+  BAT_DIR="/sys/class/power_supply/$1"
+  B="$(cat $BAT_DIR/status 2>/dev/null)" || return 1
+  case "$B" in
+    Charging)
+      echo -n "↑"
+      ;;
+    Discharging)
+      echo -n "↓"
+      ;;
+    *)
+      echo -n "⚡"
+  esac
+  echo "$(expr $(cat $BAT_DIR/charge_now) \* 100 / $(cat $BAT_DIR/charge_full))%"
 }

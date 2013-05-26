@@ -50,12 +50,14 @@ ssh_defkey () {
   local CPFX; local LPFX; local KEYS
   CPFX="$(dir_conf)/conf/ssh/default_"
   LPFX="$HOME/.ssh/id_"
-  to_array KEYS "rsa rsa.pub ecdsa ecdsa.pub"
-  for KEY in $KEYS; do
-    if [ -f "$CPFX$KEY" ]; then
-      symlink "$CPFX$KEY" "$LPFX$KEY" || return 1
-    fi
-  done
+  
+  array_from_str KEYS "rsa rsa.pub ecdsa ecdsa.pub"
+  array_forall KEYS ssh_defkey_one
+}
+ssh_defkey_one () {
+  if [ -f "$CPFX$1" ]; then
+    symlink "$CPFX$1" "$LPFX$1" || return 1
+  fi
 }
 
 # Populates the authorized_keys file
@@ -63,10 +65,11 @@ ssh_auth () {
   ssh_dir || return 1
   rm -f ~/.ssh/authorized_keys
   local KEYS
-  to_array KEYS "$(find $(dir_conf)/conf/ssh -type f | grep -v 'config$' | grep '.pub$')"
-  for KEY in $KEYS; do
-    cat "$KEY" >> ~/.ssh/authorized_keys
-  done
+  array_from_str KEYS "$(find $(dir_conf)/conf/ssh -type f | grep -v 'config$' | grep '.pub$')"
+  array_forall KEYS ssh_auth_one
+}
+ssh_auth_one () {
+  cat "$1" >> ~/.ssh/authorized_keys
 }
 
 # Makes sure the client configuration is installed

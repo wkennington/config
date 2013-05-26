@@ -43,14 +43,14 @@ git_sub_init () {(
     ACUM=0
 
     git_cd $1
-    to_array SUBS "$(git submodule status --recursive | grep -ve "([^)]*)" | awk '{print $2}')"
-    for SUB in $SUBS; do
-      git submodule -q update --init --recursive "$SUB" || return 2
-      ACUM=1
-    done
-
+    array_from_str SUBS "$(git submodule status --recursive | grep -ve "([^)]*)" | awk '{print $2}')"
+    array_forall SUBS git_sub_init_one || return 2
     return $ACUM
 )}
+git_sub_init_one () {
+  git submodule -q update --init --recursive "$SUB" || return 1
+  ACUM=1
+}
 
 # Update the submodules
 # Returns 2 if failed, 1 if updated, 0 if up-to-date

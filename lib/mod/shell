@@ -60,7 +60,7 @@ shell_tmp () {
     export HISTFILE="$TMP/history_$(shell)"
     export SAVEHIST="9999"
   else
-    unset HISTFILE
+    export HISTFILE="/dev/null"
     export SAVEHIST="0"
   fi
 }
