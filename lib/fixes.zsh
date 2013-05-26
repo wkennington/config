@@ -33,5 +33,6 @@ array_size () {
 
 # Get colors for the current shell
 shell_color () {
+  [ "$1" = "reset" ] && { echo "$reset_color"; return 0; }
   [ "$2" -eq "0" ] && eval "echo \${fg[$1]}" || eval "echo \${fg_bold[$1]}"
 }

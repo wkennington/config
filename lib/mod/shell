@@ -19,11 +19,11 @@ shell_theme () {
 
   # Create Prompt
   if [ "$(shell)" = "zsh" ]; then
-    PROMPT='[%{$NCOLOR%}%n%{$reset_color%}@'
-    PROMPT="$PROMPT"'%{$HCOLOR%}%m%{$reset_color%}:'
-    PROMPT="$PROMPT"'%{$DCOLOR%}%30<...<%~%<<%{$reset_color%}]%(!.#.$) '
+    PROMPT='[%{$NCOLOR%}%n%{$(shell_color reset 0)%}@'
+    PROMPT="$PROMPT"'%{$HCOLOR%}%m%{$(shell_color reset 0)%}:'
+    PROMPT="$PROMPT"'%{$DCOLOR%}%30<...<%~%<<%{$(shell_color reset 0)%}]%(!.#.$) '
   else
-    PS1="[${NCOLOR}\u${reset_color}@${HCOLOR}\h${reset_color}:${DCOLOR}\w${reset_color}]\$ "
+    PS1="[${NCOLOR}\u$(shell_color reset 0)@${HCOLOR}\h$(shell_color reset 0):${DCOLOR}\w$(shell_color reset 0)]\$ "
   fi
 }
 
