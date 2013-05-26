@@ -30,3 +30,8 @@ array_append () {
 array_size () {
   eval "echo \${#$1}"
 }
+
+# Get colors for the current shell
+shell_color () {
+  [ "$2" -eq "0" ] && eval "echo \${fg[$1]}" || eval "echo \${fg_bold[$1]}"
+}

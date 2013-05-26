@@ -30,3 +30,32 @@ array_at () {
 array_size () {
   eval "echo \${#$1[@]}"
 }
+
+# Get colors for the current shell
+shell_color () {
+  case "$1" in
+    red)
+      [ "$2" -eq "0" ] && echo '\[\e[0;31m\]' || echo '\[\e[1;31m\]'
+      ;;
+    green)
+      [ "$2" -eq "0" ] && echo '\[\e[0;32m\]' || echo '\[\e[1;32m\]'
+      ;;
+    yellow)
+      [ "$2" -eq "0" ] && echo '\[\e[0;33m\]' || echo '\[\e[1;33m\]'
+      ;;
+    blue)
+      [ "$2" -eq "0" ] && echo '\[\e[0;34m\]' || echo '\[\e[1;34m\]'
+      ;;
+    pink)
+      [ "$2" -eq "0" ] && echo '\[\e[0;35m\]' || echo '\[\e[1;35m\]'
+      ;;
+    cyan)
+      [ "$2" -eq "0" ] && echo '\[\e[0;36m\]' || echo '\[\e[1;36m\]'
+      ;;
+    white)
+      [ "$2" -eq "0" ] && echo '\[\e[0;37m\]' || echo '\[\e[1;37m\]'
+      ;;
+    *)
+      echo '\[\e[0m\]'
+  esac
+}
