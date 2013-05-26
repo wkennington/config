@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+test_loader_shell () {
+  echo "$SHELL"
+}
+test_register test_loader_shell

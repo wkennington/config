@@ -1,0 +1,49 @@
+#!/usr/bin/env sh
+
+# Helpers
+test_longest_str () {
+  local MAX
+  MAX="0"
+  array_forall TESTS test_max
+  echo "$MAX"
+}
+test_max () {
+  [ "$MAX" -le "${#1}" ] && MAX="${#1}"
+}
+
+# Registering and running the test suite
+test_register () {
+  array_append TESTS "$1"
+}
+
+# Unregisters all tests
+test_clear () {
+  array_new TESTS
+}
+
+# Run a single test
+test_run_ () {
+  local TFILE
+  TFILE="$(dir_tmp)/config_test_err"
+  printf "%${1}s  [$(shell_color yellow 0)Running$(shell_color reset 0)]" "$2"
+  if (eval "$2") &>"$TFILE"; then
+    printf "\r\e[K%${1}s  [$(shell_color green 0)Passed$(shell_color reset 0)]\n" "$2"
+  else
+    printf "\r\e[K%${1}s  [$(shell_color red 0)Failed$(shell_color reset 0)]\n" "$2"
+    echo "Error output:"
+    cat "$TFILE" 2>/dev/null
+    echo ""
+  fi
+  rm -f "$TFILE"
+}
+alias test_run='test_run_ 0'
+
+# Run all of the tests
+test_run_all () {
+  echo "Running Full Test Suite:"
+  array_forall TESTS "test_run_ $(test_longest_str)"
+}
+
+# Setup the testing environment
+. "$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)/lib/loader"
+test_clear
