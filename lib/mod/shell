@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
-# Setup the theme for the shell
-shell_theme () {
-  # Setup Colors
+# Setup the color arrays for the shell
+shell_colors () {
   if [ "$(shell)" != "zsh" ]; then
     declare -A fg
     declare -A fg_bold
@@ -23,6 +22,11 @@ shell_theme () {
     fg_bold[white]='\[\e[1;37m\]'
     reset_color='\[\e[0m\]'
   fi
+}
+
+# Setup the theme for the shell
+shell_theme () {
+  shell_colors
 
   # Colors for LS
   os_matches '\(Linux\|Cygwin\)' && { eval "$(dircolors -b)"; alias ls='ls --color=auto'; }
