@@ -3,7 +3,6 @@
 run_test () {
   export RUNNING_SHELL="$(basename "$(readlink -f "$(which "$1")")")"
   if path_hasbin $1; then
-    echo -n "$1: "
     $1 $(dirname "$0")/test
     echo ""
   fi

@@ -52,7 +52,7 @@ alias test_run='test_run_ 0'
 
 # Run all of the tests
 test_run_all () {
-  echo "Running Full Test Suite:"
+  echo "$RUNNING_SHELL: Running Full Test Suite:"
   array_forall TESTS "test_run_ $(test_longest_str)"
 }
 
