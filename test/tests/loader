@@ -15,6 +15,12 @@ test_array_empty () {
 }
 test_register test_array_empty
 
+test_array_forall_empty () {
+  array_new ARR
+  array_forall ARR echo || return 1
+}
+test_register test_array_forall_empty
+
 test_array_forall_success () {
   array_new ARR
   array_append ARR "Hello"
