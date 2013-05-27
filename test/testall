@@ -1,10 +1,12 @@
 #!/usr/bin/env sh
 . "$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)/test/lib"
 run_test () {
-  echo -n "$1: "
   export RUNNING_SHELL="$(basename "$(readlink -f "$(which "$1")")")"
-  path_hasbin $1 && $1 $(dirname "$0")/test
-  echo ""
+  if path_hasbin $1; then
+    echo -n "$1: "
+    $1 $(dirname "$0")/test
+    echo ""
+  fi
 }
 run_test bash
 run_test zsh
