@@ -2,9 +2,9 @@
 
 # Returns the shell executing the current script
 shell () {
-  local SHELL;
-  SHELL="$(basename "$(ps hp $$ | grep "$$" | awk '{print $5}' | sed 's/-//')")"
-  basename "$(readlink -f "$(which $SHELL)")"
+  local LSHELL;
+  LSHELL="$(basename "$(ps hp $$ | grep "$$" | awk '{print $5}' | sed 's/-//')")"
+  basename "$(readlink -f "$(which "$LSHELL")")"
 }
 
 # Determines the top level configuration directory
