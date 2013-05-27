@@ -3,14 +3,14 @@
 # Gets the string representing the state of the batteries
 laptop_bat () {
   local BATS; local BAT_DIR
-  [ -d "/sys/class/power_supply" ] || return 1
-  array_from_str BATS "$(ls /sys/class/power_supply | grep "^BAT")"
+  [ -d "$ROOT/sys/class/power_supply" ] || return 1
+  array_from_str BATS "$(ls "$ROOT/sys/class/power_supply" | grep "^BAT")"
   array_forall BATS laptop_bat_one
 }
 laptop_bat_one () {
   echo -n "$1: "
-  BAT_DIR="/sys/class/power_supply/$1"
-  B="$(cat $BAT_DIR/status 2>/dev/null)" || return 1
+  BAT_DIR="$ROOT/sys/class/power_supply/$1"
+  B="$(cat "$BAT_DIR/status" 2>/dev/null)" || return 1
   case "$B" in
     Charging)
       echo -n "↑"
@@ -21,5 +21,5 @@ laptop_bat_one () {
     *)
       echo -n "⚡"
   esac
-  echo "$(expr $(cat $BAT_DIR/charge_now) \* 100 / $(cat $BAT_DIR/charge_full))%"
+  echo "$(expr $(cat "$BAT_DIR/charge_now") \* 100 / $(cat "$BAT_DIR/charge_full"))%"
 }

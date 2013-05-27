@@ -23,10 +23,10 @@ dir_tmp () {
   echo "$DIR_TMP"
 }
 dir_tmp_tryall() {
-  dir_tmp_one "/dev/shm" && return 0
-  dir_tmp_one "/run/shm" && return 0
-  dir_tmp_one "/tmp" && return 0
-  dir_tmp_one "/var/tmp" && return 0
+  dir_tmp_one "$ROOT/dev/shm" && return 0
+  dir_tmp_one "$ROOT/run/shm" && return 0
+  dir_tmp_one "$ROOT/tmp" && return 0
+  dir_tmp_one "$ROOT/var/tmp" && return 0
 }
 dir_tmp_one () {
 	[ -w "$1" ] || return 1
