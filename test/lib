@@ -61,14 +61,21 @@ test_seq () {
   if [ "$1" != "$2" ]; then
     echo "Expected: $1"
     echo "Got: $2"
-    return 1
+    exit 1
   fi
 }
 test_sneq () {
   if [ "$1" = "$2" ]; then
     echo "Expected: $1"
     echo "Got: $2"
-    return 1
+    exit 1
+  fi
+}
+test_eq () {
+  if [ "$1" -ne "$2" ]; then
+    echo "Expected: $1"
+    echo "Got: $2"
+    exit 1
   fi
 }
 
