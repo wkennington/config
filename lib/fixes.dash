@@ -27,7 +27,7 @@ array_new () {
   eval "$1=0"
 }
 array_at () {
-  eval "echo \${$1$2}"
+  eval "echo \"\${$1$2}\""
 }
 array_size () {
   eval "echo \${$1}"

@@ -25,7 +25,7 @@ array_new () {
   declare -a "$1"
 }
 array_at () {
-  eval "echo \${$1[$2]}"
+  eval "echo \"\${$1[$2]}\""
 }
 array_size () {
   eval "echo \${#$1[@]}"
