@@ -34,6 +34,7 @@ array_empty () {
   [ "$(array_size $1)" -eq "0" ]
 }
 array_forall () {
+  [ "$(array_size $1)" -gt "0" ] || return 0
   for I in $(seq 0 $(expr $(array_size $1) - 1)); do
     eval "$2 \"$(array_at $1 $I)\"" || return 1
   done

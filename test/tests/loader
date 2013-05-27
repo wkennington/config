@@ -17,7 +17,8 @@ test_register test_array_empty
 
 test_array_forall_empty () {
   array_new ARR
-  array_forall ARR echo || return 1
+  OUT="$(array_forall ARR echo 2>&1)" || return 1
+  test_seq "" "$OUT"
 }
 test_register test_array_forall_empty
 
@@ -31,7 +32,7 @@ test_array_forall_success () {
     printf "%s" "$1"
     return 0
   }
-  FALL="$(array_forall ARR tfun)" || return 1
+  FALL="$(array_forall ARR tfun 2>&1)" || return 1
   test_seq "Hello World" "$FALL"
 }
 test_register test_array_forall_success
@@ -47,7 +48,7 @@ test_array_forall_efail () {
     printf "%s" "$1"
     [ "$1" -ne "3" ]
   }
-  FAIL="$(array_forall ARR tfun)" && return 1
+  FAIL="$(array_forall ARR tfun 2>&1)" && return 1
   test_seq "123" "$FAIL"
 }
 test_register test_array_forall_efail
