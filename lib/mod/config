@@ -48,7 +48,7 @@ git_sub_init () {(
     return $ACUM
 )}
 git_sub_init_one () {
-  git submodule -q update --init --recursive "$SUB" || return 1
+  git submodule -q update --init --recursive "$1" || return 1
   ACUM=1
 }
 
