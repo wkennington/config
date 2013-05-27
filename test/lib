@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+# Constants
+TEST_PASS=0
+TEST_SKIP=120
+
 # Helpers
 test_longest_str () {
   local MAX
@@ -28,23 +32,35 @@ test_run_ () {
   TFILE="$(dir_tmp)/config_test_err"
   if [ "$(shell)" = "dash" ] || [ "$(shell)" = "sh" ]; then
     printf "%${1}s  [Running]" "$2"
-    if (eval "$2") >"$TFILE" 2>&1; then
-      printf "\r%${1}s  [Passed] \n" "$2"
-    else
-      printf "\r%${1}s  [Failed] \n" "$2"
-      cat "$TFILE" 2>/dev/null
-      echo ""
-    fi
+    (eval "$2") >"$TFILE" 2>&1
+    case "$?" in
+      $TEST_PASS)
+        printf "\r%${1}s  [Passed] \n" "$2"
+        ;;
+      $TEST_SKIP)
+        printf "\r%${1}s  [Skipped]\n" "$2"
+        ;;
+      *)
+        printf "\r%${1}s  [Failed] \n" "$2"
+        cat "$TFILE" 2>/dev/null
+        echo ""
+    esac
   else
     printf "%${1}s  [$(shell_color yellow 0)Running$(shell_color reset 0)]" "$2"
-    if (eval "$2") >"$TFILE" 2>&1; then
-      printf "\r\e[K%${1}s  [$(shell_color green 0)Passed$(shell_color reset 0)]\n" "$2"
-    else
-      printf "\r\e[K%${1}s  [$(shell_color red 0)Failed$(shell_color reset 0)]\n" "$2"
-      echo "Error output:"
-      cat "$TFILE" 2>/dev/null
-      echo ""
-    fi
+    (eval "$2") >"$TFILE" 2>&1
+    case "$?" in
+      $TEST_PASS)
+        printf "\r\e[K%${1}s  [$(shell_color green 0)Passed$(shell_color reset 0)]\n" "$2"
+        ;;
+      $TEST_SKIP)
+        printf "\r\e[K%${1}s  [$(shell_color yellow 0)Skipped$(shell_color reset 0)]\n" "$2"
+        ;;
+      *)
+        printf "\r\e[K%${1}s  [$(shell_color red 0)Failed$(shell_color reset 0)]\n" "$2"
+        echo "Error output:"
+        cat "$TFILE" 2>/dev/null
+        echo ""
+    esac
   fi
   rm -f "$TFILE"
 }
