@@ -4,3 +4,13 @@ test_loader_shell () {
   [ "$(shell)" = "$RUNNING_SHELL" ]
 }
 test_register test_loader_shell
+
+test_array_empty () {
+  array_new ARR || return 1
+  array_empty ARR || return 1
+  array_append ARR "Hello"
+  array_empty ARR && return 1
+  array_new ARR
+  array_new ARR || return 1
+}
+test_register test_array_empty
