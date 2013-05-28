@@ -47,7 +47,7 @@ shell_theme () {
   DCOLOR="$(shell_color yellow 1)"
 
   # Create Prompt
-  if [ "$(shell)" = "zsh" ]; then
+  if [ "$(shell_nov)" = "zsh" ]; then
     PROMPT='[%{$NCOLOR%}%n%{$(shell_color reset 0)%}@'
     PROMPT="$PROMPT"'%{$HCOLOR%}%m%{$(shell_color reset 0)%}:'
     PROMPT="$PROMPT"'%{$DCOLOR%}%30<...<%~%<<%{$(shell_color reset 0)%}]%(!.#.$) '
@@ -60,7 +60,7 @@ shell_theme () {
 shell_tmp () {
   local TMP
   if TMP="$(dir_tmp)"; then
-    export HISTFILE="$TMP/history_$(shell)"
+    export HISTFILE="$TMP/history_$(shell_nov)"
     export SAVEHIST="9999"
   else
     export HISTFILE="/dev/null"
@@ -108,7 +108,7 @@ shell_get_best () {
 
 # Automatically executes the preferred shell
 shell_best () {
-  if [ "$(shell)" != "$(shell_get_best)" ]; then
+  if [ "$(shell_nov)" != "$(shell_get_best)" ]; then
     $(shell_get_best) $@
     exit $?
   fi

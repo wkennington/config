@@ -30,7 +30,7 @@ test_clear () {
 test_run_ () {
   local TFILE;
   TFILE="$(dir_tmp)/config_test_err"
-  if [ "$(shell)" = "dash" ] || [ "$(shell)" = "sh" ]; then
+  if [ "$(shell_nov)" = "dash" ] || [ "$(shell_nov)" = "sh" ]; then
     printf "%${1}s  [Running]" "$2"
     (eval "$2") >"$TFILE" 2>&1
     case "$?" in
