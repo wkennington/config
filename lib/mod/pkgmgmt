@@ -3,13 +3,30 @@
 # Updates the packages in the package manager
 pkg_update () {
   if os_matches 'Arch Linux'; then
-    path_hasbin aura && (sudo_wrap aura -Syu; sudo_wrap aura -Aku) && return 0
-    path_hasbin packer && (sudo_wrap packer -Syu) && return 0
-    path_hasbin pacman && (sudo_wrap pacman -Syu) && return 0
+    if path_hasbin aura; then
+      sudo_wrap aura -Syu || return $?
+      sudo_wrap aura -Aku
+      return $?
+    elif path_hasbin packer; then
+      sudo_wrap packer -Syu
+      return $?
+    elif path_hasbin pacman; then
+      sudo_wrap pacman -Syu
+      return $?
+    fi
   elif os_matches '\(Debian\|Ubuntu\)'; then
-    path_hasbin apt-get && (sudo_wrap apt-get update; sudo_wrap apt-get dist-upgrade) && return 0
+    if path_hasbin apt-get; then
+      sudo_wrap apt-get update || return $?
+      sudo_wrap apt-get dist-upgrade
+      return $?
+    fi
   elif os_matches 'FreeBSD'; then
-    path_hasbin portmaster && (sudo_wrap portsnap fetch; sudo_wrap portsnap update; sudo_wrap portmaster -ayBd) && return 0
+    if path_hasbin portmaster; then
+      sudo_wrap portsnap fetch || return $?
+      sudo_wrap portsnap update || return $?
+      sudo_wrap portmaster -ayBd
+      return $?
+    fi
   fi
   echo "Failed to find an update procedure" >&2
   return 1
@@ -25,13 +42,23 @@ pkg_install () {
         sudo_wrap aura -A $@ && return 0
       fi
       return 1
+    elif path_hasbin packer; then
+      sudo_wrap packer -S $@
+      return $?
+    elif path_hasbin pacman; then
+      sudo_wrap pacman -S $@
+      return $?
     fi
-    path_hasbin packer && (sudo_wrap packer -S $@) && return 0
-    path_hasbin pacman && (sudo_wrap pacman -S $@) && return 0
   elif os_matches '\(Debian\|Ubuntu\)'; then
-    path_hasbin apt-get && (sudo_wrap apt-get install $@) && return 0
+    if path_hasbin apt-get; then
+      sudo_wrap apt-get install $@
+      return $?
+    fi
   elif os_matches 'FreeBSD'; then
-    path_hasbin portmaster && (sudo_wrap portmaster -yBd $@) && return 0
+    if path_hasbin portmaster; then
+      sudo_wrap portmaster -yBd $@
+      return $?
+    fi
   fi
   echo "Failed to find an install procedure" >&2
   return 1
@@ -40,12 +67,23 @@ pkg_install () {
 # Removes and purges the package in the package manager
 pkg_remove () {
   if os_matches 'Arch Linux'; then
-    path_hasbin aura && (sudo_wrap aura -Rsdc $@) && return 0
-    path_hasbin pacman && (sudo_wrap pacman -Rsdc) && return 0
+    if path_hasbin aura; then
+      sudo_wrap aura -Rsdc $@
+      return $?
+    elif path_hasbin pacman; then
+      sudo_wrap pacman -Rsdc $@
+      return $?
+    fi
   elif os_matches '\(Debian\|Ubuntu\)'; then
-    path_hasbin apt-get && (sudo_wrap apt-get purge $@) && return 0
+    if path_hasbin apt-get; then
+      sudo_wrap apt-get purge $@
+      return $?
+    fi
   elif os_matches 'FreeBSD'; then
-    path_hasbin portmaster && (sudo_wrap portmaster -esdy $@) && return 0
+    if path_hasbin portmaster; then
+      sudo_wrap portmaster -esdy $@
+      return $?
+    fi
   fi
   echo "Failed to find a remove procedure" >&2
   return 1
@@ -55,7 +93,8 @@ alias pkg_delete=pkg_remove
 # Cleans the package repository
 pkg_clean () {
   if os_matches 'Arch Linux' && path_hasbin pacman; then
-    [ "$(pacman -Qqdt)" != "" ] && sudo_wrap pacman -Rns $(pacman -Qqdt) && return 0
+    [ "$(pacman -Qqdt)" != "" ] && sudo_wrap pacman -Rns $(pacman -Qqdt)
+    return $?
   fi
   echo "Failed to find a cleanup procedure" >&2
   return 1
