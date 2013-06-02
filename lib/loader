@@ -27,11 +27,14 @@ shell_nov () {
 
 # Determines the top level configuration directory
 dir_try () {
+  local DIR_BIN; local OLD;
+  OLD="$(pwd)"
   DIR_BIN="$(readlink -f "$1" 2>/dev/null)" || return 1
   cd "$(dirname "$DIR_BIN")" 2>/dev/null || return 1
   DIR_CONF="$(git rev-parse --show-toplevel 2>/dev/null)" || return 1
   export DIR_CONF
   echo "$DIR_CONF"
+  cd "$OLD"
 }
 dir_conf () {
   [ -z "$DIR_CONF" ] || { echo "$DIR_CONF"; return 0; }
