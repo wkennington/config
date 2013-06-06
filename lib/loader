@@ -5,7 +5,7 @@ svar () {
   local VAR; local TMP; local RET;
   VAR="$1"
   shift 1
-  TMP="$(mktemp)"
+  TMP="$(mktemp 2>/dev/null)" || TMP="$(mktemp -t tmp 2>/dev/null)" || return 128
   $@ >"$TMP"
   RET="$?"
   read "$VAR" <"$TMP"
@@ -15,8 +15,17 @@ svar () {
 
 # Returns the shell executing the current script
 shell () {
-  local LSHELL;
-  LSHELL="$(basename "$(ps hp $$ | grep "$$" | awk '{print $5}' | sed 's/-//')")"
+  local LSHELL; local LPROC;
+  LPROC="$(ps hp $$ | grep "$$" | sed 's/^.*-\(.*\)$/\1/')"
+
+  # Workaround for su spawned shells
+  if [ -z "$(echo "$LPROC" | grep 'su')" ]; then
+    LSHELL="$(basename "$LPROC")"
+  else
+    LSHELL="$(basename "$(echo "$LPROC" | sed 's/^.*(\([^)]*\)).*$/\1/')")"
+  fi
+
+  # Resolve Symlinked Shells
   basename "$(readlink -f "$(which "$LSHELL")")"
 }
 
