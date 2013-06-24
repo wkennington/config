@@ -16,13 +16,13 @@ svar () {
 # Returns the shell executing the current script
 shell () {
   local LSHELL; local LPROC;
-  LPROC="$(ps hp $$ | grep "$$" | sed 's/^.*-\(.*\)$/\1/')"
+  LPROC="$(ps hp $$ | grep "$$")"
 
   # Workaround for su spawned shells
-  if [ -z "$(echo "$LPROC" | grep 'su')" ]; then
-    LSHELL="$(basename "$LPROC")"
-  else
+  if [ -n "$(echo "$LPROC" | grep '\-su')" ]; then
     LSHELL="$(basename "$(echo "$LPROC" | sed 's/^.*(\([^)]*\)).*$/\1/')")"
+  else
+    LSHELL="$(basename "$(echo "$LPROC" | sed 's/-//' | awk '{print $5}')")"
   fi
 
   # Resolve Symlinked Shells
