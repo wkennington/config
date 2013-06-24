@@ -23,7 +23,7 @@ agent_cmd () {
 agent_which () {
   [ "$(hostname -s )" = "fantom" ] && agent_cmd ssh-agent && return 0
   agent_cmd gnome-keyring-daemon -c pkcs11,secrets
-  [ "$SSH_TTY" = "" ] && agent_cmd gpg-agent --daemon --enable-ssh-support && return 0
+  info_ws && agent_cmd gpg-agent --daemon --enable-ssh-support && return 0
   agent_cmd ssh-agent && return 0
   echo "Failed to find an agent" >&2
   return 1
