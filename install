@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
-$(dirname "$0")/bin/run config_latest || exit 1
+$(dirname "$0")/bin/run config_latest
+[ "$?" -le "1" ] || exit 1
 $(dirname "$0")/bin/run config_install || exit 2
