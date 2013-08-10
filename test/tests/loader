@@ -52,3 +52,8 @@ test_array_forall_efail () {
   test_seq "123" "$FAIL"
 }
 test_register test_array_forall_efail
+
+test_dir_conf () {
+  [ "$(readlink -f ..)" = "$(dir_conf)" ]
+}
+test_register test_dir_conf
