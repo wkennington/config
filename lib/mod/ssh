@@ -63,13 +63,13 @@ ssh_defkey_one () {
 # Populates the authorized_keys file
 ssh_auth () {
   ssh_dir || return 1
-  rm -f ~/.ssh/authorized_keys
+  rm -f "$HOME/.ssh/authorized_keys"
   local KEYS
   array_from_str KEYS "$(find $(dir_conf)/conf/ssh -type f | grep -v 'config$' | grep '.pub$')"
   array_forall KEYS ssh_auth_one
 }
 ssh_auth_one () {
-  cat "$1" >> ~/.ssh/authorized_keys
+  cat "$1" >> "$HOME/.ssh/authorized_keys"
 }
 
 # Makes sure the client configuration is installed
@@ -77,7 +77,7 @@ ssh_client () {
   ssh_dir || return 1
   symlink "$(dir_conf)/conf/ssh/config" "$HOME/.ssh/config"
   ssh-keygen -H >/dev/null 2>&1
-  rm -f ~/.ssh/known_hosts.old
+  rm -f "$HOME/.ssh/known_hosts.old"
 }
 
 # Automatically determine how to configure ssh
