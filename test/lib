@@ -97,4 +97,5 @@ test_eq () {
 
 # Setup the testing environment
 . "$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)/lib/loader"
+[ -z "$RUNNING_SHELL" ] && RUNNING_SHELL="$(shell)"
 test_clear

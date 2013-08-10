@@ -18,6 +18,7 @@ success_test () {
   return 0
 }
 fail_test () {
+  echo "This is the error"
   return 1
 }
 test_run success_test
@@ -25,6 +26,6 @@ test_run fail_test
 echo ""
 
 # Register tests
-test_register fail_test
 test_register success_test
+test_register fail_test
 test_run_all
