@@ -151,4 +151,5 @@
 (workgroups-mode 1)
 (setq wg-morph-on 'nil)
 (setq wg-path "~/.emacs.d/workgroups")
-(wg-load wg-path)
+(when (file-exists-p wg-path)
+  (wg-load wg-path))
