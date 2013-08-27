@@ -114,4 +114,8 @@ endif
 
 set nomodeline
 
-source ~/.vimrc.info
+if filereadable($HOME . "/.vimrc.info")
+  source ~/.vimrc.info
+else
+  set viminfo=""
+endif
