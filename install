@@ -1,6 +1,16 @@
 #!/usr/bin/env sh
+export DIR_CONF="$(readlink -f "$(dirname "$(readlink -f "$0")/..")")"
+cd "$DIR_CONF"
+. lib/loader || exit 128
 git remote set-url origin https://github.com/wkennington/config
 git remote set-url --push origin git@github.com:wkennington/config
-$(dirname "$0")/bin/run config_latest
-[ "$?" -le "1" ] || exit 1
-$(dirname "$0")/bin/run config_install || exit 2
+echo "Updating Config Files"
+if [ config_latest -gt "1" ]; then
+    echo "Failed to update Config"
+    exit 1
+fi
+echo "Installing Config Files"
+if ! config_install; then
+    echo "Failed to Install Config"
+    exit 1
+fi
