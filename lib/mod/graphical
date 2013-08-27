@@ -10,6 +10,10 @@ graphical_bestwm () {
 
 # Run the window manager with the best side apps
 graphical_runwm () {
+  # Determine the type of WM
+  WM="$1"
+  TILING=0
+
   # Run background applications
   run_quiet autocutsel -fork
   run_quiet pulseaudio --start
@@ -19,8 +23,9 @@ graphical_runwm () {
   run_quiet setxkbmap -option ctrl:nocaps
   [ -f "$HOME/.xinitrc.start" ] && . "$HOME/.xinitrc.start"
 
-  # Start the window manager
+  # Do specific WM init
   if [ "$WM" = "awesome" ]; then
+    TILING=1
     if [ -d "$HOME/.config/wallpaper" ]; then
       if [ "$(ls "$HOME/.config/wallpaper" | wc -l)" -gt "1" ]; then
 	    sleep 2
@@ -30,13 +35,22 @@ graphical_runwm () {
 	    done &
 	  fi
     fi
-    exec awesome
   elif [ "$WM" = "xmonad" ]; then
+    TILING=1
     run_quiet hhp &
-    exec xmonad
-  else
-    exec $@
   fi
+
+  # Configure applications
+  svar CONF dir_conf
+  local TERMRC="$CONF/conf/config/Termina/terminalrc"
+  if [ "$TILING" -eq "1" ]; then
+    symlink "${TERMRC}.tiling" "$TERMRC"
+  else
+    symlink "${TERMRC}.window" "$TERMRC"
+  fi
+
+  # Start the window manager
+  exec $@
 
   # Kill the rest of the processes
   [ -f "$HOME/.xinitrc.end" ] && . "$HOME/.xinitrc.end"
