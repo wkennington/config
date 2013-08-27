@@ -41,8 +41,7 @@ graphical_runwm () {
   fi
 
   # Configure applications
-  svar CONF dir_conf
-  local TERMRC="$CONF/conf/config/Termina/terminalrc"
+  local TERMRC="$(dir_conf)/conf/config/Terminal/terminalrc"
   if [ "$TILING" -eq "1" ]; then
     symlink "${TERMRC}.tiling" "$TERMRC"
   else
