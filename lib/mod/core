@@ -13,6 +13,39 @@ symlink () {
   fi
 }
 
+# Validate the answer to a yes or no question
+y_or_n_validate () {
+  local ANS;
+  ANS="$(echo "$1" | tr '[A-Z]' '[a-z]')"
+  [ "$ANS" = "yes" ] && return 0
+  [ "$ANS" = "y" ] && return 0
+  [ "$ANS" = "no" ] && return 1
+  [ "$ANS" = "n" ] && return 1
+  return 2
+}
+
+# Ask a yes or no question
+y_or_n () {
+  local ANS
+  while true; do
+    y_or_n_validate "$2"
+    if [ "$?" -eq "0" ]; then
+      echo -n "(Y/n)"
+      read ANS
+      [ -z "$ANS" ] && return 0
+    elif [ "$?" -eq "1" ]; then
+      echo -n "(y/N)"
+      read ANS
+      [ -z "$ANS" ] && return 1
+    else
+      echo -n "(y/n)"
+      read ANS
+    fi
+    y_or_n_validate "$ANS"
+    [ "$?" -lt "2" ] && return $?
+  done
+}
+
 # Get the path to the temporary directory
 dir_tmp () {
   local DIR_TMP
