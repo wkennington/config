@@ -28,7 +28,7 @@ ssh_genkey () {
   fi
 
   ssh_dir || return 1
-  rm -f "$HOME/.ssh/"id_*
+  rm -f "$HOME/.ssh/"id_* 2>/dev/null
   touch "$HOME/.ssh/"id_{rsa,ecdsa}
   chmod 0600 "$HOME/.ssh/"id_{rsa,ecdsa}
 
