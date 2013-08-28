@@ -28,6 +28,7 @@ y_or_n_validate () {
 y_or_n () {
   local ANS; local RET;
   while true; do
+    echo -n "$1 "
     y_or_n_validate "$2"
     RET="$?"
     if [ "$RET" -eq "0" ]; then
