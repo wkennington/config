@@ -26,14 +26,15 @@ y_or_n_validate () {
 
 # Ask a yes or no question
 y_or_n () {
-  local ANS
+  local ANS; local RET;
   while true; do
     y_or_n_validate "$2"
-    if [ "$?" -eq "0" ]; then
+    RET="$?"
+    if [ "$RET" -eq "0" ]; then
       echo -n "(Y/n)"
       read ANS
       [ -z "$ANS" ] && return 0
-    elif [ "$?" -eq "1" ]; then
+    elif [ "$RET" -eq "1" ]; then
       echo -n "(y/N)"
       read ANS
       [ -z "$ANS" ] && return 1
@@ -42,7 +43,8 @@ y_or_n () {
       read ANS
     fi
     y_or_n_validate "$ANS"
-    [ "$?" -lt "2" ] && return $?
+    RET="$?"
+    [ "$RET" -lt "2" ] && return $RET
   done
 }
 
