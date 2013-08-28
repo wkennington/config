@@ -31,15 +31,15 @@ y_or_n () {
     y_or_n_validate "$2"
     RET="$?"
     if [ "$RET" -eq "0" ]; then
-      echo -n "(Y/n)"
+      echo -n "(Y/n) "
       read ANS
       [ -z "$ANS" ] && return 0
     elif [ "$RET" -eq "1" ]; then
-      echo -n "(y/N)"
+      echo -n "(y/N)" 
       read ANS
       [ -z "$ANS" ] && return 1
     else
-      echo -n "(y/n)"
+      echo -n "(y/n) "
       read ANS
     fi
     y_or_n_validate "$ANS"
