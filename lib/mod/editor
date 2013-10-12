@@ -3,7 +3,7 @@
 # Load vim smartly
 vim () {
   local TMP
-  TMP="$(dir_tmp)" && echo "set viminfo+=n$TMP/viminfo" > "$HOME/.vimrc.info" || echo "set viminfo=\"\"" > "$HOME/.vimrc.info"
+  TMP="$(dir_tmp)" && echo "set viminfo+=n$TMP/viminfo" > "$TMP/vimrc.info" || echo "set viminfo=\"\"" > "$TMP/vimrc.info"
   if [ ! -z "$XAUTHORITY" ] && [ "$RUNNER" -eq "1" ] && path_hasbin "gvim"; then
     command gvim $@
   elif path_hasbin "vim"; then
