@@ -26,7 +26,7 @@ shell () {
   fi
 
   # Resolve Symlinked Shells
-  basename "$(readlink -f "$(which "$LSHELL")")"
+  basename "$(readlink -f "$(whereis -b "$LSHELL" | awk '{print $2}')")"
 }
 
 # Returns the shell executing the current script without appended major version
