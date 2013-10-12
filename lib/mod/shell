@@ -87,7 +87,7 @@ shell_init () {
 # Returns the name of the preferred shell
 shell_get_best () {
   # ZSH preferred
-  if which zsh >/dev/null 2>&1; then
+  if path_hasbin zsh; then
     VER="$(zsh --version | awk '{print $2}')"
 	VER="$(printf "4.3.9\n%s" "$VER" | sort -bt. -k1,1n -k2,2n -k3,3n -k4,4n -k5,5n | awk 'NR==1')"
 	if [ "$VER" = "4.3.9" ]; then
@@ -97,7 +97,7 @@ shell_get_best () {
   fi
 
   # Bash next
-  if which bash >/dev/null 2>&1; then
+  if path_hasbin bash; then
     echo "bash"
     return 0
   fi
@@ -118,7 +118,7 @@ shell_best () {
 shell_default () {
   [ "$#" -ne "1" ] && return 1
   [ "$(basename $(getent passwd $LOGNAME | cut -d: -f7))" = "$1" ] && return 0
-  chsh -s "$(which "$1")" "$USER"
+  chsh -s "$(path_abs "$1")" "$USER"
 }
 
 # Automatically configures the shell configuration files

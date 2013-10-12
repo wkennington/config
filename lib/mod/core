@@ -2,7 +2,7 @@
 
 # Run the command silently
 run_quiet () {
-  which $1 >/dev/null 2>&1 && $@ >/dev/null 2>&1
+  $@ >/dev/null 2>&1
 }
 
 # Make sure the symbolic link points to the correct location $2 -> $1
@@ -73,7 +73,7 @@ dir_tmp_one () {
 # Tests to see if a binary exists in the path
 path_hasbin () {
   [ "$#" -ne "1" ] && return 2
-  [ "$(/usr/bin/which $1 2>/dev/null | grep -v "not found")" != "" ]
+  type $1 >/dev/null 2>&1
 }
 
 # Checks to see if the process is running

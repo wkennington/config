@@ -1,19 +1,13 @@
 #!/usr/bin/env sh
 
-# Loads the editor bypassing similarly named functions / aliases
-editor_run () {
-  BN="$(/usr/bin/which "$1" 2>&1)" || return 127
-  $(dirname "$BN")/$@
-}
-
 # Load vim smartly
 vim () {
   local TMP
   TMP="$(dir_tmp)" && echo "set viminfo+=n$TMP/viminfo" > "$HOME/.vimrc.info" || echo "set viminfo=\"\"" > "$HOME/.vimrc.info"
   if [ ! -z "$XAUTHORITY" ] && [ "$RUNNER" -eq "1" ] && path_hasbin "gvim"; then
-    editor_run gvim $@
+    command gvim $@
   elif path_hasbin "vim"; then
-    editor_run vim $@
+    command vim $@
   else
     return 127
   fi
@@ -22,11 +16,11 @@ vim () {
 # Load emacs smartly
 emacs () {
   path_hasbin "emacs" || return 127
-  check_pidfile "$(dir_tmp)/emacs.pid" || editor_run emacs --daemon || return 1
+  check_pidfile "$(dir_tmp)/emacs.pid" || command emacs --daemon || return 1
   if [ ! -z "$XAUTHORITY" ] && [ "$RUNNER" -eq "1" ]; then
-    editor_run emacsclient -c $@
+    command emacsclient -c $@
   else
-    editor_run emacsclient -t $@
+    command emacsclient -t $@
   fi
 }
 alias emacsclient=emacs

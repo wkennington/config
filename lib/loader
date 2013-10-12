@@ -1,5 +1,13 @@
 #!/usr/bin/env sh
 
+# Resolves the name of the binary
+path_abs () {
+  BIN="$(whereis -b $1 2>/dev/null | awk '{print $2}')"
+  [ -z "$BIN" ] && return 1
+  echo "$BIN"
+  return 0
+}
+
 # Stores the output of the command into a variable without a subshell
 svar () {
   local VAR; local TMP; local RET;
@@ -26,7 +34,7 @@ shell () {
   fi
 
   # Resolve Symlinked Shells
-  basename "$(readlink -f "$(whereis -b "$LSHELL" | awk '{print $2}')")"
+  basename "$(readlink -f "$(path_abs "$LSHELL")")"
 }
 
 # Returns the shell executing the current script without appended major version
