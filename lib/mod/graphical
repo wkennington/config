@@ -75,5 +75,6 @@ graphical_auto () {
   install -d $HOME/.config
   rm -f $HOME/.{Xdefaults,gtkrc-2.0,config/{gtk-3.0,sakura}}
   config_ln xinitrc xsession xmonad config/awesome config/Terminal config/wallpaper config/uzbl
+  symlink "$HOME/.config/Terminal" "$HOME/.config/xfce4/terminal"
   return 0
 }
