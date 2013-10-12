@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
-# Path to your oh-my-zsh configuration.
 . "$(readlink -f $(dirname $(readlink -f $HOME/.zshrc))/../)/lib/loader"
 shell_best $@
 shell_init
 
+# Path to your oh-my-zsh configuration.
 ZSH="$(dir_conf)/lib/oh-my-zsh"
 
 # Set name of the theme to load.
