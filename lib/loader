@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+[ -z "$RUNNER" ] && RUNNER=0
 
 # Resolves the name of the binary
 path_abs () {
