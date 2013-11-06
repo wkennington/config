@@ -82,6 +82,9 @@ shell_init () {
   export EDITOR="vim"
   export PAGER="less"
   export BLOCKSIZE="K"
+
+  export GOPATH="$HOME/.go"
+  export PATH="$PATH:$HOME/.go/bin"
 }
 
 # Returns the name of the preferred shell

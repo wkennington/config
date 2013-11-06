@@ -116,6 +116,7 @@ config_install () {
   ssh_auto
   editor_auto
   graphical_auto
+  dev_auto
 }
 
 # Updates the configuration files and all of the submodules
