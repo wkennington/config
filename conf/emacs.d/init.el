@@ -27,7 +27,7 @@
 ;; Download Required Packages
 (require 'cl)
 (defvar packages
-  '(ace-jump-mode doctags yasnippet-bundle el-autoyas helm-c-yasnippet yas-jit workgroups zenburn-theme))
+  '(ace-jump-mode doctags yasnippet-bundle el-autoyas go-mode helm-c-yasnippet yas-jit workgroups zenburn-theme))
 
 (defun packages-installed-p ()
   (loop for p in packages
@@ -106,6 +106,9 @@
 
 ;; IRC
 (require 'tls)
+
+;; Go Mode
+(require 'go-mode-load)
 
 ;; Latex Stuff
 (setq TeX-auto-save t)
