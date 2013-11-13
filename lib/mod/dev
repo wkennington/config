@@ -3,4 +3,5 @@
 # Prepares the files needed for development
 dev_auto () {
   mkdir -p "$HOME/.go/src" >/dev/null 2>&1
+  config_ln "nixpkgs"
 }
