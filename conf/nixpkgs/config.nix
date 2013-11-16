@@ -32,6 +32,7 @@ pkgs : {
         imagemagick
         libpng
         libreoffice
+        pinentry
         pcsclite
         protobuf
         pythonPackages.ipython

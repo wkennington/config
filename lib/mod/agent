@@ -16,7 +16,7 @@ agent_file () {
 # Print cmd if agent exists
 agent_cmd () {
   [ "$#" -lt "1" ] && return 1
-  path_hasbin $1 && echo "$@;"
+  path_hasbin $1 && echo "$@ ;"
 }
 
 # Find the path to the pcsc driver
@@ -28,6 +28,11 @@ agent_find_pcsc () {
   exit 1
 }
 
+# Find the path to the pinentry application
+agent_pin_program () {
+  path_bin pinentry
+}
+
 # Determine which agent to use
 agent_which () {
   [ "$(hostname -s )" = "fantom" ] && agent_cmd ssh-agent && return 0
@@ -37,7 +42,12 @@ agent_which () {
     echo "pcsc-driver $(agent_find_pcsc)" > "$HOME/.gnupg/scdaemon.conf"
     echo "card-timeout 5" >> "$HOME/.gnupg/scdaemon.conf"
     echo "disable-ccid" >> "$HOME/.gnupg/scdaemon.conf"
-    agent_cmd gpg-agent --daemon --enable-ssh-support && return 0
+    local PIN_PROG="$(agent_pin_program)"
+    if [ "$?" -ne "0" ]; then
+      echo "Couldn't select gpg-agent: no pinentry program" >&2
+    else
+      agent_cmd gpg-agent --pinentry-program "$PIN_PROG" --daemon --enable-ssh-support && return 0
+    fi
   }
   agent_cmd ssh-agent && return 0
   echo "Failed to find an agent" >&2

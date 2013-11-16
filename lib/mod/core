@@ -86,6 +86,13 @@ path_hasbin () {
   type $1 >/dev/null 2>&1
 }
 
+# Finds the path to the binary
+path_bin () {
+  [ "$#" -ne "1" ] && return 2
+  path_hasbin $1 && type $1 | awk '{print $3}' && return 0
+  return 1
+}
+
 # Checks to see if the process is running
 proc_exists () {
   [ "$#" -ne "1" ] && return 1
