@@ -1,7 +1,7 @@
 pkgs : {
   cabal.libraryProfiling = true;
   firefox = {
-    jre = true;
+    jre = false;
     enableGoogleTalkPlugin = false;
     enableAdobeFlash = false;
   };
@@ -32,8 +32,9 @@ pkgs : {
         imagemagick
         libpng
         libreoffice
+        pcsclite
         protobuf
-        python
+        pythonPackages.ipython
         subversion
         valgrind
         vim

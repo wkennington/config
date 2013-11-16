@@ -14,6 +14,13 @@ symlink () {
   fi
 }
 
+p_and_q () {
+  local STAT="$1"
+  shift 1
+  echo "$@"
+  exit $STAT
+}
+
 # Validate the answer to a yes or no question
 y_or_n_validate () {
   local ANS;

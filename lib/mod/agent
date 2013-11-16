@@ -19,11 +19,26 @@ agent_cmd () {
   path_hasbin $1 && echo "$@;"
 }
 
+# Find the path to the pcsc driver
+agent_find_pcsc () {
+  [ -x "/lib/libpcsclite.so" ] && p_and_q 0 "/lib/libpcsclite.so"
+  [ -x "/usr/lib/libpcsclite.so" ] && p_and_q 0 "/usr/lib/libpcsclite.so"
+  [ -x "/run/current-system/sw/lib/libpcsclite.so" ] && p_and_q 0 "/run/current-system/sw/lib/libpcsclite.so"
+  [ -x "$HOME/.nix-profile/lib/libpcsclite.so" ] && p_and_q 0 "$HOME/.nix-profile/lib/libpcsclite.so"
+  exit 1
+}
+
 # Determine which agent to use
 agent_which () {
   [ "$(hostname -s )" = "fantom" ] && agent_cmd ssh-agent && return 0
   agent_cmd gnome-keyring-daemon -c pkcs11,secrets
-  info_ws && agent_cmd gpg-agent --daemon --enable-ssh-support && return 0
+  (info_ws && ! info_root) && {
+    mkdir -p "$HOME/.gnupg"
+    echo "pcsc-driver $(agent_find_pcsc)" > "$HOME/.gnupg/scdaemon.conf"
+    echo "card-timeout 5" >> "$HOME/.gnupg/scdaemon.conf"
+    echo "disable-ccid" >> "$HOME/.gnupg/scdaemon.conf"
+    agent_cmd gpg-agent --daemon --enable-ssh-support && return 0
+  }
   agent_cmd ssh-agent && return 0
   echo "Failed to find an agent" >&2
   return 1
@@ -33,6 +48,19 @@ agent_which () {
 agent_running () {
   run_quiet ssh-add -L
   [ "$?" -ne "2" ]
+}
+
+# Make sure that the running agent is the proper one
+agent_proper () {
+  agent_running && {
+    local OLD="$(ps --pid=$SSH_AGENT_PID -o comm | tail -n 1)"
+    local NEW="$(echo "$AGENT" | awk '{print $1}')"
+    [ "$OLD" != "$NEW" ] && {
+      echo "Killing $OLD for $NEW"
+      kill $SSH_AGENT_PID
+      unset SSH_AGENT_PID
+    }
+  }
 }
 
 # Import already running agent data
@@ -52,9 +80,10 @@ agent_spawn () {
 
 # Automatically determines which agent to use and starts it if necessary
 agent_auto () {
-  local AGENT
-  agent_running && return 0
-  agent_env && return 0
-  AGENT=$(agent_which) && agent_spawn $AGENT && return 0
+  local AGENT=$(agent_which)
+  agent_proper
+  agent_running || agent_env
+  agent_proper
+  ! agent_running && agent_spawn $AGENT && return 0
   return 1
 }

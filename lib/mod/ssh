@@ -83,7 +83,6 @@ ssh_client () {
 
 # Automatically determine how to configure ssh
 ssh_auto () {
-  config_ln "gnupg"
   ssh_client || { echo "Failed to create client configuration" >&2; return 1; }
   ssh_auth || { echo "Failed to update authorized_keys" >&2; return 1; }
   if [ ! -f "$HOME/.ssh/id_rsa.pub" ] && [ ! -f "$HOME/.ssh/id_ecdsa.pub" ]; then
