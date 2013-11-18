@@ -23,6 +23,7 @@ pkgs : {
         emacs
         firefoxWrapper
         gcc
+        gimp
         git
         gnumake
         gnupg1compat
@@ -30,21 +31,25 @@ pkgs : {
         mercurial
         hsEnv
         imagemagick
+        jre
         libpng
         libreoffice
+        nmap
         pinentry
         pcsclite
         protobuf
         pythonPackages.ipython
+        scrot
         subversion
         valgrind
         vim
+        vlc
         xfce.terminal
         xscreensaver
+        unzip
         zathura
       ];
     };
-    
     server = self.buildEnv {
       name = "myServer";
       paths = with self; [
