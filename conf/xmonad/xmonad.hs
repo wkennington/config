@@ -68,7 +68,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 	-- lock screen
 	, ((modm,				xK_a	), spawn "run comp_lock")
 
-	-- lock screen
+	-- sleep machine 
 	, ((modm,				xK_s	), spawn "run comp_sleep")
 
     -- launch dmenu
@@ -124,6 +124,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
+
+    -- Printscreen
+    , ((0                 , xK_Print), spawn "scrot")
 
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
