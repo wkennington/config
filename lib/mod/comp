@@ -3,7 +3,9 @@
 # Sleeps the computer
 comp_sleep () {
   comp_lock || return 1
-  sudo_wrap pm-suspend
+  systemctl suspend >&2 && return 0
+  suspend && return 0
+  pm-suspend && return 0
 }
 
 # Powers down the computer
