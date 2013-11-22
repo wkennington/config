@@ -35,8 +35,7 @@ agent_pin_program () {
 
 # Determine which agent to use
 agent_which () {
-  [ "$(hostname -s )" = "fantom" ] && agent_cmd ssh-agent && return 0
-  agent_cmd gnome-keyring-daemon -c pkcs11,secrets
+  [ "$(hostname -s)" = "fantom" ] && agent_cmd ssh-agent && return 0
   (info_ws && ! info_root) && {
     mkdir -p "$HOME/.gnupg"
     echo "pcsc-driver $(agent_find_pcsc)" > "$HOME/.gnupg/scdaemon.conf"
@@ -62,11 +61,11 @@ agent_running () {
 
 # Make sure that the running agent is the proper one
 agent_proper () {
-  agent_running && {
+  agent_running && [ -n "$SSH_AGENT_PID" ] && {
     local OLD="$(ps --pid=$SSH_AGENT_PID -o comm | tail -n 1)"
     local NEW="$(echo "$AGENT" | awk '{print $1}')"
     [ "$OLD" != "$NEW" ] && {
-      echo "Killing $OLD for $NEW"
+      echo "Killing '$OLD' for '$NEW'"
       kill $SSH_AGENT_PID
       unset SSH_AGENT_PID
     }
