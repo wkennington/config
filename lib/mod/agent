@@ -39,7 +39,8 @@ agent_gpg () {
   echo "pcsc-driver $(agent_find_pcsc)" > "$HOME/.gnupg/scdaemon.conf"
   echo "card-timeout 5" >> "$HOME/.gnupg/scdaemon.conf"
   echo "disable-ccid" >> "$HOME/.gnupg/scdaemon.conf"
-  local PIN_PROG="$(agent_pin_program)"
+  local PIN_PROG;
+  PING_PROG="$(agent_pin_program)"
   if [ "$?" -ne "0" ]; then
     echo "Couldn't select gpg-agent: no pinentry program" >&2
   else
@@ -73,8 +74,9 @@ agent_running () {
 # Make sure that the running agent is the proper one
 agent_proper () {
   agent_running && [ -n "$SSH_AGENT_PID" ] && {
-    local OLD="$(ps --pid=$SSH_AGENT_PID -o comm | tail -n 1)"
-    local NEW="$(echo "$AGENT" | awk '{print $1}')"
+    local OLD; local NEW;
+    OLD="$(ps --pid=$SSH_AGENT_PID -o comm | tail -n 1)"
+    NEW="$(echo "$AGENT" | awk '{print $1}')"
     [ "$OLD" != "$NEW" ] && {
       echo "Killing '$OLD' for '$NEW'"
       kill $SSH_AGENT_PID
@@ -100,7 +102,8 @@ agent_spawn () {
 
 # Automatically determines which agent to use and starts it if necessary
 agent_auto () {
-  local AGENT=$(agent_which $@)
+  local AGENT;
+  AGENT=$(agent_which $@)
   agent_proper
   agent_running || agent_env
   agent_proper
