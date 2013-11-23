@@ -29,8 +29,8 @@ ssh_genkey () {
 
   ssh_dir || return 1
   rm -f "$HOME/.ssh/"id_* 2>/dev/null
-  touch "$HOME/.ssh/"id_{rsa,ecdsa}
-  chmod 0600 "$HOME/.ssh/"id_{rsa,ecdsa}
+  touch "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ecdsa"
+  chmod 0600 "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ecdsa"
 
   if [ "$PASS" = "" ]; then
     openssl genrsa -out "$HOME/.ssh/id_rsa" 4096
