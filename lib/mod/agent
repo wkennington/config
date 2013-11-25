@@ -75,7 +75,7 @@ agent_running () {
 agent_proper () {
   agent_running && [ -n "$SSH_AGENT_PID" ] && {
     local OLD; local NEW;
-    OLD="$(ps --pid=$SSH_AGENT_PID -o comm | tail -n 1)"
+    OLD="$(ps -p "$SSH_AGENT_PID" -o comm | tail -n 1)"
     NEW="$(echo "$AGENT" | awk '{print $1}')"
     [ "$OLD" != "$NEW" ] && {
       echo "Killing '$OLD' for '$NEW'"
