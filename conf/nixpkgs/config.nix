@@ -55,6 +55,8 @@ pkgs : {
       paths = with self; [
         git
         gnupg1compat
+        openssl
+        openssh
         vim
       ];
     };
