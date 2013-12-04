@@ -8,6 +8,7 @@ laptop_bat () {
   array_forall BATS laptop_bat_one
 }
 laptop_bat_one () {
+  local BAT_DIR; local B; local NOW; local FULL;
   echo -n "$1: "
   BAT_DIR="$ROOT/sys/class/power_supply/$1"
   B="$(cat "$BAT_DIR/status" 2>/dev/null)" || return 1
@@ -21,5 +22,7 @@ laptop_bat_one () {
     *)
       echo -n "⚡"
   esac
-  echo "$(expr $(cat "$BAT_DIR/charge_now") \* 100 / $(cat "$BAT_DIR/charge_full"))%"
+  NOW="$(cat "$BAT_DIR"/charge_now 2>/dev/null || cat "$BAT_DIR"/energy_now 2>/dev/null || echo -1)"
+  FULL="$(cat "$BAT_DIR"/charge_full 2>/dev/null || cat "$BAT_DIR"/energy_full 2>/dev/null || echo 1)"
+  echo "$(expr $NOW \* 100 / $FULL)%"
 }
