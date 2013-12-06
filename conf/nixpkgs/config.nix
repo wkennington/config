@@ -12,7 +12,6 @@ pkgs : {
   };
   packageOverrides = self : rec {
     hsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
-#      haskellPlatform
       xmonad
     ]);
     desktop = self.buildEnv {
@@ -55,6 +54,8 @@ pkgs : {
       paths = with self; [
         git
         gnupg1compat
+        gptfdisk
+        iptables
         openssl
         openssh
         vim
