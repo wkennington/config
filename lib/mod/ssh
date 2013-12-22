@@ -1,5 +1,12 @@
 #!/usr/bin/env sh
 
+# Make sure that we have the required binaries
+ssh_path () {
+  path_hasbin ssh-keygen || { echo "No ssh installed" >&2; return 1; }
+  path_hasbin openssl || { echo "No openssl installed" >&2; return 1; }
+  return 0
+}
+
 # Makes sure the ssh directory exists
 ssh_dir () {
   if [ ! -d "$HOME/.ssh" ]; then
@@ -10,6 +17,7 @@ ssh_dir () {
 # Creates new ssh keys with the provided password
 # Passing no parameter prompts the user for a password
 ssh_genkey () {
+  ssh_path || return 1
   local PASS; local PASS2
   if [ "$#" -eq "0" ]; then
     stty -echo
@@ -83,6 +91,7 @@ ssh_client () {
 
 # Automatically determine how to configure ssh
 ssh_auto () {
+  ssh_path || return 1
   ssh_client || { echo "Failed to create client configuration" >&2; return 1; }
   ssh_auth || { echo "Failed to update authorized_keys" >&2; return 1; }
   if [ ! -f "$HOME/.ssh/id_rsa.pub" ] && [ ! -f "$HOME/.ssh/id_ecdsa.pub" ]; then
