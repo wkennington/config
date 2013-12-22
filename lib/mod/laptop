@@ -1,7 +1,12 @@
 #!/usr/bin/env sh
 
-# Gets the string representing the state of the batteries
+# Use acpi if possible
 laptop_bat () {
+  acpi -b 2>/dev/null || lapto_bat_old
+}
+
+# Gets the string representing the state of the batteries
+laptop_bat_old () {
   local BATS; local BAT_DIR
   [ -d "$ROOT/sys/class/power_supply" ] || return 1
   array_from_str BATS "$(ls "$ROOT/sys/class/power_supply" | grep "^BAT")"
