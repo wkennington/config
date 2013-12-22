@@ -4,8 +4,8 @@
 comp_sleep () {
   comp_lock || return 1
   systemctl suspend >&2 && return 0
-  suspend && return 0
-  pm-suspend && return 0
+  suspend >&2 && return 0
+  pm-suspend >&2 && return 0
 }
 
 # Powers down the computer
