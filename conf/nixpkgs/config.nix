@@ -35,6 +35,7 @@ pkgs : {
         pcsclite
         pinentry
         psmisc
+        pulseaudio
         python3Packages.ipython
         scrot
         spotify
