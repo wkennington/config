@@ -17,48 +17,60 @@ pkgs : {
     desktop = self.buildEnv {
       name = "myDesktop";
       paths = with self; [
+        acpi
         chromiumWrapper
         dmenu
         emacs
         firefoxWrapper
-        gcc
+        gdb
         gimp
         git
-        gnumake
         gnupg1compat
-        go
         mercurial
         hsEnv
-        imagemagick
-        jre
-        libpng
         libreoffice
-        nmap
-        pinentry
+        openssh
+        openssl
+        pavucontrol
         pcsclite
-        protobuf
-        pythonPackages.ipython
+        pinentry
+        psmisc
+        python3Packages.ipython
         scrot
+        spotify
         subversion
+        unzip
         valgrind
         vim
         vlc
+        wget
         xfce.terminal
+        xlibs.xbacklight
         xscreensaver
-        unzip
         zathura
       ];
     };
     server = self.buildEnv {
       name = "myServer";
       paths = with self; [
+        acpi
+        atop
+        dnstop
         git
-        gnupg1compat
         gptfdisk
+        htop
+        iftop
+        iotop
+        iperf
         iptables
-        openssl
+        nmap
         openssh
+        openssl
+        psmisc
+        tmux
+        unzip
         vim
+        wget
       ];
     };
   };
