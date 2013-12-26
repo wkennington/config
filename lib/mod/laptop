@@ -2,7 +2,7 @@
 
 # Use acpi if possible
 laptop_bat () {
-  acpi -b 2>/dev/null || lapto_bat_old
+  acpi -b 2>/dev/null || laptop_bat_old
 }
 
 # Gets the string representing the state of the batteries
