@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+git clone https://github.com/wkennington/nixpkgs
+cd nixpkgs
+git remote set-url --push origin git@github.com:wkennington/nixpkgs
+git remote add upstream https://github.com/NixOS/nixpkgs

@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+git checkout cache || exit 1
+git branch -D merged >/dev/null 2>&1
+git checkout -b merged
+BRCHS="$(git branch | sed -n -e '/\(cache\|merged\|master\)/d' -e '/\*\? */s///p')"
+for i in $BRCHS; do
+  git rebase $i
+done
