@@ -63,7 +63,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
 	-- launch emacs
-	, ((modm .|. shiftMask,	xK_i	), spawn "emacsclient -c")
+	, ((modm .|. shiftMask,	xK_i	), spawn "run emacs")
 
 	-- lock screen
 	, ((modm,				xK_a	), spawn "run comp_lock")
