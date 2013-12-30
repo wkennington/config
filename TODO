@@ -28,3 +28,4 @@
     - [X] Figure out a way to run tests against all shells
     - [ ] Improve loader test coverage
   - [ ] Add autocomplete functionality for cmdline functions
+  - [ ] Support HiDPI
