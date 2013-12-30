@@ -7,11 +7,11 @@ git remote set-url --push origin git@github.com:wkennington/config
 echo "Updating Config Files"
 config_latest
 if [ "$?" -gt "1" ]; then
-    echo "Failed to update Config"
-    exit 1
+  echo "Failed to update Config"
+  exit 1
 fi
 echo "Installing Config Files"
 if ! config_install; then
-    echo "Failed to Install Config"
-    exit 1
+  echo "Failed to Install Config"
+  exit 1
 fi
