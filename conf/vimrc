@@ -25,7 +25,6 @@ set nobackup
 set nowb
 set noswapfile
 set smarttab
-set expandtab
 set ai
 set si
 set ffs=unix,dos,mac
@@ -98,6 +97,15 @@ if has("autocmd")
 
   augroup END
 
+  " Special Settings For Specific Files
+  autocmd BufNewFile,BufRead *.nix
+    \ set shiftwidth=2 |
+    \ set tabstop=2 |
+    \ set expandtab
+  autocmd Syntax {*sh,python,html,vim}
+    \ set shiftwidth=2 |
+    \ set tabstop=2 |
+    \ set expandtab
 else
 
   set autoindent		" always set autoindenting on
