@@ -2,7 +2,7 @@
 
 # Get colors for the current shell
 shell_color () {
-  echo -n '\['
+  [ "$(shell_nov)" = "zsh" ] && echo -n '%{' || echo -n '\['
   case "$1" in
     red)
       [ "$2" -eq "0" ] && echo -n '\e[0;31m' || echo -n '\e[1;31m'
@@ -28,7 +28,7 @@ shell_color () {
     *)
       echo -n '\e[0m'
   esac
-  echo '\]'
+  [ "$(shell_nov)" = "zsh" ] && echo -n '%{' || echo -n '\]'
 }
 
 # Setup the theme for the shell
@@ -50,9 +50,9 @@ shell_theme () {
 
   # Create Prompt
   if [ "$(shell_nov)" = "zsh" ]; then
-    PROMPT='[%{$NCOLOR%}%n%{$(shell_color reset 0)%}@'
-    PROMPT="$PROMPT"'%{$HCOLOR%}%m%{$(shell_color reset 0)%}:'
-    PROMPT="$PROMPT"'%{$DCOLOR%}%30<...<%~%<<%{$(shell_color reset 0)%}]%(!.#.$) '
+    PROMPT="[$NCOLOR%n$(shell_color reset 0)@"
+    PROMPT="$PROMPT$HCOLOR%m$(shell_color reset 0):"
+    PROMPT="$PROMPT$DCOLOR%30<...<%~%<<$(shell_color reset 0)]%(!.#.$) "
   else
     PS1="[${NCOLOR}\u$(shell_color reset 0)@${HCOLOR}\h$(shell_color reset 0):${DCOLOR}\w$(shell_color reset 0)]\\$ "
   fi
