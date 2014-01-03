@@ -1,12 +1,17 @@
 #!/usr/bin/env sh
-VER="$(nix-channel --update 2>&1 | sed -n 's/^.*nixos-.*\.\(.*\)\/.*$/\1/p')"
+VER="$(nix-channel --update nixos 2>&1 | sed -n 's/^.*nixos-.*\.\(.*\)\/.*$/\1/p')"
 git fetch upstream && git fetch origin
 git checkout "$VER"
 git branch -D cache 2>/dev/null >&2
 git checkout -b cache
 git branch -D master 2>/dev/null >&2
 git checkout -b master upstream/master
-BRCHS="$(git branch | sed -n -e '/\(cache\|merged\|master\)/d' -e '/\*\? */s///p')"
-for i in $BRCHS; do
-  git rebase cache $i
-done
+
+update () {
+  BRCHS="$(git branch | sed -n -e "s,^\\*\\? *\\($1\\..*\\),\\1,p")"
+  for i in $BRCHS; do
+    git rebase $1 $i
+  done
+}
+update cache
+update master
