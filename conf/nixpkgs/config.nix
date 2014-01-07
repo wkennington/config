@@ -73,6 +73,7 @@ pkgs : {
         unzip
         vim
         wget
+        zsh
       ];
     };
   };
