@@ -49,6 +49,7 @@ pkgs : {
         xlibs.xbacklight
         xscreensaver
         zathura
+        zsh
       ];
     };
     server = self.buildEnv {
