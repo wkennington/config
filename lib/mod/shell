@@ -28,7 +28,7 @@ shell_color () {
     *)
       echo -n '\e[0m'
   esac
-  [ "$(shell_nov)" = "zsh" ] && echo -n '%{' || echo -n '\]'
+  [ "$(shell_nov)" = "zsh" ] && echo -n '%}' || echo -n '\]'
 }
 
 # Setup the theme for the shell
