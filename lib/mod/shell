@@ -119,15 +119,7 @@ shell_best () {
   fi
 }
 
-# Set the given shell as the default shell if not already set
-shell_default () {
-  [ "$#" -ne "1" ] && return 1
-  [ "$(basename $(getent passwd $LOGNAME | cut -d: -f7))" = "$1" ] && return 0
-  chsh -s "$(path_abs "$1")" "$USER"
-}
-
 # Automatically configures the shell configuration files
 shell_auto () {
   config_ln "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout"
-  shell_default "$(shell_get_best)"
 }
