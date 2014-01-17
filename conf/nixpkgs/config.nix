@@ -28,7 +28,6 @@ pkgs : {
         gnupg1compat
         hsEnv
         mercurial
-        mtr
         libreoffice
         openssh
         openssl
