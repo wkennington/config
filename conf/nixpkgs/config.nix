@@ -26,8 +26,9 @@ pkgs : {
         gimp
         git
         gnupg1compat
-        mercurial
         hsEnv
+        mercurial
+        mtr
         libreoffice
         openssh
         openssl
@@ -65,6 +66,7 @@ pkgs : {
         iotop
         iperf
         iptables
+        mtr
         nmap
         openssh
         openssl
