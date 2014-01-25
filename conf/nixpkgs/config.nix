@@ -14,59 +14,58 @@ pkgs : {
     hsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
     ]);
-    desktop = self.buildEnv {
-      name = "myDesktop";
+    graphical = self.buildEnv {
+      name = "myGraphical";
       paths = with self; [
-        acpi
+        # Envs
+        dev
+        shell
+
+        # Pkgs
         chromiumWrapper
         dmenu
         emacs
         firefoxWrapper
-        gdb
         gimp
-        git
         gnupg1compat
         hsEnv
-        mercurial
-        libreoffice
-        openssh
-        openssl
+        #libreoffice
         pavucontrol
         pcsclite
         pinentry
-        psmisc
         pulseaudio
-        python3Packages.ipython
         scrot
         spotify
-        subversion
-        unzip
-        valgrind
-        vim
         vlc
-        wget
         xfce.terminal
         xlibs.xbacklight
         xscreensaver
         zathura
-        zsh
       ];
     };
-    server = self.buildEnv {
-      name = "myServer";
+    nongraphical = self.buildEnv {
+      name = "myNonGraphical";
+      paths = with self; [
+        dev
+        shell
+      ];
+    };
+    dev = self.buildEnv {
+      name = "myDev";
+      paths = with self; [
+        gdb
+        mercurial
+        python3Packages.ipython
+        subversion
+        valgrind
+      ];
+    };
+    shell = self.buildEnv {
+      name = "myShell";
       paths = with self; [
         acpi
-        atop
-        dnstop
         git
-        gptfdisk
         htop
-        iftop
-        iotop
-        iperf
-        iptables
-        mtr
-        nmap
         openssh
         openssl
         psmisc
