@@ -1,12 +1,19 @@
-#!/usr/bin/env sh
+#!/bin/sh -e
+
+# Update nixos info
 VER="$(nix-channel --update nixos 2>&1 | sed -n 's/^.*nixos-.*\.\(.*\)\/.*$/\1/p')"
 git fetch upstream && git fetch origin
+
+# Build a new cache
 git checkout "$VER"
 git branch -D cache 2>/dev/null >&2
 git checkout -b cache
+
+# Build a new master
 git branch -D master 2>/dev/null >&2
 git checkout -b master upstream/master
 
+# Update all dependent branches
 update () {
   BRCHS="$(git branch | sed -n -e "s,^\\*\\? *\\($1\\..*\\),\\1,p")"
   for i in $BRCHS; do

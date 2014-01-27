@@ -1,9 +1,17 @@
-#!/usr/bin/env sh
-BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-git checkout cache || exit 1
-git branch -D merged >/dev/null 2>&1
+#!/bin/sh -e
+
+# Cleanup previous sessions
+git checkout cache
+git branch -D merged >/dev/null 2>&1 || true
+
+# Determine which branches we need to pick
+BRCHS="$(git branch | sed -n -e '/\(cache\|master\)$/d' -e '/\*\? */s///p')"
+
+# Figure out if we need to base on master or cache
+echo $BRCHS | grep 'master' >/dev/null 2>&1 && git checkout master
+
+# Pick branches into merged
 git checkout -b merged
-BRCHS="$(git branch | sed -n -e '/\(cache\|merged\|master\)/d' -e '/\*\? */s///p')"
 for i in $BRCHS; do
-  git rebase $i
+  git cherry-pick $(echo "$i" | awk -F . '{print $1}')..$i
 done
