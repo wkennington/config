@@ -64,6 +64,7 @@ pkgs : {
       name = "myShell";
       paths = with self; [
         acpi
+        fish
         git
         htop
         openssh
