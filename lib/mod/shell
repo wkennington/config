@@ -33,6 +33,8 @@ shell_color () {
 
 # Setup the theme for the shell
 shell_theme () {
+  [ "$(shell_nov)" = "fish" ] && return 0
+
   # Colors for LS
   os_matches '\(Linux\|Cygwin\)' && { eval "$(dircolors -b)"; alias ls='ls --color=auto'; }
   os_matches '\(FreeBSD\)' && { export CLICOLOR=1; export LSCOLORS="ExGxFxdxCxDhDxaBadaCeC"; }
@@ -91,6 +93,12 @@ shell_init () {
 
 # Returns the name of the preferred shell
 shell_get_best () {
+  # Fish preferred
+  if path_hasbin fish; then
+    echo "fish"
+    return 0
+  fi
+
   # ZSH preferred
   if path_hasbin zsh; then
     VER="$(zsh --version | awk '{print $2}')"
@@ -121,5 +129,5 @@ shell_best () {
 
 # Automatically configures the shell configuration files
 shell_auto () {
-  config_ln "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout"
+  config_ln "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout" "config/fish"
 }

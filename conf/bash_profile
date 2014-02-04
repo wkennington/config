@@ -1,1 +1,3 @@
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+#!/usr/bin/env bash
+[ -f "$HOME/.bash_profile.local" ] && . "$HOME/.bash_profile.local"
+[ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"

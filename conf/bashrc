@@ -8,3 +8,6 @@
 shell_best $@
 shell_init
 shell_theme
+
+# Load the local config
+[ -f "$HOME/.bashrc.local" ] && . "$HOME/.bashrc.local"

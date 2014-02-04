@@ -44,9 +44,19 @@ graphical_runwm () {
   local TERMRC
   TERMRC="$(dir_conf)/conf/config/Terminal/terminalrc"
   if [ "$TILING" -eq "1" ]; then
-    symlink "${TERMRC}.tiling" "$TERMRC"
+    HCFG="${TERMRC}.tiling.$(hostname -s)"
+    if [ -f "$HCFG" ]; then
+      symlink "$HCFG" "$TERMRC"
+    else
+      symlink "${TERMRC}.tiling" "$TERMRC"
+    fi
   else
-    symlink "${TERMRC}.window" "$TERMRC"
+    HCFG="${TERMRC}.window.$(hostname -s)"
+    if [ -f "$HCFG" ]; then
+      symlink "${HCFG}" "$TERMRC"
+    else
+      symlink "${TERMRC}.window" "$TERMRC"
+    fi
   fi
 
   # Start the window manager

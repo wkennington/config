@@ -29,7 +29,7 @@ pkgs : {
         gimp
         gnupg1compat
         hsEnv
-        #libreoffice
+        libreoffice
         pavucontrol
         pcsclite
         pinentry
@@ -74,7 +74,6 @@ pkgs : {
         unzip
         vim
         wget
-        zsh
       ];
     };
   };
