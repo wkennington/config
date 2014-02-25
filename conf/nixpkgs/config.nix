@@ -30,6 +30,7 @@ pkgs : {
         gnupg1compat
         hsEnv
         libreoffice
+        mumble
         pavucontrol
         pcsclite
         pinentry
@@ -67,6 +68,7 @@ pkgs : {
         fish
         git
         htop
+        mosh
         openssh
         openssl
         psmisc
