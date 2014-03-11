@@ -43,9 +43,7 @@ pkgs : {
         scrot
         spotify
         st
-        virtmanager
         vlc
-        weechat
         xlibs.xbacklight
         xscreensaver
         zathura
