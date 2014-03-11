@@ -15,6 +15,7 @@ comp_off () {
 
 # Locks the screen
 comp_lock () {
+  run_quiet slock && return 0
   run_quiet gnome-screensaver-command -l && return 0
   run_quiet xscreensaver-command -lock && return 0
   echo "Failed to lock the screen" >&2

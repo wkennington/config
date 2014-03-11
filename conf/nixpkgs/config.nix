@@ -45,7 +45,6 @@ pkgs : {
         st
         vlc
         xlibs.xbacklight
-        xscreensaver
         zathura
       ];
     };

@@ -15,6 +15,7 @@ graphical_runwm () {
   TILING=0
 
   # Run background applications
+  run_quiet xbacklight -set 30
   run_quiet autocutsel -fork
   run_quiet pulseaudio --start
   run_quiet xscreensaver -no-splash &
