@@ -96,13 +96,10 @@ pkgs : {
     };
     orpheum = self.myEnvFun {
       name = "orpheum";
-      buildInputs = with self; [
-        python27
-        python27Packages.django_1_5
-        python27Packages.gdata
-        python27Packages.pil
-        python27Packages.sqlite3
-      ];
+      buildInputs = (with self; [ python27 ])
+        ++ (with self.python27Packages; [
+          django_1_5 gdata paypalrestsdk pil sorl_thumbnail six sqlite3
+        ]);
     };
   };
 }
