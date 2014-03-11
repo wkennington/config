@@ -10,6 +10,8 @@ pkgs : {
     enableGoogleTalkPlugin = true;
     enableAdobeFlash = true;
   };
+  st.conf = (builtins.readFile ./st/config.mach.h)
+    + (builtins.readFile ./st/config.inc.h);
   packageOverrides = self : rec {
     hsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
@@ -40,10 +42,10 @@ pkgs : {
         pulseaudio
         scrot
         spotify
+        st
         virtmanager
         vlc
         weechat
-        xfce.terminal
         xlibs.xbacklight
         xscreensaver
         zathura

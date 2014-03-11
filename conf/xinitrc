@@ -2,5 +2,5 @@
 
 # Import the modules automatically
 . "$(readlink -f $(dirname $(readlink -f $HOME/.xinitrc))/../)/lib/loader"
-shell_init
+agent_auto
 graphical_autorun $@
