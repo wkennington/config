@@ -69,7 +69,7 @@ static unsigned int defaultitalic = 11;
 static unsigned int defaultunderline = 7;
 
 /* Internal shortcuts. */
-#define MODKEY Mod1Mask
+#define MODKEY ControlMask
 
 static Shortcut shortcuts[] = {
 	/* modifier		key		function	argument */
