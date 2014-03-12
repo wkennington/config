@@ -44,6 +44,7 @@ pkgs : {
         scrot
         spotify
         st
+        sup
         vlc
         xlibs.xbacklight
         zathura
