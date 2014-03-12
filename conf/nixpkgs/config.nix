@@ -36,6 +36,7 @@ pkgs : {
         hsEnv
         libreoffice
         mumble
+        notbit
         pavucontrol
         pcsclite
         pinentry
