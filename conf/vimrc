@@ -122,8 +122,8 @@ endif
 
 set nomodeline
 
-if filereadable($HOME . "/.tmp/vimrc.info")
-  source ~/.tmp/vimrc.info
+if isdirectory($HOME . "/.tmp/")
+  let &viminfo = &viminfo . ",n" . $HOME . "/.tmp/viminfo"
 else
-  set viminfo=""
+  let &viminfo = ""
 endif
