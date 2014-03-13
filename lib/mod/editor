@@ -1,30 +1,5 @@
 #!/usr/bin/env sh
 
-# Load vim smartly
-vim () {
-  local TMP
-  TMP="$(dir_tmp)" && echo "set viminfo+=n$TMP/viminfo" > "$TMP/vimrc.info" || echo "set viminfo=\"\"" > "$TMP/vimrc.info"
-  if [ ! -z "$XAUTHORITY" ] && [ "$RUNNER" -eq "1" ] && path_hasbin "gvim"; then
-    command gvim $@
-  elif path_hasbin "vim"; then
-    command vim $@
-  else
-    return 127
-  fi
-}
-
-# Load emacs smartly
-emacs () {
-  path_hasbin "emacs" || return 127
-  check_pidfile "$(dir_tmp)/emacs.pid" || command emacs --daemon || return 1
-  if [ ! -z "$XAUTHORITY" ] && [ "$RUNNER" -eq "1" ]; then
-    command emacsclient -c $@
-  else
-    command emacsclient -t $@
-  fi
-}
-alias emacsclient=emacs
-
 # Automatically configure editors
 editor_auto () {
   rm -rf "$HOME/.emacs" "$HOME/.viminfo"
