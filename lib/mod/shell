@@ -129,5 +129,5 @@ shell_best () {
 
 # Automatically configures the shell configuration files
 shell_auto () {
-  config_ln "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout" "config/fish"
+  config_ln "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout" "config/fish" "tmux.conf"
 }
