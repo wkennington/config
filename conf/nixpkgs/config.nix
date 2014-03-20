@@ -29,7 +29,6 @@ pkgs : {
         # Pkgs
         chromiumWrapper
         dmenu
-        emacs
         firefoxWrapper
         gimp
         gnupg1compat
@@ -42,7 +41,6 @@ pkgs : {
         pinentry
         pulseaudio
         scrot
-        spotify
         st
         sup
         vlc
@@ -54,16 +52,12 @@ pkgs : {
       name = "myNonGraphical";
       paths = with self; [
         dev
-        dos2unix
-        #ffmpeg
         shell
-        zip
       ];
     };
     dev = self.buildEnv {
       name = "myDev";
       paths = with self; [
-        mercurial
         python3Packages.ipython
         subversion
       ];
