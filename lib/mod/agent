@@ -76,7 +76,7 @@ agent_proper () {
   agent_running && [ -n "$SSH_AGENT_PID" ] && {
     local OLD; local NEW;
     OLD="$(ps -p "$SSH_AGENT_PID" -o comm | tail -n 1)"
-    NEW="$(echo "$AGENT" | awk '{print $1}')"
+    NEW="$(echo "$AGENT_CMD" | awk '{print $1}')"
     [ "$OLD" != "$NEW" ] && {
       echo "Killing '$OLD' for '$NEW'"
       kill $SSH_AGENT_PID
@@ -102,11 +102,11 @@ agent_spawn () {
 
 # Automatically determines which agent to use and starts it if necessary
 agent_auto () {
-  local AGENT;
-  AGENT=$(agent_which $@)
+  local AGENT_CMD;
+  AGENT_CMD=$(agent_which $AGENT)
   agent_proper
   agent_running || agent_env
   agent_proper
-  ! agent_running && agent_spawn $AGENT && return 0
+  ! agent_running && agent_spawn $AGENT_CMD && return 0
   return 1
 }
