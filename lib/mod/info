@@ -2,7 +2,7 @@
 
 # Determine if this is a workstation
 info_ws () {
-  [ "$WS" -eq "0" ] && return 0
+  [ "$WS" = "0" ] && return 0
   [ "$(hostname -s | grep -e "\(wl\|wn\|wd\|dev\|fantom\)")" != "" ]
 }
 
