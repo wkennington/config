@@ -6,11 +6,11 @@ git fetch upstream && git fetch origin
 
 # Build a new cache
 git checkout "$VER"
-git branch -D cache 2>/dev/null >&2
+git branch -D cache 2>/dev/null >&2 || true
 git checkout -b cache
 
 # Build a new master
-git branch -D master 2>/dev/null >&2
+git branch -D master 2>/dev/null >&2 || true
 git checkout -b master upstream/master
 
 # Update all dependent branches
