@@ -41,6 +41,7 @@ pkgs : {
         pcsclite
         pinentry
         pulseaudio
+        kde4.quasselClient
         scrot
         st
         sup
