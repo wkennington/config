@@ -34,6 +34,7 @@ pkgs : {
         gimp
         gnupg1compat
         hsEnv
+        filezilla
         libreoffice
         mumble
         notbit
