@@ -1,4 +1,11 @@
-#!/bin/sh -e
+#!/bin/sh
+set -o nounset
+set -o errexit
+
+# Ensure we have a nix channel
+if ! nix-channel --list | grep '^nixos' >/dev/null 2>&1; then
+  nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+fi
 
 # Update nixos info
 VER="$(nix-channel --update nixos 2>&1 | sed -n 's/^.*nixos-.*\.\(.*\)\/.*$/\1/p')"
