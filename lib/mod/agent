@@ -110,6 +110,7 @@ agent_spawn () {
 
 # Automatically determines which agent to use and starts it if necessary
 agent_auto () {
+  [ ! -z "$SSH_AUTH_SOCK" ] && return 0
   local AGENT_CMD;
   AGENT_CMD=$(agent_which $AGENT)
   agent_proper

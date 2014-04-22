@@ -1,4 +1,5 @@
 pkgs : {
+  allowUnfree = true;
   cabal.libraryProfiling = true;
   firefox = {
     jre = false;
@@ -15,7 +16,7 @@ pkgs : {
   packageOverrides = self : rec {
     hsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
-      yi
+      #yi
     ]);
     graphical = self.buildEnv {
       name = "myGraphical";
