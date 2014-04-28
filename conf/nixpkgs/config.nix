@@ -37,7 +37,8 @@ pkgs : {
         filezilla
         libreoffice
         mumble
-        notbit
+        nix-repl
+        #notbit
         pavucontrol
         pcsclite
         pinentry
@@ -94,9 +95,11 @@ pkgs : {
     };
     orpheum = self.myEnvFun {
       name = "orpheum";
-      buildInputs = (with self; [ python27 ])
+      buildInputs = (with self; [ python27
+      #rubyLibs.sass_3_3_4
+      ])
         ++ (with self.python27Packages; [
-          django_1_5 gdata paypalrestsdk pil sorl_thumbnail six sqlite3
+          django_1_5 google_api_python_client paypalrestsdk pil sorl_thumbnail six sqlite3
         ]);
     };
   };
