@@ -81,16 +81,21 @@ agent_running () {
 
 # Make sure that the running agent is the proper one
 agent_proper () {
-  agent_running && [ -n "$SSH_AGENT_PID" ] && {
-    local OLD; local NEW;
-    OLD="$(ps -p "$SSH_AGENT_PID" -o comm | tail -n 1)"
-    NEW="$(echo "$AGENT_CMD" | awk '{print $1}')"
-    [ "$OLD" != "$NEW" ] && {
-      echo "Killing '$OLD' for '$NEW'"
-      kill $SSH_AGENT_PID
-      unset SSH_AGENT_PID
-    }
-  }
+  if agent_running; then
+    if [ -n "$SSH_AGENT_PID" ]; then
+      local OLD; local NEW;
+      OLD="$(ps -p "$SSH_AGENT_PID" -o comm | tail -n 1)"
+      NEW="$(echo "$AGENT_CMD" | awk '{print $1}')"
+      [ "$OLD" != "$NEW" ] && {
+        echo "Killing '$OLD' for '$NEW'"
+        kill $SSH_AGENT_PID
+        unset SSH_AGENT_PID
+        unset SSH_AUTH_SOCK
+      }
+    elif [ -z "$SSH_TTY" ]; then
+      unset SSH_AUTH_SOCK
+    fi
+  fi
 }
 
 # Import already running agent data
