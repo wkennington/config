@@ -52,7 +52,7 @@ function dir_tmp_one
 end
 
 set -x EDITOR vim
-set -x PAGER less
+set -x PAGER "less -R"
 set -x BLOCKSIZE M
 
 add_to_path "$HOME/.bin"
