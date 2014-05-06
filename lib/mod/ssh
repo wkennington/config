@@ -37,20 +37,11 @@ ssh_genkey () {
 
   ssh_dir || return 1
   rm -f "$HOME/.ssh/"id_* 2>/dev/null
-  touch "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ecdsa"
-  chmod 0600 "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ecdsa"
+  touch "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ed25519"
+  chmod 0600 "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ed25519"
 
-  if [ "$PASS" = "" ]; then
-    openssl genrsa -out "$HOME/.ssh/id_rsa" 4096
-	echo $(ssh-keygen -yf "$HOME/.ssh/id_rsa") $(hostname) > "$HOME/.ssh/id_rsa.pub"
-	openssl ecparam -genkey -name secp521r1 -out "$HOME/.ssh/id_ecdsa"
-	echo $(ssh-keygen -yf "$HOME/.ssh/id_ecdsa") $(hostname) > "$HOME/.ssh/id_ecdsa.pub"
-  else
-	openssl genrsa -aes256 -passout "pass:$PASS" -out "$HOME/.ssh/id_rsa" 4096
-	echo $(ssh-keygen -P "$PASS" -yf "$HOME/.ssh/id_rsa") $(hostname) > "$HOME/.ssh/id_rsa.pub"
-	openssl ecparam -genkey -name secp521r1 | openssl ec -aes256 -passout "pass:$PASS" -out "$HOME/.ssh/id_ecdsa"
-	echo $(ssh-keygen -P "$PASS" -yf "$HOME/.ssh/id_ecdsa") $(hostname) > "$HOME/.ssh/id_ecdsa.pub"
-  fi
+  ssh-keygen -N "$PASS" -f "$HOME/.ssh/id_rsa" -t rsa -b 4096
+  ssh-keygen -N "$PASS" -f "$HOME/.ssh/id_ed25519" -t ed25519
 }
 
 # Create the keys from the git repo
@@ -60,7 +51,7 @@ ssh_defkey () {
   CPFX="$(dir_conf)/conf/ssh/default_"
   LPFX="$HOME/.ssh/id_"
   
-  array_from_str KEYS "rsa rsa.pub ecdsa ecdsa.pub"
+  array_from_str KEYS "rsa rsa.pub ed25519 ed25519.pub"
   array_forall KEYS ssh_defkey_one
 }
 ssh_defkey_one () {
@@ -94,7 +85,7 @@ ssh_auto () {
   ssh_path || return 1
   ssh_client || { echo "Failed to create client configuration" >&2; return 1; }
   ssh_auth || { echo "Failed to update authorized_keys" >&2; return 1; }
-  if [ ! -f "$HOME/.ssh/id_rsa.pub" ] && [ ! -f "$HOME/.ssh/id_ecdsa.pub" ]; then
+  if [ ! -f "$HOME/.ssh/id_rsa.pub" ] && [ ! -f "$HOME/.ssh/id_ed25519.pub" ]; then
     if info_ws; then
       ssh_defkey || { echo "Failed to populate client keys" >&2; return 1; }
     else
