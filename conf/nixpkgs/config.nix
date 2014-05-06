@@ -30,12 +30,13 @@ pkgs : {
         # Pkgs
         chromiumWrapper
         dmenu
+        emacs
         firefoxWrapper
         gimp
         gnupg1compat
         hsEnv
         filezilla
-        libreoffice
+        #libreoffice
         mumble
         nix-repl
         #notbit
