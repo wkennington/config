@@ -34,6 +34,7 @@
     go-mode
     haskell-mode
     helm-c-yasnippet
+    markdown-mode
     yas-jit
     workgroups
     zenburn-theme))
