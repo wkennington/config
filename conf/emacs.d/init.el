@@ -73,6 +73,8 @@
 ;; Tabs and Editing
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+(setq whitespace-line-column 80)
+(setq whitespace-style '(face tabs empty trailing lines-tail))
 (global-whitespace-mode 1)
 
 ;; Parens Highlighting
