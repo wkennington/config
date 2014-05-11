@@ -27,7 +27,16 @@
 ;; Download Required Packages
 (require 'cl)
 (defvar packages
-  '(ace-jump-mode doctags yasnippet-bundle el-autoyas go-mode helm-c-yasnippet yas-jit workgroups zenburn-theme))
+  '(ace-jump-mode
+    doctags
+    yasnippet-bundle
+    el-autoyas
+    go-mode
+    haskell-mode
+    helm-c-yasnippet
+    yas-jit
+    workgroups
+    zenburn-theme))
 
 (defun packages-installed-p ()
   (loop for p in packages
@@ -63,7 +72,7 @@
 ;; Tabs and Editing
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-;(global-whitespace-mode 1)
+(global-whitespace-mode 1)
 
 ;; Parens Highlighting
 (require 'paren)
@@ -109,6 +118,9 @@
 
 ;; Go Mode
 (require 'go-mode-load)
+
+;; Haskell
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 ;; Latex Stuff
 (setq TeX-auto-save t)
