@@ -26,6 +26,7 @@ pkgs : {
         dev
         orpheum
         shell
+        profile
 
         # Pkgs
         chromiumWrapper
@@ -51,6 +52,14 @@ pkgs : {
         vlc
         xlibs.xbacklight
         zathura
+      ];
+    };
+    profile = self.myEnvFun {
+      name = "profile";
+      buildInputs = with self; [
+        (self.haskellPackages.ghcWithPackages (self : with self; [
+          hakyll
+        ]))
       ];
     };
     nongraphical = self.buildEnv {
