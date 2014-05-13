@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 export DIR_CONF="$(readlink -f "$(dirname "$(readlink -f "$0")")")"
 cd "$DIR_CONF"
+touch settings
 . lib/loader || exit 128
 git remote set-url origin https://github.com/wkennington/config
 git remote set-url --push origin git@github.com:wkennington/config
