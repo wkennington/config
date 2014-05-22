@@ -19,12 +19,23 @@ agent_cmd () {
   path_hasbin $1 && echo "$@ ;"
 }
 
+# Find a specific pcsc driver
+agent_find_pcsc_lib () {
+  VAL="$(find "$1" -name libpcsclite.so\* 2>/dev/null | head -n 1)"
+  [ -z "$VAL" ] && return 1
+  echo "$VAL"
+  exit 0
+}
+
 # Find the path to the pcsc driver
 agent_find_pcsc () {
-  [ -x "/run/current-system/sw/lib/libpcsclite.so" ] && p_and_q 0 "/run/current-system/sw/lib/libpcsclite.so"
-  [ -x "$HOME/.nix-profile/lib/libpcsclite.so" ] && p_and_q 0 "$HOME/.nix-profile/lib/libpcsclite.so"
-  [ -x "/usr/lib/libpcsclite.so" ] && p_and_q 0 "/usr/lib/libpcsclite.so"
-  [ -x "/lib/libpcsclite.so" ] && p_and_q 0 "/lib/libpcsclite.so"
+  agent_find_pcsc_lib "/run/current-system/sw/lib"
+  agent_find_pcsc_lib "$HOME/.nix-profile/lib"
+  agent_find_pcsc_lib "/usr/local/lib"
+  agent_find_pcsc_lib "/usr/lib64"
+  agent_find_pcsc_lib "/lib64"
+  agent_find_pcsc_lib "/usr/lib"
+  agent_find_pcsc_lib "/lib"
   exit 1
 }
 
