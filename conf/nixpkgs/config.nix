@@ -22,11 +22,12 @@ pkgs : {
       name = "myGraphical";
       paths = with self; [
         # Envs
-        cs225
+        #cs225
         dev
-        orpheum
+        #orpheum
         shell
-        profile
+        #profile
+        mumc
 
         # Pkgs
         chromiumWrapper
@@ -72,7 +73,8 @@ pkgs : {
     dev = self.buildEnv {
       name = "myDev";
       paths = with self; [
-        python3Packages.ipython
+        cdrkit
+        #python3Packages.ipython
         subversion
       ];
     };
@@ -91,6 +93,17 @@ pkgs : {
         unzip
         vim
         wget
+      ];
+    };
+    mumc = self.myEnvFun {
+      name = "mumble-connect";
+      buildInputs = with self; [
+        stdenv
+        autoconf
+        automake
+        libtool
+        pkgconfig
+        valgrind
       ];
     };
     cs225 = self.myEnvFun {
