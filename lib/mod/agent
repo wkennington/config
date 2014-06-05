@@ -29,13 +29,13 @@ agent_find_pcsc_lib () {
 
 # Find the path to the pcsc driver
 agent_find_pcsc () {
-  agent_find_pcsc_lib "/run/current-system/sw/lib"
-  agent_find_pcsc_lib "$HOME/.nix-profile/lib"
-  agent_find_pcsc_lib "/usr/local/lib"
-  agent_find_pcsc_lib "/usr/lib64"
-  agent_find_pcsc_lib "/lib64"
-  agent_find_pcsc_lib "/usr/lib"
-  agent_find_pcsc_lib "/lib"
+  agent_find_pcsc_lib "/run/current-system/sw/lib/"
+  agent_find_pcsc_lib "$HOME/.nix-profile/lib/"
+  agent_find_pcsc_lib "/usr/local/lib/"
+  agent_find_pcsc_lib "/usr/lib64/"
+  agent_find_pcsc_lib "/lib64/"
+  agent_find_pcsc_lib "/usr/lib/"
+  agent_find_pcsc_lib "/lib/"
   exit 1
 }
 
