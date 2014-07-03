@@ -9,7 +9,8 @@ pkgs : {
   chromium = {
     jre = false;
     enableGoogleTalkPlugin = true;
-    enableAdobeFlash = true;
+    enablePepperFlash = true;
+    enablePepperPDF = true;
   };
   st.conf = (builtins.readFile ./st/config.mach.h)
     + (builtins.readFile ./st/config.inc.h);
@@ -49,7 +50,7 @@ pkgs : {
         kde4.quasselClient
         scrot
         st
-        sup
+        #sup
         vlc
         xlibs.xbacklight
         zathura
