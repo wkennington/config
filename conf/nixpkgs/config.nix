@@ -3,12 +3,10 @@ pkgs : {
   cabal.libraryProfiling = true;
   firefox = {
     jre = false;
-    enableGoogleTalkPlugin = false;
     enableAdobeFlash = false;
+    enableGoogleTalkPlugin = true;
   };
   chromium = {
-    jre = false;
-    enableGoogleTalkPlugin = true;
     enablePepperFlash = true;
     enablePepperPDF = true;
   };
