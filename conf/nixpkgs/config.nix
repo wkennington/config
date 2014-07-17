@@ -47,6 +47,7 @@ pkgs : {
         pulseaudio
         kde4.quasselClient
         scrot
+        sl
         st
         #sup
         vlc
