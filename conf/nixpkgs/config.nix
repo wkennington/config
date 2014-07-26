@@ -33,13 +33,15 @@ pkgs : {
         dmenu
         emacs
         firefoxWrapper
+        filezilla
         gimp
         gnupg1compat
         hsEnv
-        filezilla
+        icedtea7_web
         #libreoffice
         mumble
         nix-repl
+        nixops
         #notbit
         pavucontrol
         pcsclite
