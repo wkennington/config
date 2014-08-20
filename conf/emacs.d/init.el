@@ -119,9 +119,6 @@
 ;; IRC
 (require 'tls)
 
-;; Go Mode
-(require 'go-mode-load)
-
 ;; Haskell
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
