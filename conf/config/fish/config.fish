@@ -17,22 +17,23 @@ end
 
 function symlink
 	mkdir -p (dirname "$argv[2]")
-	if [ (readlink -f "$argv[2]") != "$argv[1]" ]
+	set path (readlink -f "$argv[2]")
+	if [ "$path" != "$argv[1]" ]
 		rm -rf "$argv[2]"
 		ln -s "$argv[1]" "$argv[2]" ^/dev/null; or return 1
 	end
 end
 
 function dir_tmp
-	set DIR_TMP ""
+	set -g DIR_TMP ""
 	dir_tmp_tryall
 	if [ "$DIR_TMP" = "" ]
 		echo "Failed to find a temporary folder" >&2
 		return 1;
 	end
-	[ ! -d "$DIR_TMP" ]; and mkdir "$DIR_TMP"; and chmod 0700 "$DIR_TMP"
+	mkdir -p -m 0700 "$DIR_TMP"
 	symlink "$DIR_TMP" "$HOME/.tmp"
-	mkdir "$DIR_TMP/cache" >/dev/null ^&1
+	mkdir -p "$DIR_TMP/cache"
 	symlink "$DIR_TMP/cache" "$HOME/.cache"
 end
 
