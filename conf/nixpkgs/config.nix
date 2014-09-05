@@ -29,7 +29,7 @@ pkgs : {
         mumc
 
         # Pkgs
-        chromiumWrapper
+        chromium
         dmenu
         emacs
         firefoxWrapper
@@ -50,8 +50,10 @@ pkgs : {
         kde4.quasselClient
         scrot
         sl
+        speedtest_cli
         st
         #sup
+        virtmanager
         vlc
         xlibs.xbacklight
         zathura
