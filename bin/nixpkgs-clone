@@ -9,4 +9,5 @@ cd "$OUTDIR"
 git remote add origin https://github.com/wkennington/nixpkgs
 git remote set-url --push origin git@github.com:wkennington/nixpkgs
 git remote add upstream https://github.com/NixOS/nixpkgs
+git remote set-url --push upstream git@github.com:NixOS/nixpkgs
 $DIR/nixpkgs-update
