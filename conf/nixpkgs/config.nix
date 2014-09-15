@@ -90,7 +90,7 @@ pkgs : {
         git
         htop
         mosh
-        openssh
+        openssh_hpn
         openssl
         psmisc
         tmux
