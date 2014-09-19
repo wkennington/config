@@ -5,6 +5,7 @@ pkgs : {
     jre = false;
     enableAdobeFlash = false;
     enableGoogleTalkPlugin = true;
+    icedtea = true;
   };
   chromium = {
     enablePepperFlash = true;
@@ -22,11 +23,11 @@ pkgs : {
       paths = with self; [
         # Envs
         #cs225
-        dev
+        #dev
         #orpheum
         shell
         #profile
-        mumc
+        #mumc
 
         # Pkgs
         chromium
@@ -70,7 +71,7 @@ pkgs : {
     nongraphical = self.buildEnv {
       name = "myNonGraphical";
       paths = with self; [
-        dev
+        #dev
         shell
       ];
     };
