@@ -48,7 +48,7 @@ pkgs : {
         pcsclite
         pinentry
         pulseaudio
-        kde4.quasselClient
+        kde4.quasselClientWithoutKDE
         scrot
         sl
         speedtest_cli
