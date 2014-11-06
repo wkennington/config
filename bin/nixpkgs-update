@@ -1,10 +1,17 @@
 #!/bin/sh
 set -o nounset
 set -o errexit
+SCRIPTDIR="$(dirname "$(readlink -f "$0")")"
 
 # Ensure we have a nix channel
 if ! nix-channel --list | grep '^nixos' >/dev/null 2>&1; then
   nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+fi
+
+# Ensure we have proper hooks
+if [ "$(readlink -f ".git/hooks/pre-push")" != "$SCRIPTDIR/.nixpkgs-pre-push" ]; then
+  rm -f ".git/hooks/pre-push"
+  ln -s "$SCRIPTDIR/.nixpkgs-pre-push" ".git/hooks/pre-push"
 fi
 
 # Update nixos info

@@ -1,0 +1,7 @@
+#!/bin/sh
+REMOTE="$(git branch -vv | grep '*' | sed -n -e 's,.*\[\([^/]*\)/[^]]*\].*,\1,p')"
+if [ "$REMOTE" = "upstream" ]; then
+  read -p "You're about to push to upstream, are you sure? [y|N] " -n 1 -r </dev/tty
+  echo
+  grep -q '^[Yy]$' <<< "$REPLY"
+fi
