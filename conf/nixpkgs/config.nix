@@ -4,7 +4,7 @@ pkgs : {
   firefox = {
     jre = false;
     enableAdobeFlash = false;
-    enableGoogleTalkPlugin = true;
+    enableGoogleTalkPlugin = false;
     icedtea = true;
   };
   chromium = {
