@@ -45,6 +45,7 @@ pkgs : {
         nix-repl
         nixops
         #notbit
+        mupdf
         pavucontrol
         pcsclite
         pinentry
@@ -92,7 +93,7 @@ pkgs : {
         git
         htop
         mosh
-        openssh
+        openssh #_hpn
         openssl
         psmisc
         tmux
