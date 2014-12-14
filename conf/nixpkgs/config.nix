@@ -4,7 +4,7 @@ pkgs : {
   firefox = {
     jre = false;
     enableAdobeFlash = false;
-    enableGoogleTalkPlugin = false;
+    enableGoogleTalkPlugin = true;
     icedtea = true;
   };
   chromium = {
@@ -41,6 +41,7 @@ pkgs : {
         icedtea7_web
         #libreoffice
         mumble
+        mupdf
         nix-repl
         nixops
         #notbit
@@ -57,7 +58,7 @@ pkgs : {
         virtmanager
         vlc
         xlibs.xbacklight
-        zathura
+        #zathura
       ];
     };
     profile = self.myEnvFun {
@@ -91,7 +92,7 @@ pkgs : {
         git
         htop
         mosh
-        openssh_hpn
+        openssh
         openssl
         psmisc
         tmux
