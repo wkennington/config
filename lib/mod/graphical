@@ -46,14 +46,14 @@ graphical_runwm () {
   local TERMRC
   TERMRC="$(dir_conf)/conf/config/Terminal/terminalrc"
   if [ "$TILING" -eq "1" ]; then
-    HCFG="${TERMRC}.tiling.$(hostname -s)"
+    HCFG="${TERMRC}.tiling.$(hostname)"
     if [ -f "$HCFG" ]; then
       symlink "$HCFG" "$TERMRC"
     else
       symlink "${TERMRC}.tiling" "$TERMRC"
     fi
   else
-    HCFG="${TERMRC}.window.$(hostname -s)"
+    HCFG="${TERMRC}.window.$(hostname)"
     if [ -f "$HCFG" ]; then
       symlink "${HCFG}" "$TERMRC"
     else
@@ -85,8 +85,8 @@ graphical_autorun () {
 
 graphical_st () {(
   cd "$(dir_conf)/conf/nixpkgs/st/"
-  if [ -f "config.$(hostname -s).h" ]; then
-    symlink "config.$(hostname -s).h" "config.mach.h"
+  if [ -f "config.$(hostname).h" ]; then
+    symlink "config.$(hostname).h" "config.mach.h"
   else
     symlink "config.other.h" "config.mach.h"
   fi
