@@ -93,6 +93,7 @@ pkgs : {
         git
         htop
         mosh
+        opensc
         openssh #_hpn
         openssl
         psmisc
