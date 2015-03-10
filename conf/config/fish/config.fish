@@ -58,3 +58,9 @@ set -x BLOCKSIZE M
 
 add_to_path "$HOME/.bin"
 dir_tmp
+
+set -e GREP_OPTIONS
+
+function grep
+	command grep --color=auto $argv
+end
