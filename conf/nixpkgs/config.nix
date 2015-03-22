@@ -47,6 +47,7 @@ pkgs : {
         nixops
         #notbit
         mupdf
+        xfce.parole
         pavucontrol
         pcsclite
         pinentry
