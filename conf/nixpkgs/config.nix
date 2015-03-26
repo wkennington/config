@@ -51,7 +51,7 @@ pkgs : {
         pavucontrol
         pcsclite
         pinentry
-        pulseaudio
+        pulseaudioFull
         kde4.quasselClientWithoutKDE
         scrot
         sl
