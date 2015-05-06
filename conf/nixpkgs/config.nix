@@ -37,7 +37,7 @@ pkgs : {
         firefoxWrapper
         filezilla
         gimp
-        gnupg
+        gnupg21
         hsEnv
         icedtea7_web
         #libreoffice
