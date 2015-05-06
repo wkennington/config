@@ -16,8 +16,6 @@ pkgs : {
   packageOverrides = self : rec {
     hsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
-      xmonadContrib
-      #yi
     ]);
     graphical = self.buildEnv {
       name = "myGraphical";
