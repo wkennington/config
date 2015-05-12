@@ -16,6 +16,7 @@ pkgs : {
   packageOverrides = self : rec {
     hsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
+      xmonad-contrib
     ]);
     graphical = self.buildEnv {
       name = "myGraphical";
@@ -56,7 +57,7 @@ pkgs : {
         speedtest_cli
         st
         #sup
-        virtmanager
+        #virtmanager
         vlc
         xlibs.xbacklight
         #zathura
