@@ -20,7 +20,7 @@ pkgs : {
     ]);
     graphical = self.buildEnv {
       name = "myGraphical";
-      paths = with self; [
+      paths = with self; ([
         # Envs
         #cs225
         #dev
@@ -61,7 +61,10 @@ pkgs : {
         vlc
         xlibs.xbacklight
         #zathura
-      ];
+      ] ++ (with goPackages; [
+        consul
+        vault
+      ]));
     };
     profile = self.myEnvFun {
       name = "profile";
