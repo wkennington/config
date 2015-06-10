@@ -38,7 +38,7 @@ pkgs : {
         gimp
         gnupg21
         hsEnv
-        icedtea7_web
+        icedtea_web
         #libreoffice
         mumble
         mupdf
