@@ -30,7 +30,7 @@ pkgs : {
         #mumc
 
         # Pkgs
-        #chromiumDev
+        chromium
         dmenu
         emacs
         firefoxWrapper
