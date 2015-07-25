@@ -97,7 +97,7 @@ agent_running () {
 
 # Make sure that the running agent is the proper one
 agent_proper () {
-  if agent_running; then
+  if agent_running && [ -z "$SSH_TTY" ]; then
     if [ ! -e "$(agent_cmd_file)" ]; then
       killall ssh-agent
       killall gpg-agent
