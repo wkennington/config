@@ -140,6 +140,9 @@ agent_spawn () {
 # Automatically determines which agent to use and starts it if necessary
 agent_auto () {
   local AGENT_CMD;
+  if [ -n "$SSH_TTY" ]; then
+    return 0
+  fi
   AGENT_CMD=$(agent_which $AGENT)
   agent_proper
   if ! agent_running; then
