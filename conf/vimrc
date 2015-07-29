@@ -106,6 +106,10 @@ if has("autocmd")
     \ set shiftwidth=2 |
     \ set tabstop=2 |
     \ set expandtab
+  autocmd BufNewFile,BufRead *.{cc,hh}
+    \ set shiftwidth=4 |
+    \ set tabstop=4 |
+    \ set expandtab
 else
 
   set autoindent		" always set autoindenting on
