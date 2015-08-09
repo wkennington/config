@@ -61,6 +61,7 @@ pkgs : {
         #sup
         #virtmanager
         vlc
+        xcompmgr
         xlibs.xbacklight
         #zathura
       ] ++ (with goPackages; [
