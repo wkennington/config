@@ -14,6 +14,8 @@ pkgs : {
   st.conf = (builtins.readFile ./st/config.mach.h)
     + (builtins.readFile ./st/config.inc.h);
   packageOverrides = self : rec {
+    firefox = self.firefox.override { enableGTK3 = true; };
+    emacs = self.emacs.override { withGTK2 = false; withGTK3 = true; };
     hsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
       xmonad-contrib
