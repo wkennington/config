@@ -21,7 +21,7 @@ graphical_runwm () {
   run_quiet xscreensaver -no-splash &
   #run_quiet notbit -p 8445 -d
   run_quiet VBoxClient-all
-  run_quiet xcompmgr
+  run_quiet xcompmgr &
   run_quiet setxkbmap -option ctrl:nocaps
   [ -f "$HOME/.xinitrc.start" ] && . "$HOME/.xinitrc.start"
 
