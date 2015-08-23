@@ -46,7 +46,7 @@ pkgs : {
         mumble
         mupdf
         nix-repl
-        nixops
+        #nixops
         #notbit
         mupdf
         xfce.parole
