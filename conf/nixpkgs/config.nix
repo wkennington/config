@@ -37,7 +37,7 @@ pkgs : {
         dmenu
         emacs
         firefoxWrapper
-        filezilla
+        #filezilla
         gimp
         gnupg21
         hsEnv
