@@ -48,7 +48,6 @@ pkgs : {
         nix-repl
         #nixops
         #notbit
-        mupdf
         xfce.parole
         pavucontrol
         pcsclite
