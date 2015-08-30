@@ -33,6 +33,7 @@ pkgs : {
 
         # Pkgs
         chromium
+        consul
         dmenu
         emacs
         firefoxWrapper
@@ -64,10 +65,8 @@ pkgs : {
         xcompmgr
         xlibs.xbacklight
         #zathura
-      ] ++ (with goPackages; [
-        consul
         vault
-      ]));
+      ]);
     };
     profile = self.myEnvFun {
       name = "profile";
