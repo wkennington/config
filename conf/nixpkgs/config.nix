@@ -45,7 +45,7 @@ pkgs : {
         #libreoffice
         mumble
         mupdf
-        nix-repl
+        #nix-repl
         #nixops
         #notbit
         xfce.parole
@@ -53,7 +53,7 @@ pkgs : {
         pcsclite
         pinentry
         pulseaudioFull
-        kde4.quasselClientWithoutKDE
+        quasselClient_qt5
         scrot
         sl
         speedtest_cli
