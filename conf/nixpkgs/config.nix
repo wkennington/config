@@ -45,7 +45,7 @@ pkgs : {
         #libreoffice
         mumble
         mupdf
-        #nix-repl
+        nix-repl
         #nixops
         #notbit
         xfce.parole
