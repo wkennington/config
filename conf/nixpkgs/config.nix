@@ -16,20 +16,20 @@ pkgs : {
   packageOverrides = self : rec {
     firefox = self.firefox.override { enableGTK3 = true; };
     emacs = self.emacs.override { withGTK2 = false; withGTK3 = true; };
-    hsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
+    myHsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
       xmonad-contrib
     ]);
-    graphical = self.buildEnv {
+    myGraphical = self.buildEnv {
       name = "myGraphical";
       paths = with self; ([
         # Envs
-        #cs225
-        #dev
-        #orpheum
-        shell
-        #profile
-        #mumc
+        #myCs225
+        #myDev
+        #myOrpheum
+        myShell
+        #myProfile
+        #myMumc
 
         # Pkgs
         chromium
@@ -67,22 +67,22 @@ pkgs : {
         vault
       ]);
     };
-    profile = self.myEnvFun {
-      name = "profile";
+    myProfile = self.myEnvFun {
+      name = "myProfile";
       buildInputs = with self; [
         (self.haskellPackages.ghcWithPackages (self : with self; [
           hakyll
         ]))
       ];
     };
-    nongraphical = self.buildEnv {
+    myNonGraphical = self.buildEnv {
       name = "myNonGraphical";
       paths = with self; [
         #dev
         shell
       ];
     };
-    dev = self.buildEnv {
+    myDev = self.buildEnv {
       name = "myDev";
       paths = with self; [
         cdrkit
@@ -90,7 +90,7 @@ pkgs : {
         subversion
       ];
     };
-    shell = self.buildEnv {
+    myShell = self.buildEnv {
       name = "myShell";
       paths = with self; [
         acpi
@@ -108,7 +108,7 @@ pkgs : {
         wget
       ];
     };
-    mumc = self.myEnvFun {
+    myMumc = self.myEnvFun {
       name = "mumble-connect";
       buildInputs = with self; [
         stdenv
@@ -119,7 +119,7 @@ pkgs : {
         valgrind
       ];
     };
-    cs225 = self.myEnvFun {
+    myCs225 = self.myEnvFun {
       name = "cs225";
       buildInputs = with self; [
         gdb
@@ -129,7 +129,7 @@ pkgs : {
         valgrind
       ];
     };
-    orpheum = self.myEnvFun {
+    myOrpheum = self.myEnvFun {
       name = "orpheum";
       buildInputs = (with self; [ python27
       #rubyLibs.sass_3_3_4
