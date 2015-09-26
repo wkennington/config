@@ -26,6 +26,7 @@ pkgs : {
         # Envs
         #myCs225
         #myDev
+        myHsEnv
         #myOrpheum
         myShell
         #myProfile
@@ -40,7 +41,6 @@ pkgs : {
         #filezilla
         gimp
         gnupg21
-        hsEnv
         icedtea_web
         #libreoffice
         mumble
