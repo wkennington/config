@@ -29,7 +29,7 @@ pkgs : {
         myHsEnv
         #myOrpheum
         myShell
-        myRust
+        #myRust
         #myProfile
         #myMumc
 
