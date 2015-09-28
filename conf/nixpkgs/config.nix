@@ -29,6 +29,7 @@ pkgs : {
         myHsEnv
         #myOrpheum
         myShell
+        myRust
         #myProfile
         #myMumc
 
@@ -117,6 +118,18 @@ pkgs : {
         libtool
         pkgconfig
         valgrind
+      ];
+    };
+    myRust = self.myEnvFun {
+      name = "myRust";
+      buildInputs = with self; [
+        stdenv
+        autoconf
+        automake
+        libtool
+        pkgconfig
+        rustc
+        cargo
       ];
     };
     myCs225 = self.myEnvFun {
