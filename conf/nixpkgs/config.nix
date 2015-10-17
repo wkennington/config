@@ -26,7 +26,7 @@ pkgs : {
         # Envs
         #myCs225
         #myDev
-        myHsEnv
+        #myHsEnv
         #myOrpheum
         myShell
         #myRust
@@ -57,6 +57,7 @@ pkgs : {
         quasselClient_qt5
         scrot
         sl
+        spectrwm
         speedtest_cli
         st
         #sup
@@ -66,6 +67,7 @@ pkgs : {
         xlibs.xbacklight
         #zathura
         vault
+        which # Needed for spectrwm
       ]);
     };
     myProfile = self.myEnvFun {

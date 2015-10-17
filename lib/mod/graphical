@@ -2,6 +2,7 @@
 
 # Determine which window manager is best suited
 graphical_bestwm () {
+  path_hasbin "spectrwm" && { echo "spectrwm"; return 0; }
   path_hasbin "xmonad" && { echo "xmonad"; return 0; }
   path_hasbin "awesome" && { echo "awesome"; return 0; }
   path_hasbin "startxfce4" && { echo "startxfce4"; return 0; }
@@ -96,7 +97,7 @@ graphical_st () {(
 graphical_auto () {
   install -d $HOME/.config
   rm -f $HOME/.Xdefaults $HOME/.config/sakura
-  config_ln xinitrc xsession xmonad config/awesome config/Terminal config/wallpaper config/uzbl
+  config_ln xinitrc xsession spectrwm.conf xmonad config/awesome config/Terminal config/wallpaper config/uzbl
   symlink "$HOME/.config/Terminal" "$HOME/.config/xfce4/terminal"
   graphical_st
   return 0
