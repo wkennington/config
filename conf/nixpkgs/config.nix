@@ -44,7 +44,7 @@ pkgs : {
         gnupg21
         icedtea_web
         #libreoffice
-        mumble
+        mumble_git
         mupdf
         nix-repl
         #nixops
@@ -61,7 +61,7 @@ pkgs : {
         st
         #sup
         #virtmanager
-        vlc
+        vlc_qt5
         xcompmgr
         xlibs.xbacklight
         #zathura
