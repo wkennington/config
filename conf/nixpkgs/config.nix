@@ -43,6 +43,7 @@ pkgs : {
         gimp
         gnupg21
         icedtea_web
+        ipfs
         #libreoffice
         mumble_git
         mupdf
