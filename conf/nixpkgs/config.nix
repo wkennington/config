@@ -61,6 +61,7 @@ pkgs : {
         spectrwm
         speedtest_cli
         st
+        subversion
         #sup
         #virtmanager
         vlc_qt5
