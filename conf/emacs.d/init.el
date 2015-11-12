@@ -35,6 +35,8 @@
     haskell-mode
     helm-c-yasnippet
     markdown-mode
+    rust-mode
+    toml-mode
     yas-jit
     workgroups
     zenburn-theme))

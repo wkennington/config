@@ -37,7 +37,7 @@ pkgs : {
         chromium
         consul
         dmenu
-        #emacs
+        emacs
         firefoxWrapper
         #filezilla
         gimp
