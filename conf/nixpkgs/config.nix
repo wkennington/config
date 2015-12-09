@@ -1,6 +1,7 @@
 pkgs : {
   allowUnfree = true;
   cabal.libraryProfiling = true;
+  pulseaudio = true;
   firefox = {
     jre = false;
     enableAdobeFlash = false;
@@ -10,6 +11,8 @@ pkgs : {
   chromium = {
     enablePepperFlash = true;
     enablePepperPDF = true;
+    enableWideVine = true;
+    hiDPISupport = true;
   };
   st.conf = (builtins.readFile ./st/config.mach.h)
     + (builtins.readFile ./st/config.inc.h);
@@ -26,7 +29,7 @@ pkgs : {
         # Envs
         #myCs225
         #myDev
-        #myHsEnv
+        myHsEnv
         #myOrpheum
         myShell
         myRust
@@ -58,7 +61,7 @@ pkgs : {
         quasselClient_qt5
         scrot
         sl
-        spectrwm
+        #spectrwm
         speedtest_cli
         st
         subversion
