@@ -53,7 +53,7 @@ pkgs : {
         nix-repl
         #nixops
         #notbit
-        xfce.parole
+        #xfce.parole
         pavucontrol
         pcsclite
         pinentry
