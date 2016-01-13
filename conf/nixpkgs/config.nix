@@ -8,16 +8,12 @@ pkgs : {
     enableGoogleTalkPlugin = false;
     icedtea = true;
   };
-  chromium = {
-    enablePepperFlash = true;
-    enablePepperPDF = true;
-    enableWideVine = true;
-    hiDPISupport = true;
-  };
   st.conf = (builtins.readFile ./st/config.mach.h)
     + (builtins.readFile ./st/config.inc.h);
   packageOverrides = self : rec {
-    firefox = self.firefox.override { enableGTK3 = true; };
+    chromium = self.chromium.override {
+      enablePepperFlash = true;
+    };
     emacs = self.emacs.override { withGTK2 = false; withGTK3 = true; };
     myHsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
