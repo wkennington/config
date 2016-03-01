@@ -3,10 +3,17 @@
 
 # Resolves the name of the binary
 path_abs () {
-  BIN="$(whereis -b $1 2>/dev/null | awk '{print $2}')"
-  [ -z "$BIN" ] && return 1
-  echo "$BIN"
-  return 0
+  SAVEIFS=$IFS
+  IFS=:
+  for path in $PATH; do
+    if test -e "$path/$1"; then
+      echo "$path/$1"
+      IFS=$SAVEIFS
+      return 0
+    fi
+  done
+  IFS=$SAVEIFS
+  return 1
 }
 
 # Stores the output of the command into a variable without a subshell
