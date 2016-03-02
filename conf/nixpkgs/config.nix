@@ -23,104 +23,58 @@ pkgs : {
       name = "myGraphical";
       paths = with self; ([
         # Envs
-        #myCs225
-        #myDev
         myHsEnv
-        #myOrpheum
         myShell
         myRust
-        #myProfile
-        #myMumc
 
         # Pkgs
         chromium
-        consul
         dmenu
         emacs
-        firefoxWrapper
-        #filezilla
+        firefox
+        filezilla
         gimp
         gnupg21
         icedtea_web
-        ipfs
-        #libreoffice
-        mumble_git
+        mumble
         mupdf
-        nix-repl
-        #nixops
-        #notbit
-        #xfce.parole
         pavucontrol
         pcsclite
         pinentry
-        pulseaudioFull
-        quasselClient_qt5
+        quasselClient
         scrot
-        sl
-        #spectrwm
-        speedtest_cli
         st
-        subversion
-        #sup
-        #virtmanager
-        vlc_qt5
+        vlc
         xcompmgr
         xlibs.xbacklight
-        #zathura
-        vault
-        which # Needed for spectrwm
       ]);
-    };
-    myProfile = self.myEnvFun {
-      name = "myProfile";
-      buildInputs = with self; [
-        (self.haskellPackages.ghcWithPackages (self : with self; [
-          hakyll
-        ]))
-      ];
     };
     myNonGraphical = self.buildEnv {
       name = "myNonGraphical";
       paths = with self; [
-        #dev
         shell
-      ];
-    };
-    myDev = self.buildEnv {
-      name = "myDev";
-      paths = with self; [
-        cdrkit
-        #python3Packages.ipython
-        subversion
       ];
     };
     myShell = self.buildEnv {
       name = "myShell";
       paths = with self; [
         acpi
+        consul
         fish
         git
         htop
+        ipfs
+        nomad
         mosh
-        opensc
-        openssh #_hpn
+        openssh
         openssl
         psmisc
+        sl
+        subversion
         tmux
         unzip
+        vault
         vim
-        wget
-      ];
-    };
-    myMumc = self.myEnvFun {
-      name = "mumble-connect";
-      buildInputs = with self; [
-        stdenv
-        autoconf
-        automake
-        libtool
-        pkgconfig
-        valgrind
       ];
     };
     myRust = self.myEnvFun {
@@ -134,25 +88,6 @@ pkgs : {
         rustc
         cargo
       ];
-    };
-    myCs225 = self.myEnvFun {
-      name = "cs225";
-      buildInputs = with self; [
-        gdb
-        imagemagick
-        libpng
-        stdenv
-        valgrind
-      ];
-    };
-    myOrpheum = self.myEnvFun {
-      name = "orpheum";
-      buildInputs = (with self; [ python27
-      #rubyLibs.sass_3_3_4
-      ])
-        ++ (with self.python27Packages; [
-          django_1_5 google_api_python_client paypalrestsdk pil sorl_thumbnail six sqlite3
-        ]);
     };
   };
 }
