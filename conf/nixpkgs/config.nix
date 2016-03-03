@@ -14,7 +14,6 @@ pkgs : {
     chromium = self.chromium.override {
       enablePepperFlash = true;
     };
-    emacs = self.emacs.override { withGTK2 = false; withGTK3 = true; };
     myHsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
       xmonad-contrib
@@ -41,7 +40,7 @@ pkgs : {
         pavucontrol
         pcsclite
         pinentry
-        quasselClient
+        quasselClientWithoutKDE
         scrot
         st
         vlc
