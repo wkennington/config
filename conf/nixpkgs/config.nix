@@ -33,7 +33,7 @@ pkgs : {
         firefox
         filezilla
         gimp
-        gnupg21
+        gnupg
         icedtea_web
         mumble
         mupdf
