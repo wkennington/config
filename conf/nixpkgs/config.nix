@@ -40,7 +40,7 @@ pkgs : {
         pavucontrol
         pcsclite
         pinentry
-        quasselClientWithoutKDE
+        quasselClient
         scrot
         st
         vlc
