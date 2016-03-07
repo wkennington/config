@@ -85,7 +85,7 @@ pkgs : {
         libtool
         pkgconfig
         rustc
-        #cargo
+        cargo
       ];
     };
   };
