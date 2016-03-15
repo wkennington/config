@@ -62,7 +62,7 @@ pkgs : {
         fish
         git
         htop
-        #ipfs
+        ipfs
         nomad
         mosh
         openssh
