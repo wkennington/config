@@ -41,6 +41,10 @@ graphical_runwm () {
   elif [ "$WM" = "xmonad" ]; then
     TILING=1
     run_quiet hhp &
+    FILES="$(find $HOME/.xmonad/ -name xmonad-\*)"
+    if [ -z "$FILES" ] || [ -n "$(ldd "$FILES" | grep -q '\(missing\|not found\)')" ]; then
+      xmonad --recompile
+    fi
   fi
 
   # Configure applications
