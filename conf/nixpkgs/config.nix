@@ -66,7 +66,7 @@ pkgs : {
         nomad
         mosh
         openssh
-        openssl
+        (callPackageAlias "openssl" { })
         psmisc
         sl
         subversion
@@ -83,7 +83,7 @@ pkgs : {
         autoconf
         automake
         libtool
-        pkgconfig
+        (callPackageAlias "pkgconfig" { })
         rustc
         cargo
       ];
