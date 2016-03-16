@@ -29,20 +29,45 @@ svar () {
   return "$RET"
 }
 
-# Returns the shell executing the current script
-shell () {
-  local LSHELL; local LPROC;
-  LPROC="$(ps hp $$ | grep "$$")"
+# Try to get the running shell with a bunch of tests
+shell_find() {
+  local LSHELL
+
+  if LSHELL="$(cat /proc/$$/status | awk '{ if (/Name:/) { print $2; } }')" && [ -n "$LSHELL" ]; then
+    echo "$LSHELL"
+    return 0
+  fi
+
+  local LPROC
+  LPROC="$(ps hp "$$" | grep "$$")"
 
   # Workaround for su spawned shells
   if [ -n "$(echo "$LPROC" | grep '\-su')" ]; then
-    LSHELL="$(basename "$(echo "$LPROC" | sed 's/^.*(\([^)]*\)).*$/\1/')")"
+    LSHELL="$(echo "$LPROC" | sed 's/^.*(\([^)]*\)).*$/\1/')"
   else
-    LSHELL="$(basename "$(echo "$LPROC" | sed 's/-//' | awk '{print $5}')")"
+    LSHELL="$(echo "$LPROC" | sed 's/-//' | awk '{print $5}')"
   fi
 
-  # Resolve Symlinked Shells
-  basename "$(readlink -f "$(path_abs "$LSHELL")")"
+  LSHELL="$(basename "$LSHELL")"
+
+  if path_abs "$LSHELL" >/dev/null 2>&1; then
+    echo "$LSHELL"
+    return 0
+  fi
+
+  return 1
+}
+
+# Returns the shell executing the current script
+shell () {
+  local LSHELL
+  if ! LSHELL="$(shell_find)"; then
+    return 1
+  fi
+  if ! LSHELL="$(path_abs "$LSHELL")"; then
+    return 1
+  fi
+  basename "$(readlink -f "$LSHELL")"
 }
 
 # Returns the shell executing the current script without appended major version
