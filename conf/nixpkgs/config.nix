@@ -33,7 +33,6 @@ pkgs : {
         firefox
         filezilla
         gimp
-        gnupg
         icedtea_web
         mumble
         mupdf
@@ -60,11 +59,13 @@ pkgs : {
         acpi
         consul
         fish
+        gnupg
         git
         htop
         ipfs
-        nomad
+        minisign
         mosh
+        nomad
         openssh
         (callPackageAlias "openssl" { })
         psmisc
