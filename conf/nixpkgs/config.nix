@@ -8,7 +8,7 @@ pkgs : {
     enableGoogleTalkPlugin = false;
     icedtea = true;
   };
-  st.conf = (builtins.readFile ./st/config.mach.h)
+  st.config = (builtins.readFile ./st/config.mach.h)
     + (builtins.readFile ./st/config.inc.h);
   packageOverrides = self : rec {
     chromium = self.chromium.override {
