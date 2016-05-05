@@ -24,7 +24,7 @@ pkgs : {
         # Envs
         myHsEnv
         myShell
-        myRust
+        #myRust
 
         # Pkgs
         chromium
