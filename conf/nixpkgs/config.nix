@@ -30,10 +30,10 @@ pkgs : {
         chromium
         dmenu
         emacs
-        firefox
+        #firefox
         filezilla
-        gimp
-        icedtea_web
+        #gimp
+        #icedtea_web
         mumble
         mupdf
         pavucontrol
