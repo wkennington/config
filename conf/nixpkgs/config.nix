@@ -32,7 +32,8 @@ pkgs : {
         emacs
         #firefox
         filezilla
-        #gimp
+        gimp
+        hexchat
         #icedtea_web
         mumble
         mupdf
