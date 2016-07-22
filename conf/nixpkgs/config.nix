@@ -34,7 +34,7 @@ pkgs : {
         filezilla
         gimp
         hexchat
-        icedtea_web
+        #icedtea_web
         mumble
         mupdf
         pavucontrol
