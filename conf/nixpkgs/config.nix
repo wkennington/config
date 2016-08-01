@@ -38,7 +38,7 @@ pkgs : {
         mumble
         mupdf
         pavucontrol
-        pcsclite
+        pcsc-lite
         pinentry
         quasselClient
         scrot
