@@ -24,26 +24,6 @@ agent_cmd () {
   path_hasbin $1 && echo "$@ ;"
 }
 
-# Find a specific pcsc driver
-agent_find_pcsc_lib () {
-  VAL="$(find "$1" -name libpcsclite.so\* 2>/dev/null | head -n 1)"
-  [ -z "$VAL" ] && return 1
-  echo "$VAL"
-  exit 0
-}
-
-# Find the path to the pcsc driver
-agent_find_pcsc () {
-  agent_find_pcsc_lib "/run/current-system/sw/lib/"
-  agent_find_pcsc_lib "$HOME/.nix-profile/lib/"
-  agent_find_pcsc_lib "/usr/local/lib/"
-  agent_find_pcsc_lib "/usr/lib64/"
-  agent_find_pcsc_lib "/lib64/"
-  agent_find_pcsc_lib "/usr/lib/"
-  agent_find_pcsc_lib "/lib/"
-  exit 1
-}
-
 agent_pin_program_check () {
   local PIN="$(path_bin "$1")"
   $PIN </dev/null >/dev/null 2>&1 || return 1
@@ -60,7 +40,6 @@ agent_pin_program () {
 # Prints the command for running the gpg-agent
 agent_gpg () {
   mkdir -p "$HOME/.gnupg"
-  echo "pcsc-driver $(agent_find_pcsc)" > "$HOME/.gnupg/scdaemon.conf"
   echo "card-timeout 5" >> "$HOME/.gnupg/scdaemon.conf"
   echo "disable-ccid" >> "$HOME/.gnupg/scdaemon.conf"
   local PIN_PROG;
