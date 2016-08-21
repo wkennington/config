@@ -84,7 +84,6 @@ pkgs : {
         autoconf
         automake
         libtool
-        (callPackageAlias "pkgconfig" { })
         rustc
         cargo
       ];
