@@ -41,6 +41,7 @@ agent_pin_program () {
 agent_gpg () {
   mkdir -p "$HOME/.gnupg"
   chmod 0700 "$HOME/.gnupg"
+  rm -f "$HOME/.gnupg/scdaemon.conf"
   echo "card-timeout 5" >> "$HOME/.gnupg/scdaemon.conf"
   echo "disable-ccid" >> "$HOME/.gnupg/scdaemon.conf"
   local PIN_PROG;
