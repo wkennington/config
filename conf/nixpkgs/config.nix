@@ -44,7 +44,6 @@ pkgs : {
         st
         vlc
         xorg.xcompmgr
-        xorg.xbacklight
       ]);
     };
     myNonGraphical = self.buildEnv {
