@@ -27,12 +27,12 @@ pkgs : {
         #myRust
 
         # Pkgs
-        chromium
         dmenu
         emacs
         firefox-unwrapped
         filezilla
         gimp
+        google-chrome
         hexchat
         icedtea_web
         mumble
