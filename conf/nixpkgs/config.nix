@@ -43,6 +43,8 @@ pkgs : {
         scrot
         st
         vlc
+        stdenv.stdenvDeps
+        stdenv
         xorg.xcompmgr
       ]);
     };
