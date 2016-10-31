@@ -72,8 +72,7 @@ agent_which () {
 
 # Tests to see if the agent is already running
 agent_running () {
-  run_quiet ssh-add -L
-  [ "$?" -ne "2" ]
+  test -S "$SSH_AUTH_SOCK"
 }
 
 # Make sure that the running agent is the proper one
