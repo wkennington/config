@@ -74,7 +74,7 @@ pkgs : {
         subversion
         tmux
         unzip
-        vault
+        #vault
         vim
       ];
     };
