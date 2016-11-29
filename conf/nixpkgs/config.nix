@@ -38,7 +38,7 @@ pkgs : {
         mumble
         mupdf
         pavucontrol
-        pinentry
+        pinentry_qt
         quasselClient
         scrot
         st
