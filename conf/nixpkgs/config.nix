@@ -37,6 +37,7 @@ pkgs : {
         icedtea_web
         mumble
         mupdf
+        notmuch
         pavucontrol
         pinentry_qt
         quasselClient
