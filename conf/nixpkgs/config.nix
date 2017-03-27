@@ -29,12 +29,12 @@ pkgs : {
         # Pkgs
         dmenu
         emacs
-        firefox-unwrapped
+        #firefox-unwrapped
         filezilla
         gimp
         google-chrome
         hexchat
-        icedtea_web
+        #icedtea_web
         mumble
         mupdf
         notmuch
@@ -43,7 +43,7 @@ pkgs : {
         quasselClient
         scrot
         st
-        vlc
+        #vlc
         stdenv.stdenvDeps
         stdenv
         xorg.xcompmgr
