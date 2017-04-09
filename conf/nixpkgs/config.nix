@@ -35,6 +35,7 @@ pkgs : {
         google-chrome
         hexchat
         #icedtea_web
+        mpv
         mumble
         mupdf
         notmuch
