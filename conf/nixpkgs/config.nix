@@ -29,6 +29,7 @@ pkgs : {
         # Pkgs
         dmenu
         emacs
+        feh
         #firefox-unwrapped
         filezilla
         gimp
