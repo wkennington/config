@@ -37,7 +37,7 @@ pkgs : {
         hexchat
         #icedtea_web
         mpv
-        mumble
+        mumble_git
         mupdf
         notmuch
         pavucontrol
