@@ -31,7 +31,7 @@ pkgs : {
         emacs
         feh
         #firefox-unwrapped
-        filezilla
+        #filezilla
         gimp
         google-chrome
         hexchat
