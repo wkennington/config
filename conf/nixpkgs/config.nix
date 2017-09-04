@@ -31,21 +31,16 @@ pkgs : {
         emacs
         feh
         #firefox-unwrapped
-        #filezilla
         gimp
         google-chrome
-        hexchat
-        #icedtea_web
         mpv
         mumble_git
         mupdf
         notmuch
         pavucontrol
         pinentry_qt
-        quasselClient
         scrot
         st
-        #vlc
         stdenv.stdenvDeps
         stdenv
         xorg.xcompmgr
@@ -69,7 +64,7 @@ pkgs : {
         ipfs
         minisign
         mosh
-        nomad
+        #nomad
         openssh
         (callPackageAlias "openssl" { })
         psmisc
@@ -77,7 +72,7 @@ pkgs : {
         subversion
         tmux
         unzip
-        vault
+        #vault
         vim
       ];
     };
