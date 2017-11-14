@@ -18,8 +18,8 @@ pkgs : {
       xmonad
       xmonad-contrib
     ]);
-    myGraphical = self.buildEnv {
-      name = "myGraphical";
+    myWorkGraphical = self.buildEnv {
+      name = "myWorkGraphical";
       paths = with self; ([
         # Envs
         myHsEnv
@@ -30,33 +30,33 @@ pkgs : {
         dmenu
         emacs
         feh
-        #firefox-unwrapped
         gimp
-        google-chrome
         mpv
-        mumble_git
         mupdf
-        notmuch
         pavucontrol
-        pinentry_qt
         scrot
         st
-        stdenv.stdenvDeps
-        stdenv
         xorg.xcompmgr
       ]);
     };
-    myNonGraphical = self.buildEnv {
-      name = "myNonGraphical";
-      paths = with self; [
-        shell
-      ];
+    myGraphical = self.buildEnv {
+      name = "myGraphical";
+      paths = with self; ([
+        # Envs
+        myWorkGraphical
+
+        # Pkgs
+        #firefox-unwrapped
+        google-chrome
+        mumble_git
+        pinentry_qt
+      ]);
     };
     myShell = self.buildEnv {
       name = "myShell";
       paths = with self; [
         acpi
-        consul
+        #consul
         fish
         gnupg
         git
@@ -65,15 +65,18 @@ pkgs : {
         minisign
         mosh
         #nomad
+        notmuch
         openssh
         (callPackageAlias "openssl" { })
         psmisc
         sl
         subversion
+        teleport
         tmux
         unzip
         #vault
         vim
+        yubikey-manager
       ];
     };
     myRust = self.myEnvFun {
