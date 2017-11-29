@@ -3,7 +3,7 @@
 # Determine if this is a workstation
 info_ws () {
   [ "$WS" = "0" ] && return 0
-  hostname | grep -q "^\(lotus\|prodigy\|legend\|kennington\)"
+  hostname | grep -q "^\(lotus\|prodigy\|legend\)"
 }
 
 # Determine if the user is root
