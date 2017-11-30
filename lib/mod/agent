@@ -10,12 +10,12 @@ agent_export () {
 
 # Retrieve the agent environment
 agent_file () {
-  echo "$(dir_tmp)/agent-environment"
+  echo "$HOME/.agent-environment"
 }
 
 # Retrieve the file where the agent command is written
 agent_cmd_file() {
-  echo "$(dir_tmp)/agent-cmd"
+  echo "$HOME/.agent-cmd"
 }
 
 # Print cmd if agent exists
@@ -76,61 +76,61 @@ agent_running () {
 
 # Make sure that the running agent is the proper one
 agent_proper () {
-  if agent_running && [ -z "$SSH_TTY" ]; then
-    if [ ! -e "$(agent_cmd_file)" ]; then
-      killall ssh-agent
-      killall gpg-agent
-      unset SSH_AGENT_PID
-      unset SSH_AUTH_SOCK
-    else
-      OLD="$(cat "$(agent_cmd_file)" 2>/dev/null | awk '{print $1}' | xargs basename 2>/dev/null)"
-      NEW="$(echo "$AGENT_CMD" | awk '{print $1}' | xargs basename)"
-      if [ -n "$OLD" ] && [ "$OLD" != "$NEW" ]; then
-        PIDS="$(ps ux | grep "$OLD" | awk '{print $2}')"
-        for PID in $PIDS; do
-          kill $PIDS
-        done
-        unset SSH_AGENT_PID
-        unset SSH_AUTH_SOCK
-      fi
+  local OLD
+  OLD="$(cat "$(agent_cmd_file)" 2>/dev/null | awk '{print $1}' | xargs basename 2>/dev/null)"
+  if agent_running; then
+    local NEW
+    NEW="$(echo "$AGENT_CMD" | awk '{print $1}' | xargs basename)"
+    if [ "$OLD" = "$NEW" ]; then
+      return 0
     fi
   fi
+
+  local OLDREG=""
+  if [ -n "$OLD" ]; then
+    OLDREG="|$OLD"
+  fi
+  pkill -u $(id -u) "^(.*/|)((ssh|gpg)-agent$OLDREG)$"
+  unset SSH_AGENT_PID
+  unset SSH_AUTH_SOCK
+  return 1
 }
 
 # Import already running agent data
 agent_env () {
-  [ -f "$(agent_file)" ] && . "$(agent_file)"
+  if [ -f "$(agent_file)" ]; then
+    source "$(agent_file)"
+  fi
   if [ -n "$AGENT_EXTRA_ENV" ]; then
     eval $AGENT_EXTRA_ENV
   fi
   agent_export
-  agent_running
 }
 
 # Spawn agent if it doesn't exist
 agent_spawn () {
-  echo "Spawning $@"
-  echo "$@" > "$(agent_cmd_file)"
-  (eval "$@") | grep -v echo > "$(agent_file)"
+  echo "Spawning $AGENT_CMD"
+  echo "$AGENT_CMD" > "$(agent_cmd_file)"
+  (eval "$AGENT_CMD") | grep -v echo > "$(agent_file)"
   agent_env
   ssh-add
 }
 
 # Automatically determines which agent to use and starts it if necessary
 agent_auto () {
-  local AGENT_CMD;
-  if [ -n "$SSH_TTY" ]; then
+  # If we don't own the agent we should not replace it
+  if agent_running && ! grep -q "SSH_AGENT_PID=$SSH_AGENT_PID;" "$(agent_file)" 2>/dev/null; then
     return 0
   fi
+
+  agent_env
+
+  local AGENT_CMD;
   AGENT_CMD=$(agent_which $AGENT)
-  agent_proper
-  if ! agent_running; then
-    agent_env
+  if agent_proper; then
+    return 0
   fi
+
+  agent_spawn
   agent_proper
-  if ! agent_running; then
-    agent_spawn $AGENT_CMD
-  fi
-  agent_proper
-  agent_running
 }
