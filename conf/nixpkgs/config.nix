@@ -31,6 +31,7 @@ pkgs : {
         emacs
         feh
         gimp
+        moolticute
         mpv
         mupdf
         pavucontrol
