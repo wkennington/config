@@ -57,6 +57,7 @@ pkgs : {
       paths = with self; [
         acpi
         #consul
+        elvish
         fish
         gnupg
         git
