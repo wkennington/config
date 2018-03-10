@@ -24,6 +24,7 @@ graphical_runwm () {
   run_quiet VBoxClient-all
   run_quiet xcompmgr &
   run_quiet nm-applet &
+  run_quiet light-locker --lock-on-suspend --lock-on-lid &
   run_quiet setxkbmap -option ctrl:nocaps
   [ -f "$HOME/.xinitrc.start" ] && . "$HOME/.xinitrc.start"
 
