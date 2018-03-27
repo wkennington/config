@@ -1,3 +1,12 @@
+fn add_to_path [entry]{
+	for path $paths {
+		if (eq $path $entry) {
+			return
+		}
+	}
+	paths = [ $@paths $entry ]
+}
+
 fn t []{
 	acpi -b
 	date
@@ -15,6 +24,8 @@ set-env EDITOR vim
 set-env PAGER "less -R"
 set-env BLOCKSIZE M
 unset-env GREP_OPTIONS
+
+add_to_path $E:HOME/.bin
 
 # Emacs binds
 builtin:edit:insert:binding[Ctrl-A] = { edit:move-dot-sol }
