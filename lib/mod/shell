@@ -33,6 +33,7 @@ shell_color () {
 
 # Setup the theme for the shell
 shell_theme () {
+  [ "$(shell_nov)" = "elvish" ] && return 0
   [ "$(shell_nov)" = "fish" ] && return 0
 
   # Colors for LS
@@ -93,6 +94,12 @@ shell_init () {
 
 # Returns the name of the preferred shell
 shell_get_best () {
+  # Elvish preferred
+  if path_hasbin elvish; then
+    echo "elvish"
+    return 0
+  fi
+
   # Fish preferred
   if path_hasbin fish; then
     echo "fish"
@@ -129,5 +136,5 @@ shell_best () {
 
 # Automatically configures the shell configuration files
 shell_auto () {
-  config_ln "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout" "config/fish" "tmux.conf"
+  config_ln "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout" "config/fish" "elvish" "tmux.conf"
 }
