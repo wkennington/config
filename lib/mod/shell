@@ -2,7 +2,7 @@
 
 # Get colors for the current shell
 shell_color () {
-  [ "$(shell_nov)" = "zsh" ] && echo -n '%{' || echo -n '\['
+  echo -n '\['
   case "$1" in
     red)
       [ "$2" -eq "0" ] && echo -n '\e[0;31m' || echo -n '\e[1;31m'
@@ -28,7 +28,7 @@ shell_color () {
     *)
       echo -n '\e[0m'
   esac
-  [ "$(shell_nov)" = "zsh" ] && echo -n '%}' || echo -n '\]'
+  echo -n '\]'
 }
 
 # Setup the theme for the shell
@@ -52,13 +52,7 @@ shell_theme () {
   DCOLOR="$(shell_color yellow 1)"
 
   # Create Prompt
-  if [ "$(shell_nov)" = "zsh" ]; then
-    PROMPT="[$NCOLOR%n$(shell_color reset 0)@"
-    PROMPT="$PROMPT$HCOLOR%m$(shell_color reset 0):"
-    PROMPT="$PROMPT$DCOLOR%30<...<%~%<<$(shell_color reset 0)]%(!.#.$) "
-  else
-    PS1="[${NCOLOR}\u$(shell_color reset 0)@${HCOLOR}\h$(shell_color reset 0):${DCOLOR}\w$(shell_color reset 0)]\\$ "
-  fi
+  PS1="[${NCOLOR}\u$(shell_color reset 0)@${HCOLOR}\h$(shell_color reset 0):${DCOLOR}\w$(shell_color reset 0)]\\$ "
 }
 
 # Create the temporary directory for the shell
@@ -106,16 +100,6 @@ shell_get_best () {
     return 0
   fi
 
-  # ZSH preferred
-  if path_hasbin zsh; then
-    VER="$(zsh --version | awk '{print $2}')"
-	VER="$(printf "4.3.9\n%s" "$VER" | sort -bt. -k1,1n -k2,2n -k3,3n -k4,4n -k5,5n | awk 'NR==1')"
-	if [ "$VER" = "4.3.9" ]; then
-      echo "zsh"
-      return 0
-    fi
-  fi
-
   # Bash next
   if path_hasbin bash; then
     echo "bash"
@@ -136,5 +120,5 @@ shell_best () {
 
 # Automatically configures the shell configuration files
 shell_auto () {
-  config_ln "bash_profile" "bashrc" "bash_logout" "zshrc" "zprofile" "zlogout" "config/fish" "elvish" "tmux.conf"
+  config_ln "bash_profile" "bashrc" "bash_logout" "config/fish" "elvish" "tmux.conf"
 }
