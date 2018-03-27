@@ -75,7 +75,7 @@ add_to_path $E:HOME/.bin
 setup_tmp_dirs
 
 # Emacs binds
-builtin:edit:insert:binding[Ctrl-A] = { edit:move-dot-sol }
-builtin:edit:insert:binding[Ctrl-E] = { edit:move-dot-eol }
-builtin:edit:insert:binding[Ctrl-F] = { edit:move-dot-right }
-builtin:edit:insert:binding[Ctrl-B] = { edit:move-dot-left }
+builtin:edit:insert:binding[Ctrl-A] = $edit:move-dot-sol~
+builtin:edit:insert:binding[Ctrl-E] = $edit:move-dot-eol~
+builtin:edit:insert:binding[Ctrl-F] = $edit:move-dot-right~
+builtin:edit:insert:binding[Ctrl-B] = $edit:move-dot-left~
