@@ -49,6 +49,7 @@ pkgs : {
         # Pkgs
         #firefox-unwrapped
         google-chrome
+        light-locker
         mumble_git
         pinentry_qt
       ]);
