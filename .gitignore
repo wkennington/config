@@ -1,5 +1,8 @@
+/conf/config/fish/fishd*
 /conf/config/Terminal/terminalrc
+/conf/elvish/db
 /conf/emacs.d/*
+/conf/nixpkgs/st/config.mach.h
 /conf/xmonad/*
 *~
 */#*#
