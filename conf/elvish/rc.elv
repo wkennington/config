@@ -1,10 +1,29 @@
-fn add_to_path [entry]{
-	for path $paths {
-		if (eq $path $entry) {
-			return
+fn bind [f @args]{
+	put [@args2]{ $f $@args $@args2 }
+}
+
+fn orp []{ or (all) }
+fn andp []{ and (all) }
+fn notp []{ not (all) }
+
+memoized = [&]
+fn memoize [f]{
+	put [@args]{
+		local:fn = (to-string [$f $@args])
+		try {
+			put $memoized[$fn]
+		} except _ {
+			local:ret = ($f $@args)
+			memoized[$fn] = $local:ret
+			put $local:ret
 		}
 	}
-	paths = [ $@paths $entry ]
+}
+
+fn add_to_path [entry]{
+	if (put $@paths | each (bind $eq~ $entry) | orp | notp) {
+		paths = [$@paths $entry]
+	}
 }
 
 fn symlink [src dst]{
@@ -16,41 +35,33 @@ fn symlink [src dst]{
 	ln -s $src $dst
 }
 
-tmpdir = $false
-fn get_tmp_dir []{
-	if $up:tmpdir {
-		put $up:tmpdir
-		return
-	}
+fn get_tmp_dir_uncached []{
+	tmps=[&]
+	mount | grep 'type \(tmpfs\|ramfs\)' | awk '{print $3}' \
+		| each [tmp]{ tmps[$tmp] = $ok }
 
-	local:possible_dirs = [
-		$E:ROOT/dev/shm
-		$E:ROOT/run/shm
-		$E:ROOT/tmp
-		$E:ROOT/var/tmp
-	]
-	tmps=[(mount | grep 'type \(tmpfs\|ramfs\)' | eawk [@line]{ put $line[3] })]
-	for local:possible_dir $possible_dirs {
+	for local:possible_dir [dev/shm run/shm tmp var/tmp] {
+		possible_dir = $E:ROOT/$possible_dir
 		try {
 			test -w $possible_dir
-			if (not (put $@tmps | each [tmp]{ eq $tmp $possible_dir } | or (all))) {
-				fail "Couldn't find ram mounted tmpdir"
-			}
+			_ = $tmps[$possible_dir]
 		} except _ { } else {
-			up:tmpdir = $possible_dir/tmp-(id -u)
-			mkdir -p -m 0700 $up:tmpdir
-			put $up:tmpdir
+			local:tmpdir = $possible_dir/tmp-(id -u)
+			mkdir -p -m 0700 $local:tmpdir
+			put $local:tmpdir
 			return
 		}
 	}
-
 	fail "Failed to find a valid tmp directory"
 }
 
+fn get_tmp_dir { (memoize $get_tmp_dir_uncached~) }
+
 fn setup_tmp_dirs []{
 	local:tmpdir = (get_tmp_dir)
-	symlink $tmpdir $E:HOME/.tmp
-	symlink $tmpdir $E:HOME/.cache
+	for local:dir [.tmp .cache] {
+		symlink $tmpdir $E:HOME/$dir
+	}
 }
 
 fn t []{
@@ -58,13 +69,8 @@ fn t []{
 	date
 }
 
-fn grep [@args]{
-	e:grep --color=auto $@args
-}
-
-fn ls [@args]{
-	e:ls --color=auto $@args
-}
+fn grep [@args]{ e:grep --color=auto $@args }
+fn ls [@args]{ e:ls --color=auto $@args }
 
 set-env EDITOR vim
 set-env PAGER "less -R"
