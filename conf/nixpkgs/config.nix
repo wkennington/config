@@ -2,22 +2,16 @@ pkgs : {
   allowUnfree = true;
   cabal.libraryProfiling = true;
   pulseaudio = true;
-  firefox = {
-    jre = false;
-    enableAdobeFlash = false;
-    enableGoogleTalkPlugin = false;
-    icedtea = true;
-  };
   st.config = (builtins.readFile ./st/config.mach.h)
     + (builtins.readFile ./st/config.inc.h);
   packageOverrides = self : rec {
-    chromium = self.chromium.override {
-      enablePepperFlash = true;
-    };
     myHsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
       xmonad
       xmonad-contrib
     ]);
+    google-chrome = self.google-chrome.override {
+      adobe-flash-player = null;
+    };
     myWorkGraphical = self.buildEnv {
       name = "myWorkGraphical";
       paths = with self; ([
