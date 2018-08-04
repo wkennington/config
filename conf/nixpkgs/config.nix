@@ -17,8 +17,7 @@ pkgs : {
       paths = with self; ([
         # Envs
         myHsEnv
-        myShell
-        #myRust
+        myWorkShell
 
         # Pkgs
         dmenu
@@ -39,6 +38,7 @@ pkgs : {
       paths = with self; ([
         # Envs
         myWorkGraphical
+        myShell
 
         # Pkgs
         #firefox-unwrapped
@@ -48,21 +48,19 @@ pkgs : {
         pinentry_qt
       ]);
     };
-    myShell = self.buildEnv {
-      name = "myShell";
+    myWorkShell = self.buildEnv {
+      name = "myWorkShell";
       paths = with self; [
-        acpi
-        #consul
         elvish
         fish
         gnupg
         git
         htop
         ipfs
+        mercurial
         minisign
         mosh
-        #nomad
-        notmuch
+        ncdu
         openssh
         (callPackageAlias "openssl" { })
         psmisc
@@ -70,21 +68,24 @@ pkgs : {
         subversion
         teleport
         tmux
+        unrar
         unzip
-        #vault
         vim
-        yubikey-manager
       ];
     };
-    myRust = self.myEnvFun {
-      name = "myRust";
-      buildInputs = with self; [
-        stdenv
-        autoconf
-        automake
-        libtool
-        rustc
-        cargo
+    myShell = self.buildEnv {
+      name = "myShell";
+      paths = with self; [
+        # Envs
+        myWorkShell
+
+        # Pkgs
+        acpi
+        #consul
+        #nomad
+        notmuch
+        #vault
+        yubikey-manager
       ];
     };
   };
