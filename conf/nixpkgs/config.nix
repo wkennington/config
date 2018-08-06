@@ -51,6 +51,7 @@ pkgs : {
     myWorkShell = self.buildEnv {
       name = "myWorkShell";
       paths = with self; [
+        acpi
         elvish
         fish
         gnupg
@@ -80,7 +81,6 @@ pkgs : {
         myWorkShell
 
         # Pkgs
-        acpi
         #consul
         #nomad
         notmuch
