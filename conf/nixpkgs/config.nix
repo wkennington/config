@@ -67,7 +67,7 @@ pkgs : {
         psmisc
         sl
         subversion
-        teleport
+        #teleport
         tmux
         unrar
         unzip
